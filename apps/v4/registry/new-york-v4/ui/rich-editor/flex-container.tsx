@@ -9,7 +9,7 @@
 
 import React, { useState } from "react"
 
-import { ContainerNode } from "../types"
+import { ContainerNode } from "./types"
 
 interface FlexContainerProps {
   node: ContainerNode

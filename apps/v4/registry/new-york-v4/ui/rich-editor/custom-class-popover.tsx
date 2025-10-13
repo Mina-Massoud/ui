@@ -13,7 +13,6 @@ import { Code2, Pencil, Search } from "lucide-react"
 
 import { useToast } from "@/hooks/use-toast"
 
-import { useIsMobile } from "../../hooks/use-mobile"
 import { Button } from "../button"
 import { Input } from "../input"
 import { Popover, PopoverContent, PopoverTrigger } from "../popover"
@@ -33,6 +32,7 @@ import {
 import { useEditor } from "./context/editor-context"
 import { EditorActions } from "./reducer/actions"
 import { tailwindClasses } from "./tailwind-classes"
+import { useIsMobile } from "./hooks/use-mobile"
 
 export function CustomClassPopover() {
   const [state, dispatch] = useEditor()
