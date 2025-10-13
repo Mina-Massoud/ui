@@ -689,6 +689,7 @@
         "button",
         "button-group",
         "card",
+        "checkbox",
         "command",
         "context-menu",
         "dialog",
@@ -699,8 +700,10 @@
         "select",
         "separator",
         "sheet",
+        "skeleton",
         "switch",
         "tabs",
+        "textarea",
         "toggle-group",
         "tooltip"
       ],
