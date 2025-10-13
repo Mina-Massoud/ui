@@ -101,7 +101,7 @@ export function ComponentPreviewTabs({
       {/* Fullscreen Modal */}
       {isExpanded && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm"
+          className="fixed inset-0 z-[105] flex items-center justify-center bg-black/80 backdrop-blur-sm"
           onClick={() => setIsExpanded(false)}
         >
           <div
@@ -118,7 +118,7 @@ export function ComponentPreviewTabs({
               <X className="h-4 w-4" />
               <span className="sr-only">Close</span>
             </Button>
-            <div className="flex h-full w-full items-center justify-center overflow-auto p-8">
+            <div className="flex h-full flex-col w-full items-center justify-center overflow-auto p-8">
               {component}
             </div>
           </div>
