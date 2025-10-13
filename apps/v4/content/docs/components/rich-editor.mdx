@@ -40,15 +40,9 @@ import type { ContainerNode } from "@/components/ui/rich-editor"
 import { Editor } from "@/components/ui/rich-editor/editor"
 
 export default function MyEditor() {
-  const initialContainer: ContainerNode = {
-    id: "root",
-    type: "container",
-    children: [],
-    attributes: {},
-  }
 
   return (
-    <EditorProvider initialContainer={initialContainer}>
+    <EditorProvider>
       <Editor />
     </EditorProvider>
   )
