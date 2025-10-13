@@ -14,14 +14,39 @@ component: true
 <CodeTabs>
 
 <TabsList>
+  <TabsTrigger value="registry">Registry</TabsTrigger>
   <TabsTrigger value="cli">CLI</TabsTrigger>
   <TabsTrigger value="manual">Manual</TabsTrigger>
 </TabsList>
 
+<TabsContent value="registry">
+
+<Steps>
+
+<Step>Add the registry to your `components.json`:</Step>
+
+```json title="components.json"
+{
+  "registries": {
+    "@mina": "https://ui-v4-livid.vercel.app/r/styles/new-york-v4/{name}.json"
+  }
+}
+```
+
+<Step>Install the component:</Step>
+
+```bash
+npx shadcn@latest add @mina/rich-editor
+```
+
+</Steps>
+
+</TabsContent>
+
 <TabsContent value="cli">
 
 ```bash
-npx shadcn@latest add rich-editor
+npx shadcn@latest add https://ui-v4-livid.vercel.app/r/styles/new-york-v4/rich-editor.json
 ```
 
 </TabsContent>
@@ -33,7 +58,7 @@ npx shadcn@latest add rich-editor
 <Step>Install the following dependencies:</Step>
 
 ```bash
-npm install framer-motion
+npm install color @radix-ui/react-slider
 ```
 
 <Step>Copy and paste the following code into your project.</Step>
