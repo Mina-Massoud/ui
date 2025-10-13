@@ -17,5 +17,8 @@
     "lib": "@/lib",
     "hooks": "@/hooks"
   },
-  "iconLibrary": "lucide"
+  "iconLibrary": "lucide",
+  "registries": {
+    "@mina": "https://ui-v4-livid.vercel.app/r/styles/new-york-v4/{name}.json"
+  }
 }
