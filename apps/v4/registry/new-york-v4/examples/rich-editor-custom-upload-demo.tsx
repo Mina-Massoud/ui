@@ -15,20 +15,23 @@ export default function RichEditorCustomUploadDemo() {
 
   // Example custom upload handler
   const handleImageUpload = async (file: File): Promise<string> => {
-    // Simulate upload delay
+    // Simulate upload delay (1000ms)
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
-    // In production, upload to your backend:
-    // const formData = new FormData()
-    // formData.append('image', file)
+    // In production, you would:
+    // 1. Upload to your backend API
+    // 2. Return the permanent URL
+    // Example:
+    // const formData = new FormData();
+    // formData.append('image', file);
     // const response = await fetch('/api/upload', {
     //   method: 'POST',
     //   body: formData
-    // })
-    // const data = await response.json()
-    // return data.url
+    // });
+    // const data = await response.json();
+    // return data.url;
 
-    // For demo, return data URL
+    // For demo purposes, return a data URL
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
       reader.onload = () => resolve(reader.result as string)
