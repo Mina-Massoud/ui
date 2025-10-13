@@ -1,5 +1,5 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://ui-v4-livid.vercel.app/schema/registry-item.json",
   "name": "dashboard-01",
   "type": "registry:block",
   "description": "A dashboard with sidebar, charts and data table.",

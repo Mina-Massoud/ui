@@ -271,7 +271,9 @@ export function CustomClassPopover() {
   return (
     <motion.div
       layoutId="custom-class-popover"
-      className={`${position ? "opacity-100" : "!opacity-0"} pointer-events-auto absolute z-[10000]`}
+      className={`${
+        position ? "opacity-100" : "!opacity-0"
+      } pointer-events-auto absolute z-50 transition-opacity duration-300`}
       style={{
         top: `${position?.top || 0}px`,
         left: `${position?.left || 0}px`,
@@ -285,7 +287,7 @@ export function CustomClassPopover() {
           </SheetTrigger>
           <SheetContent
             side="bottom"
-            className="h-[85vh] rounded-t-xl"
+            className="h-[85vh] rounded-t-xl px-5"
             onOpenAutoFocus={(e) => {
               // Prevent auto-focus to avoid reopening keyboard
               e.preventDefault()
@@ -302,11 +304,11 @@ export function CustomClassPopover() {
       ) : (
         // Desktop: Use Popover
         <Popover open={isOpen} onOpenChange={setIsOpen}>
-          <PopoverTrigger asChild>
+          <PopoverTrigger>
             <TriggerButton />
           </PopoverTrigger>
           <PopoverContent
-            className="max-h-[600px] lg:w-[500px]"
+            className="max-h-[300px] overflow-y-auto lg:w-[300px]"
             align="start"
             onOpenAutoFocus={(e) => {
               // Prevent the popover from stealing focus and losing selection
