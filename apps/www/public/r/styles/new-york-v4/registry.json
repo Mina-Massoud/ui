@@ -679,26 +679,6 @@
         "@radix-ui/react-scroll-area",
         "@radix-ui/react-slot"
       ],
-      "registryDependencies": [
-        "button",
-        "card",
-        "dialog",
-        "popover",
-        "dropdown-menu",
-        "context-menu",
-        "select",
-        "input",
-        "textarea",
-        "switch",
-        "slider",
-        "separator",
-        "scroll-area",
-        "toast",
-        "sheet",
-        "toggle-group",
-        "label",
-        "tabs"
-      ],
       "files": [
         {
           "path": "registry/new-york-v4/ui/rich-editor/index.ts",

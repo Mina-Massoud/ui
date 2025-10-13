@@ -701,26 +701,7 @@ export const ui: Registry["items"] = [
       "@radix-ui/react-scroll-area",
       "@radix-ui/react-slot",
     ],
-    registryDependencies: [
-      "button",
-      "card",
-      "dialog",
-      "popover",
-      "dropdown-menu",
-      "context-menu",
-      "select",
-      "input",
-      "textarea",
-      "switch",
-      "slider",
-      "separator",
-      "scroll-area",
-      "toast",
-      "sheet",
-      "toggle-group",
-      "label",
-      "tabs",
-    ],
+    // registryDependencies removed - users should install these shadcn components first
     files: [
       {
         path: "ui/rich-editor/index.ts",

@@ -984,7 +984,7 @@ export const Index: Record<string, any> = {
     name: "rich-editor",
     description: "",
     type: "registry:ui",
-    registryDependencies: ["button","card","dialog","popover","dropdown-menu","context-menu","select","input","textarea","switch","slider","separator","scroll-area","toast","sheet","toggle-group","label","tabs"],
+    registryDependencies: undefined,
     files: [{
       path: "registry/new-york-v4/ui/rich-editor/index.ts",
       type: "registry:ui",

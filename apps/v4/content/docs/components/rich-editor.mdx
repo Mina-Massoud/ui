@@ -23,6 +23,12 @@ component: true
 
 <Steps>
 
+<Step>Install required shadcn components:</Step>
+
+```bash
+npx shadcn@latest add button card dialog popover dropdown-menu context-menu select input textarea switch slider separator scroll-area toast sheet toggle-group label tabs
+```
+
 <Step>Add the registry to your `components.json`:</Step>
 
 ```json title="components.json"
@@ -33,7 +39,7 @@ component: true
 }
 ```
 
-<Step>Install the component:</Step>
+<Step>Install the rich-editor component:</Step>
 
 ```bash
 npx shadcn@latest add @mina/rich-editor
@@ -45,9 +51,21 @@ npx shadcn@latest add @mina/rich-editor
 
 <TabsContent value="cli">
 
+<Steps>
+
+<Step>Install required shadcn components:</Step>
+
+```bash
+npx shadcn@latest add button card dialog popover dropdown-menu context-menu select input textarea switch slider separator scroll-area toast sheet toggle-group label tabs
+```
+
+<Step>Install the rich-editor:</Step>
+
 ```bash
 npx shadcn@latest add https://ui-v4-livid.vercel.app/r/styles/new-york-v4/rich-editor.json
 ```
+
+</Steps>
 
 </TabsContent>
 
