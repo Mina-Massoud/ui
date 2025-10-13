@@ -690,6 +690,10 @@ export function Editor({
               onCopyHtml={handleCopyHtml}
               onCopyJson={handleCopyJson}
               onEnhanceSpacesChange={setEnhanceSpaces}
+              canUndo={state.historyIndex > 0}
+              canRedo={state.historyIndex < state.history.length - 1}
+              onUndo={() => dispatch(EditorActions.undo())}
+              onRedo={() => dispatch(EditorActions.redo())}
             />
           )}
 
