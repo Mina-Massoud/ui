@@ -1,0 +1,233 @@
+---
+title: Rich Editor
+description: A powerful, block-based rich text editor with tables, images, formatting, and mobile-optimized UX.
+component: true
+---
+
+<ComponentPreview
+  name="rich-editor-demo"
+  description="A comprehensive block-based rich text editor with demo content"
+/>
+
+## Installation
+
+<CodeTabs>
+
+<TabsList>
+  <TabsTrigger value="cli">CLI</TabsTrigger>
+  <TabsTrigger value="manual">Manual</TabsTrigger>
+</TabsList>
+
+<TabsContent value="cli">
+
+```bash
+npx shadcn@latest add rich-editor
+```
+
+</TabsContent>
+
+<TabsContent value="manual">
+
+<Steps>
+
+<Step>Install the following dependencies:</Step>
+
+```bash
+npm install framer-motion
+```
+
+<Step>Copy and paste the following code into your project.</Step>
+
+<ComponentSource name="rich-editor" />
+
+<Step>Update the import paths to match your project setup.</Step>
+
+</Steps>
+
+</TabsContent>
+
+</CodeTabs>
+
+## Usage
+
+```tsx showLineNumbers
+import { Editor, EditorProvider } from "@/components/ui/rich-editor"
+import type { ContainerNode } from "@/components/ui/rich-editor"
+```
+
+```tsx showLineNumbers
+export default function MyEditor() {
+  const initialContainer: ContainerNode = {
+    id: "root",
+    type: "container",
+    children: [],
+    attributes: {},
+  }
+
+  return (
+    <EditorProvider initialContainer={initialContainer}>
+      <Editor />
+    </EditorProvider>
+  )
+}
+```
+
+## Features
+
+- ✨ **Block-based architecture** - Drag & drop blocks with intuitive organization
+- 📝 **Rich text formatting** - Bold, italic, underline, strikethrough, colors, and font sizes
+- 📊 **Advanced tables** - Drag columns/rows, resize, markdown import, and cell formatting
+- 🖼️ **Image management** - Multi-select with Ctrl+Click, drag & drop, custom upload handlers
+- 🎨 **Custom Tailwind classes** - Built-in class picker with live preview
+- 🔗 **Smart links** - Easy link insertion with automatic protocol handling
+- ⌨️ **Keyboard shortcuts** - Full keyboard navigation and formatting shortcuts
+- 📱 **Mobile optimized** - Sheet drawers, touch-friendly controls, automatic keyboard management
+- 🌙 **Dark mode** - Full dark mode support out of the box
+- 🔄 **Undo/Redo** - Complete history management with Ctrl+Z/Ctrl+Y
+- 📤 **HTML export** - Export your content to clean HTML
+
+## Examples
+
+### Read-Only Mode
+
+<ComponentPreview name="rich-editor-readonly-demo" />
+
+### Custom Upload Handler
+
+<ComponentPreview name="rich-editor-custom-upload-demo" />
+
+## API Reference
+
+### EditorProvider
+
+Wraps your editor and provides the context for all editor operations.
+
+| Prop               | Type            | Default | Description                                  |
+| ------------------ | --------------- | ------- | -------------------------------------------- |
+| `initialContainer` | `ContainerNode` | -       | The initial content structure for the editor |
+| `debug`            | `boolean`       | `false` | Show debug panel with state information      |
+| `children`         | `ReactNode`     | -       | Editor components to render                  |
+
+### Editor
+
+The main editor component that renders the editing interface.
+
+| Prop            | Type                              | Default | Description                                                              |
+| --------------- | --------------------------------- | ------- | ------------------------------------------------------------------------ |
+| `readOnly`      | `boolean`                         | `false` | Enable read-only mode (disables editing)                                 |
+| `onUploadImage` | `(file: File) => Promise<string>` | -       | Custom image upload handler. Should return the URL of the uploaded image |
+
+### ContainerNode
+
+The root node type for editor content.
+
+```tsx
+interface ContainerNode {
+  id: string
+  type: "container"
+  children: EditorNode[]
+  attributes: Record<string, any>
+}
+```
+
+### EditorNode
+
+Editor nodes can be text blocks, images, tables, flex containers, or nested containers.
+
+```tsx
+type EditorNode =
+  | TextNode
+  | ImageNode
+  | TableNode
+  | FlexContainerNode
+  | ContainerNode
+```
+
+## Keyboard Shortcuts
+
+| Shortcut               | Action                 |
+| ---------------------- | ---------------------- |
+| `Ctrl/Cmd + B`         | Toggle bold            |
+| `Ctrl/Cmd + I`         | Toggle italic          |
+| `Ctrl/Cmd + U`         | Toggle underline       |
+| `Ctrl/Cmd + Z`         | Undo                   |
+| `Ctrl/Cmd + Shift + Z` | Redo                   |
+| `Shift + Enter`        | Create nested block    |
+| `Ctrl/Cmd + K`         | Insert link            |
+| `Ctrl + Click`         | Multi-select images    |
+| `Delete/Backspace`     | Delete selected blocks |
+
+## Block Types
+
+The editor supports the following block types:
+
+- **Text Block** - Paragraph, heading, list item with rich formatting
+- **Image Block** - Single or grouped images with captions
+- **Table Block** - Full-featured tables with drag, resize, and formatting
+- **Flex Container** - Layout container for side-by-side content
+- **Nested Container** - Nested blocks for hierarchical content
+
+## Customization
+
+### Custom Image Upload
+
+Provide your own upload handler to integrate with your backend:
+
+```tsx showLineNumbers
+async function handleUpload(file: File): Promise<string> {
+  const formData = new FormData()
+  formData.append("image", file)
+
+  const response = await fetch("/api/upload", {
+    method: "POST",
+    body: formData,
+  })
+
+  const data = await response.json()
+  return data.url
+}
+
+;<Editor onUploadImage={handleUpload} />
+```
+
+### Accessing Editor State
+
+Access the editor state and actions through the context:
+
+```tsx showLineNumbers
+import { useEditor } from "@/components/ui/rich-editor"
+
+function MyComponent() {
+  const { state, dispatch } = useEditor()
+
+  // Access current content
+  console.log(state.container)
+
+  // Dispatch actions
+  dispatch({ type: "ADD_BLOCK", payload: { ... } })
+}
+```
+
+### Export to HTML
+
+Export your content to HTML for storage or display:
+
+```tsx showLineNumbers
+import { serializeToHTML } from "@/components/ui/rich-editor/utils/serialize-to-html"
+
+const html = serializeToHTML(state.container)
+```
+
+## Notes
+
+- The editor uses **Framer Motion** for animations. Make sure it's installed.
+- Images are stored as **base64** by default. Provide a custom upload handler for production use.
+- The editor is **mobile-responsive** and uses Sheet components on smaller screens.
+- All colors and classes use **Tailwind CSS** and follow shadcn/ui design patterns.
+
+## Credits
+
+Created by **Mina Massoud**
+
+- 🔗 [Portfolio](https://mina-massoud.vercel.app)
+- ⭐ [GitHub](https://github.com/Mina-Massoud)

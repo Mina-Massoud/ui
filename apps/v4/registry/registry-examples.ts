@@ -2646,4 +2646,37 @@ export const examples: Registry["items"] = [
       mobile: "component",
     },
   },
+  {
+    name: "rich-editor-demo",
+    type: "registry:example",
+    registryDependencies: ["rich-editor"],
+    files: [
+      {
+        path: "examples/rich-editor-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "rich-editor-readonly-demo",
+    type: "registry:example",
+    registryDependencies: ["rich-editor"],
+    files: [
+      {
+        path: "examples/rich-editor-readonly-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "rich-editor-custom-upload-demo",
+    type: "registry:example",
+    registryDependencies: ["rich-editor"],
+    files: [
+      {
+        path: "examples/rich-editor-custom-upload-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
 ]

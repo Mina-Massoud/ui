@@ -980,6 +980,192 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
+  "rich-editor": {
+    name: "rich-editor",
+    description: "",
+    type: "registry:ui",
+    registryDependencies: ["button","card","dialog","popover","dropdown-menu","context-menu","select","input","textarea","switch","slider","separator","scroll-area","toast","sheet","toggle-group","label","tabs"],
+    files: [{
+      path: "registry/new-york-v4/ui/rich-editor/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/types.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/editor.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/editor-toolbar.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/block.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/image-block.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/flex-container.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/add-block-button.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/block-context-menu.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/color-picker.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/command-menu.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/custom-class-popover.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/font-size-picker.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/group-images-button.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/link-popover.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/quick-mode-toggle.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/table-builder.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/table-dialog.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/class-mappings.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/tailwind-classes.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/demo-content.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/context/editor-context.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/actions.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/editor-reducer.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/drag-drop-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/file-upload-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/flex-container-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/image-selection-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/keyboard-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/node-operation-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/selection-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/block/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/block/block-drag-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/block/block-event-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/block/block-utils.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/utils/drag-auto-scroll.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/utils/editor-helpers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/utils/image-upload.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/utils/inline-formatting.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/utils/markdown-table-parser.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/utils/serialize-to-html.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/utils/tree-operations.ts",
+      type: "registry:ui",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/ui/rich-editor/index.ts")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
   "dashboard-01": {
     name: "dashboard-01",
     description: "A dashboard with sidebar, charts and data table.",
@@ -8057,6 +8243,60 @@ export const Index: Record<string, any> = {
     }),
     categories: ["calendar","date"],
     meta: {"iframeHeight":"600px","container":"w-full bg-surface min-h-svh flex px-4 py-12 items-start md:py-20 justify-center min-w-0","mobile":"component"},
+  },
+  "rich-editor-demo": {
+    name: "rich-editor-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["rich-editor"],
+    files: [{
+      path: "registry/new-york-v4/examples/rich-editor-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/examples/rich-editor-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "rich-editor-readonly-demo": {
+    name: "rich-editor-readonly-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["rich-editor"],
+    files: [{
+      path: "registry/new-york-v4/examples/rich-editor-readonly-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/examples/rich-editor-readonly-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "rich-editor-custom-upload-demo": {
+    name: "rich-editor-custom-upload-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["rich-editor"],
+    files: [{
+      path: "registry/new-york-v4/examples/rich-editor-custom-upload-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/examples/rich-editor-custom-upload-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
   },
   "sidebar-demo": {
     name: "sidebar-demo",

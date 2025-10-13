@@ -5,6 +5,7 @@ export const PAGES_NEW = [
   "/docs/components/input-group",
   "/docs/components/item",
   "/docs/components/kbd",
+  "/docs/components/rich-editor",
   "/docs/components/spinner",
 ]
 
