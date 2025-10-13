@@ -396,7 +396,7 @@ export function EditorToolbar({
   return (
     <CardContent className="bg-background/30 sticky top-0 z-40 mx-auto w-full border-b p-2 backdrop-blur-2xl transition-all duration-300 md:p-4">
       {/* Mobile Layout */}
-      <div className="mx-auto flex w-full items-center justify-between gap-1.5 md:hidden">
+      <div className="mx-auto flex w-full max-w-4xl items-center justify-between gap-1.5 md:hidden">
         {/* Mobile Menu Sheet */}
         <Sheet>
           <SheetTrigger asChild>
@@ -655,7 +655,7 @@ export function EditorToolbar({
       </div>
 
       {/* Desktop Layout */}
-      <div className="mx-auto hidden w-fit flex-wrap items-center gap-2 md:flex md:gap-3">
+      <div className="mx-auto hidden w-full max-w-4xl flex-wrap items-center gap-2 md:flex md:gap-3">
         {/* Left Section - Text Formatting */}
         <div className="flex flex-wrap items-center gap-2">
           {/* Type Selector */}
