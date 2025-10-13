@@ -693,6 +693,9 @@ export const ui: Registry["items"] = [
       "lucide-react",
       "sonner",
       "color",
+      "next-themes",
+      "clsx",
+      "tailwind-merge",
       "@radix-ui/react-popover",
       "@radix-ui/react-dialog",
       "@radix-ui/react-dropdown-menu",
@@ -721,6 +724,7 @@ export const ui: Registry["items"] = [
       "switch",
       "tabs",
       "toggle-group",
+      "tooltip",
     ],
     files: [
       {
@@ -909,6 +913,10 @@ export const ui: Registry["items"] = [
       },
       {
         path: "ui/rich-editor/hooks/use-mobile.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/lib/utils.ts",
         type: "registry:ui",
       },
     ],

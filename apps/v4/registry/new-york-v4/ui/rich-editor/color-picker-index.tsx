@@ -16,7 +16,6 @@ import * as Slider from "@radix-ui/react-slider"
 import Color from "color"
 import { PipetteIcon } from "lucide-react"
 
-import { cn } from "../../lib/utils"
 import { Button } from "../button"
 import { Input } from "../input"
 import {
@@ -26,6 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../select"
+import { cn } from "./lib/utils"
 
 interface ColorPickerContextValue {
   hue: number
