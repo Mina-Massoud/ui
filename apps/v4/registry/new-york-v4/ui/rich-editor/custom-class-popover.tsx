@@ -8,7 +8,7 @@
 "use client"
 
 import React, { useEffect, useRef, useState } from "react"
-import { motion } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { Code2, Pencil, Search } from "lucide-react"
 
 import { Button } from "../button"
@@ -87,12 +87,25 @@ export function CustomClassPopover() {
         const range = selection.getRangeAt(0)
         const rect = range.getBoundingClientRect()
 
-        // Calculate position relative to document (absolute positioning)
-        // Position the icon above the selection, centered
-        setPosition({
-          top: rect.top + window.scrollY - 45, // 45px above the selection + scroll offset
-          left: rect.left + window.scrollX + rect.width / 2 - 16, // Centered on selection + scroll offset
-        })
+        // Find the editor container (the parent with relative positioning)
+        const editorContainer = document
+          .querySelector("[data-editor-content]")
+          ?.closest(".relative")
+        const containerRect = editorContainer?.getBoundingClientRect()
+
+        if (containerRect) {
+          // Calculate position relative to the editor container
+          setPosition({
+            top: rect.top - containerRect.top - 45, // 45px above the selection, relative to container
+            left: rect.left - containerRect.left + rect.width / 2 - 16, // Centered on selection, relative to container
+          })
+        } else {
+          // Fallback to old behavior if container not found
+          setPosition({
+            top: rect.top + window.scrollY - 45,
+            left: rect.left + window.scrollX + rect.width / 2 - 16,
+          })
+        }
       }
     } else {
       // Only clear position if we don't have a saved selection and popover is closed
@@ -102,7 +115,6 @@ export function CustomClassPopover() {
       }
     }
   }, [state.currentSelection, state.selectionKey, isOpen])
-
   // Close keyboard on mobile
   const closeKeyboard = () => {
     if (isMobile && document.activeElement instanceof HTMLElement) {
@@ -269,56 +281,63 @@ export function CustomClassPopover() {
   )
 
   return (
-    <motion.div
-      layoutId="custom-class-popover"
-      className={`${
-        position ? "opacity-100" : "!opacity-0"
-      } pointer-events-auto absolute z-50 transition-opacity duration-300`}
-      style={{
-        top: `${position?.top || 0}px`,
-        left: `${position?.left || 0}px`,
-      }}
-    >
-      {isMobile ? (
-        // Mobile: Use Sheet (drawer from bottom)
-        <Sheet open={isOpen} onOpenChange={handleOpenChange}>
-          <SheetTrigger asChild>
-            <TriggerButton />
-          </SheetTrigger>
-          <SheetContent
-            side="bottom"
-            className="h-[85vh] rounded-t-xl px-5"
-            onOpenAutoFocus={(e) => {
-              // Prevent auto-focus to avoid reopening keyboard
-              e.preventDefault()
-            }}
-          >
-            <SheetHeader>
-              <SheetTitle>Custom Classes</SheetTitle>
-            </SheetHeader>
-            <div className="mt-4 h-[calc(100%-60px)] overflow-y-auto">
-              <ClassPickerContent />
-            </div>
-          </SheetContent>
-        </Sheet>
-      ) : (
-        // Desktop: Use Popover
-        <Popover open={isOpen} onOpenChange={setIsOpen}>
-          <PopoverTrigger>
-            <TriggerButton />
-          </PopoverTrigger>
-          <PopoverContent
-            className="max-h-[300px] overflow-y-auto lg:w-[300px]"
-            align="start"
-            onOpenAutoFocus={(e) => {
-              // Prevent the popover from stealing focus and losing selection
-              e.preventDefault()
-            }}
-          >
-            <ClassPickerContent />
-          </PopoverContent>
-        </Popover>
+    <AnimatePresence mode="wait">
+      {position && (
+        <motion.div
+          key={position.top + position.left}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className={`${
+            position ? "opacity-100" : "!opacity-0"
+          } pointer-events-auto absolute z-50 transition-opacity duration-300`}
+          style={{
+            top: `${position?.top || 0}px`,
+            left: `${position?.left || 0}px`,
+          }}
+          exit={{ opacity: 0 }}
+        >
+          {isMobile ? (
+            // Mobile: Use Sheet (drawer from bottom)
+            <Sheet open={isOpen} onOpenChange={handleOpenChange}>
+              <SheetTrigger asChild>
+                <TriggerButton />
+              </SheetTrigger>
+              <SheetContent
+                side="bottom"
+                className="h-[85vh] rounded-t-xl px-5"
+                onOpenAutoFocus={(e) => {
+                  // Prevent auto-focus to avoid reopening keyboard
+                  e.preventDefault()
+                }}
+              >
+                <SheetHeader>
+                  <SheetTitle>Custom Classes</SheetTitle>
+                </SheetHeader>
+                <div className="mt-4 h-[calc(100%-60px)] overflow-y-auto">
+                  <ClassPickerContent />
+                </div>
+              </SheetContent>
+            </Sheet>
+          ) : (
+            // Desktop: Use Popover
+            <Popover open={isOpen} onOpenChange={setIsOpen}>
+              <PopoverTrigger>
+                <TriggerButton />
+              </PopoverTrigger>
+              <PopoverContent
+                className="max-h-[300px] overflow-y-auto lg:w-[300px]"
+                align="start"
+                onOpenAutoFocus={(e) => {
+                  // Prevent the popover from stealing focus and losing selection
+                  e.preventDefault()
+                }}
+              >
+                <ClassPickerContent />
+              </PopoverContent>
+            </Popover>
+          )}
+        </motion.div>
       )}
-    </motion.div>
+    </AnimatePresence>
   )
 }
