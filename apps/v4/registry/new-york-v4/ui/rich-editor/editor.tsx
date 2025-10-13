@@ -116,6 +116,7 @@ export function Editor({
   const contentUpdateTimers = useRef<Map<string, NodeJS.Timeout>>(new Map())
   const fileInputRef = useRef<HTMLInputElement>(null)
   const multipleFileInputRef = useRef<HTMLInputElement>(null)
+  const videoInputRef = useRef<HTMLInputElement>(null)
   const editorContentRef = useRef<HTMLDivElement>(null)
   const [readOnly, setReadOnly] = useState(initialReadOnly)
 
@@ -150,9 +151,9 @@ export function Editor({
   const container = state.history[state.historyIndex]
 
   const currentNode = state.activeNodeId
-    ? (container.children.find(
-        (n: EditorNode) => n.id === state.activeNodeId
-      ) as TextNode | undefined)
+    ? (container.children.find((n) => n.id === state.activeNodeId) as
+        | TextNode
+        | undefined)
     : (container.children[0] as TextNode | undefined)
 
   // Debounced dispatch for selection state updates
@@ -197,6 +198,17 @@ export function Editor({
     setIsUploading,
     fileInputRef,
     multipleFileInputRef,
+    onUploadImage,
+  }
+
+  const videoUploadParams = {
+    container,
+    dispatch,
+    state,
+    toast,
+    setIsUploading,
+    fileInputRef: videoInputRef,
+    multipleFileInputRef: videoInputRef, // Reuse the same ref for consistency
     onUploadImage,
   }
 
@@ -434,6 +446,16 @@ export function Editor({
     []
   )
 
+  const handleVideoUploadClick = useCallback(
+    createHandleImageUploadClick(videoInputRef),
+    []
+  )
+
+  const handleVideoFileChange = useCallback(
+    createHandleFileChange(videoUploadParams),
+    [container, dispatch, state.activeNodeId, toast, onUploadImage]
+  )
+
   const handleClearImageSelection = useCallback(
     createHandleClearImageSelection(setSelectedImageIds),
     []
@@ -532,7 +554,7 @@ export function Editor({
       const element = nodeRefs.current.get(activeId)
 
       if (element && document.activeElement !== element) {
-        element.focus({ preventScroll: true })
+        element.focus()
       } else if (!element && retries < 10) {
         setTimeout(() => attemptFocus(retries + 1), 50)
       } else if (!element) {
@@ -648,20 +670,7 @@ export function Editor({
   }, [state.historyIndex, state.history.length, dispatch, toast, handleFormat])
 
   return (
-    <div className="bg-background relative flex flex-1 flex-col transition-colors duration-300">
-      {/* Floating toggle button for read-only mode */}
-      {readOnly && (
-        <Button
-          variant="default"
-          size="icon"
-          className="ring-primary/20 fixed top-4 right-4 z-[200] h-11 w-11 rounded-full shadow-2xl ring-2 transition-all hover:scale-110 md:top-6 md:right-6"
-          onClick={() => setReadOnly(false)}
-          title="Exit View Mode"
-        >
-          <Eye className="h-5 w-5" />
-        </Button>
-      )}
-
+    <div className="bg-background flex flex-1 flex-col transition-colors duration-300">
       {/* Editor with integrated toolbar */}
       <div className="mx-auto flex w-full flex-1 flex-col">
         <Card className="flex flex-1 flex-col gap-3 rounded-none border-2 pt-0 shadow-2xl transition-all duration-300">
@@ -676,24 +685,19 @@ export function Editor({
               copiedHtml={copiedHtml}
               copiedJson={copiedJson}
               container={container}
-              readOnly={readOnly}
-              onReadOnlyChange={setReadOnly}
               onTypeChange={handleTypeChange}
               onFormat={handleFormat}
               onColorSelect={handleApplyColor}
               onFontSizeSelect={handleApplyFontSize}
               onImageUploadClick={handleImageUploadClick}
               onMultipleImagesUploadClick={handleMultipleImagesUploadClick}
+              onVideoUploadClick={handleVideoUploadClick}
               onCreateList={handleCreateList}
               onCreateLink={handleCreateLink}
               onCreateTable={() => setTableDialogOpen(true)}
               onCopyHtml={handleCopyHtml}
               onCopyJson={handleCopyJson}
               onEnhanceSpacesChange={setEnhanceSpaces}
-              canUndo={state.historyIndex > 0}
-              canRedo={state.historyIndex < state.history.length - 1}
-              onUndo={() => dispatch(EditorActions.undo())}
-              onRedo={() => dispatch(EditorActions.redo())}
             />
           )}
 
@@ -705,7 +709,7 @@ export function Editor({
             onImportMarkdown={handleImportMarkdownTable}
           />
 
-          {/* Hidden file inputs for image uploads */}
+          {/* Hidden file inputs for image and video uploads */}
           {!readOnly && (
             <>
               <input
@@ -723,6 +727,13 @@ export function Editor({
                 onChange={handleMultipleFilesChange}
                 className="hidden"
               />
+              <input
+                ref={videoInputRef}
+                type="file"
+                accept="video/*"
+                onChange={handleVideoFileChange}
+                className="hidden"
+              />
             </>
           )}
 
@@ -734,7 +745,7 @@ export function Editor({
           >
             <div ref={editorContentRef}>
               <div data-editor-content>
-                {container.children.map((node: EditorNode, index: number) => {
+                {container.children.map((node, index) => {
                   const isText = isTextNode(node)
                   const textNode = isText ? (node as TextNode) : null
 
@@ -759,9 +770,7 @@ export function Editor({
                       )}
 
                       <div
-                        onDragEnter={(e: React.DragEvent) =>
-                          handleDragEnter(e, node.id)
-                        }
+                        onDragEnter={(e) => handleDragEnter(e, node.id)}
                         onDragOver={(e) => handleDragOver(e, node.id)}
                         onDragLeave={handleDragLeave}
                         onDrop={(e) => handleDrop(e, node.id)}

@@ -755,6 +755,10 @@ export const ui: Registry["items"] = [
         type: "registry:ui",
       },
       {
+        path: "ui/rich-editor/video-block.tsx",
+        type: "registry:ui",
+      },
+      {
         path: "ui/rich-editor/flex-container.tsx",
         type: "registry:ui",
       },
@@ -796,6 +800,10 @@ export const ui: Registry["items"] = [
       },
       {
         path: "ui/rich-editor/link-popover.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/media-upload-popover.tsx",
         type: "registry:ui",
       },
       {

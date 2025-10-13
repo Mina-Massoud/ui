@@ -42,6 +42,7 @@ import {
   TextNode,
 } from "./index"
 import { TableBuilder } from "./table-builder"
+import { VideoBlock } from "./video-block"
 
 interface BlockProps {
   node: EditorNode
@@ -206,8 +207,10 @@ export function Block({
           }
         >
           {containerNode.children.map((childNode) => {
-            const isChildImage =
-              childNode && "type" in childNode && childNode.type === "img"
+            const isChildMedia =
+              childNode &&
+              "type" in childNode &&
+              (childNode.type === "img" || childNode.type === "video")
 
             const blockContent = (
               <Block
@@ -221,7 +224,7 @@ export function Block({
                 }}
                 onClick={onClick}
                 onDelete={
-                  isChildImage && onDelete
+                  isChildMedia && onDelete
                     ? () => onDelete(childNode.id)
                     : undefined
                 }
@@ -267,8 +270,10 @@ export function Block({
         className={containerClasses}
       >
         {containerNode.children.map((childNode) => {
-          const isChildImage =
-            childNode && "type" in childNode && childNode.type === "img"
+          const isChildMedia =
+            childNode &&
+            "type" in childNode &&
+            (childNode.type === "img" || childNode.type === "video")
 
           const blockContent = (
             <Block
@@ -282,7 +287,7 @@ export function Block({
               }}
               onClick={onClick}
               onDelete={
-                isChildImage && onDelete
+                isChildMedia && onDelete
                   ? () => onDelete(childNode.id)
                   : undefined
               }
@@ -342,6 +347,22 @@ export function Block({
   if (textNode.type === "img") {
     return (
       <ImageBlock
+        node={textNode}
+        isActive={isActive}
+        onClick={onClick}
+        onDelete={onDelete}
+        onDragStart={onImageDragStart}
+        isSelected={selectedImageIds?.has(textNode.id)}
+        onToggleSelection={onToggleImageSelection}
+        onClickWithModifier={onClickWithModifier}
+      />
+    )
+  }
+
+  // Video nodes render as VideoBlock
+  if (textNode.type === "video") {
+    return (
+      <VideoBlock
         node={textNode}
         isActive={isActive}
         onClick={onClick}

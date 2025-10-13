@@ -1010,6 +1010,10 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
+      path: "registry/new-york-v4/ui/rich-editor/video-block.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
       path: "registry/new-york-v4/ui/rich-editor/flex-container.tsx",
       type: "registry:ui",
       target: ""
@@ -1051,6 +1055,10 @@ export const Index: Record<string, any> = {
       target: ""
     },{
       path: "registry/new-york-v4/ui/rich-editor/link-popover.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/media-upload-popover.tsx",
       type: "registry:ui",
       target: ""
     },{

@@ -733,6 +733,10 @@
           "type": "registry:ui"
         },
         {
+          "path": "registry/new-york-v4/ui/rich-editor/video-block.tsx",
+          "type": "registry:ui"
+        },
+        {
           "path": "registry/new-york-v4/ui/rich-editor/flex-container.tsx",
           "type": "registry:ui"
         },
@@ -774,6 +778,10 @@
         },
         {
           "path": "registry/new-york-v4/ui/rich-editor/link-popover.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/new-york-v4/ui/rich-editor/media-upload-popover.tsx",
           "type": "registry:ui"
         },
         {
