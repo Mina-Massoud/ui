@@ -1054,10 +1054,6 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/quick-mode-toggle.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
       path: "registry/new-york-v4/ui/rich-editor/table-builder.tsx",
       type: "registry:ui",
       target: ""

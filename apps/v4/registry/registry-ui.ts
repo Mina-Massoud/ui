@@ -799,10 +799,6 @@ export const ui: Registry["items"] = [
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/quick-mode-toggle.tsx",
-        type: "registry:ui",
-      },
-      {
         path: "ui/rich-editor/table-builder.tsx",
         type: "registry:ui",
       },

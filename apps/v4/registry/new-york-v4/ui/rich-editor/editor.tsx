@@ -90,7 +90,6 @@ import {
   type TextNode,
 } from "./index"
 import { LinkPopover } from "./link-popover"
-import { QuickModeToggle } from "./quick-mode-toggle"
 import { TableBuilder } from "./table-builder"
 import { TableDialog } from "./table-dialog"
 import { useDragAutoScroll } from "./utils/drag-auto-scroll"
@@ -650,7 +649,6 @@ export function Editor({
     <div className="bg-background flex flex-1 flex-col transition-colors duration-300">
       {/* Editor with integrated toolbar */}
       <div className="mx-auto flex w-full flex-1 flex-col">
-        <QuickModeToggle readOnly={readOnly} onReadOnlyChange={setReadOnly} />
         <Card className="flex flex-1 flex-col gap-3 rounded-none border-2 pt-0 shadow-2xl transition-all duration-300">
           {/* Toolbar - hidden in readOnly mode */}
           {!readOnly && (
@@ -663,6 +661,8 @@ export function Editor({
               copiedHtml={copiedHtml}
               copiedJson={copiedJson}
               container={container}
+              readOnly={readOnly}
+              onReadOnlyChange={setReadOnly}
               onTypeChange={handleTypeChange}
               onFormat={handleFormat}
               onColorSelect={handleApplyColor}

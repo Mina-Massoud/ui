@@ -7,16 +7,20 @@ import {
   Copy,
   Download,
   Eye,
+  EyeOff,
   ImagePlus,
   Italic,
   LayoutGrid,
   Link as LinkIcon,
   List,
   ListOrdered,
+  Moon,
+  Sun,
   Table as TableIcon,
   Type,
   Underline,
 } from "lucide-react"
+import { useTheme } from "next-themes"
 
 import { Button } from "../button"
 import { ButtonGroup } from "../button-group"
@@ -59,6 +63,8 @@ interface EditorToolbarProps {
   copiedHtml: boolean
   copiedJson: boolean
   container: ContainerNode
+  readOnly: boolean
+  onReadOnlyChange: (readOnly: boolean) => void
   onTypeChange: (type: TextNode["type"]) => void
   onFormat: (format: "bold" | "italic" | "underline") => void
   onColorSelect: (color: string) => void
@@ -82,6 +88,8 @@ export function EditorToolbar({
   copiedHtml,
   copiedJson,
   container,
+  readOnly,
+  onReadOnlyChange,
   onTypeChange,
   onFormat,
   onColorSelect,
@@ -95,6 +103,12 @@ export function EditorToolbar({
   onCopyJson,
   onEnhanceSpacesChange,
 }: EditorToolbarProps) {
+  const { theme, setTheme } = useTheme()
+
+  const toggleTheme = () => {
+    setTheme(theme === "dark" ? "light" : "dark")
+  }
+
   return (
     <CardContent className="bg-background/30 sticky top-0 z-[100] mx-auto w-full border-b p-3 backdrop-blur-2xl transition-all duration-300 md:p-4">
       <div className="mx-auto flex w-full max-w-4xl flex-col items-stretch justify-between gap-2 md:flex-row md:items-center md:gap-3">
@@ -498,6 +512,38 @@ export function EditorToolbar({
               </Tabs>
             </DialogContent>
           </Dialog>
+
+          <Separator
+            orientation="vertical"
+            className="hidden h-5 sm:block md:h-6"
+          />
+
+          {/* Read-only toggle */}
+          <Button
+            variant={readOnly ? "default" : "ghost"}
+            size="icon"
+            className="h-7 w-7 md:h-8 md:w-8"
+            onClick={() => onReadOnlyChange(!readOnly)}
+            title={readOnly ? "View Only Mode" : "Edit Mode"}
+          >
+            {readOnly ? (
+              <Eye className="size-3 md:size-3.5" />
+            ) : (
+              <EyeOff className="size-3 md:size-3.5" />
+            )}
+          </Button>
+
+          {/* Theme toggle */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-7 w-7 md:h-8 md:w-8"
+            onClick={toggleTheme}
+            title="Toggle theme"
+          >
+            <Sun className="size-3 scale-100 rotate-0 transition-all md:size-3.5 dark:scale-0 dark:-rotate-90" />
+            <Moon className="absolute size-3 scale-0 rotate-90 transition-all md:size-3.5 dark:scale-100 dark:rotate-0" />
+          </Button>
         </div>
       </div>
     </CardContent>
