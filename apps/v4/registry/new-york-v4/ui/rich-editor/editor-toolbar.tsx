@@ -655,7 +655,7 @@ export function EditorToolbar({
       </div>
 
       {/* Desktop Layout */}
-      <div className="mx-auto hidden w-full max-w-4xl flex-wrap items-center gap-2 md:flex md:gap-3">
+      <div className="mx-auto hidden w-fit flex-wrap items-center gap-2 md:flex md:gap-3">
         {/* Left Section - Text Formatting */}
         <div className="flex flex-wrap items-center gap-2">
           {/* Type Selector */}
