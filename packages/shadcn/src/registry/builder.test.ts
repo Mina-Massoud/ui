@@ -34,10 +34,10 @@ describe("buildUrlFromRegistryConfig", () => {
   it("should replace style placeholder in URL", () => {
     const url = buildUrlFromRegistryConfig(
       "button",
-      "https://ui.shadcn.com/r/styles/{style}/{name}.json",
+      "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
       { style: "new-york" } as any
     )
-    expect(url).toBe("https://ui.shadcn.com/r/styles/new-york/button.json")
+    expect(url).toBe("https://ui-v4-livid.vercel.app/r/styles/new-york/button.json")
   })
 
   it("should handle both name and style placeholders", () => {

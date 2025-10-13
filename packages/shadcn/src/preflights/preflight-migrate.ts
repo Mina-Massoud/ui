@@ -55,7 +55,7 @@ export async function preFlightMigrate(
     )
     logger.error(
       `Learn more at ${highlighter.info(
-        "https://ui.shadcn.com/docs/components-json"
+        "https://ui-v4-livid.vercel.app/docs/components-json"
       )}.`
     )
     logger.break()

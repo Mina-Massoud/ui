@@ -2,7 +2,7 @@ import { registryConfigSchema } from "@/src/schema"
 import { z } from "zod"
 
 export const REGISTRY_URL =
-  process.env.REGISTRY_URL ?? "https://ui.shadcn.com/r"
+  process.env.REGISTRY_URL ?? "https://ui-v4-livid.vercel.app/r"
 
 export const FALLBACK_STYLE = "new-york-v4"
 

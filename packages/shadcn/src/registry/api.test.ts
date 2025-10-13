@@ -105,7 +105,7 @@ const server = setupServer(
   }),
   http.get(`${REGISTRY_URL}/registries.json`, () => {
     return HttpResponse.json({
-      "@shadcn": "https://ui.shadcn.com/r/styles/{style}/{name}.json",
+      "@shadcn": "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
       "@example": "https://example.com/registry/styles/{style}/{name}.json",
       "@test": "https://test.com/registry/{name}.json",
     })
@@ -1172,14 +1172,14 @@ describe("getRegistry", () => {
   it("should distinguish between URL and registry name", async () => {
     // Test that it correctly identifies and handles a URL vs registry name
     const registryName = "@shadcn"
-    const registryUrl = "https://ui.shadcn.com/registry.json"
+    const registryUrl = "https://ui-v4-livid.vercel.app/registry.json"
 
     // Mock for URL
     server.use(
       http.get(registryUrl, () => {
         return HttpResponse.json({
           name: "shadcn-from-url",
-          homepage: "https://ui.shadcn.com",
+          homepage: "https://ui-v4-livid.vercel.app",
           items: [],
         })
       })
@@ -1190,7 +1190,7 @@ describe("getRegistry", () => {
       tailwind: { baseColor: "neutral", cssVariables: true },
       registries: {
         "@shadcn": {
-          url: "https://ui.shadcn.com/{name}.json",
+          url: "https://ui-v4-livid.vercel.app/{name}.json",
         },
       },
     } as any
@@ -1385,7 +1385,7 @@ describe("getRegistriesConfig", () => {
     const config = {
       style: "new-york",
       registries: {
-        "@shadcn": "https://ui.shadcn.com/r/styles/{style}/{name}.json",
+        "@shadcn": "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
         "@acme": "https://acme.com/registry/{name}.json",
         "@private": {
           url: "https://private.registry.com/{name}.json",
@@ -1405,7 +1405,7 @@ describe("getRegistriesConfig", () => {
 
       expect(result.registries).toBeDefined()
       expect(result.registries?.["@shadcn"]).toBe(
-        "https://ui.shadcn.com/r/styles/{style}/{name}.json"
+        "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json"
       )
       expect(result.registries?.["@acme"]).toBe(
         "https://acme.com/registry/{name}.json"
@@ -1669,7 +1669,7 @@ describe("getRegistriesConfig", () => {
       const result = await getRegistriesIndex()
 
       expect(result).toEqual({
-        "@shadcn": "https://ui.shadcn.com/r/styles/{style}/{name}.json",
+        "@shadcn": "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
         "@example": "https://example.com/registry/styles/{style}/{name}.json",
         "@test": "https://test.com/registry/{name}.json",
       })

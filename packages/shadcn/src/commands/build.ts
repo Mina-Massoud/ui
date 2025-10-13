@@ -57,7 +57,7 @@ export const build = new Command()
 
         // Add the schema to the registry item.
         registryItem["$schema"] =
-          "https://ui.shadcn.com/schema/registry-item.json"
+          "https://ui-v4-livid.vercel.app/schema/registry-item.json"
 
         // Loop through each file in the files array.
         for (const file of registryItem.files ?? []) {

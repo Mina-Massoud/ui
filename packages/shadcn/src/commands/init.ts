@@ -448,7 +448,7 @@ async function promptForConfig(defaultConfig: Config | null = null) {
   ])
 
   return rawConfigSchema.parse({
-    $schema: "https://ui.shadcn.com/schema.json",
+    $schema: "https://ui-v4-livid.vercel.app/schema.json",
     style: options.style,
     tailwind: {
       config: options.tailwindConfig,

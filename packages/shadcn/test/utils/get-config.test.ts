@@ -92,7 +92,7 @@ test("get config", async () => {
     },
     iconLibrary: "lucide",
     registries: {
-      "@shadcn": "https://ui.shadcn.com/r/styles/{style}/{name}.json",
+      "@shadcn": "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
     },
   })
 
@@ -148,7 +148,7 @@ test("get config", async () => {
       ),
     },
     registries: {
-      "@shadcn": "https://ui.shadcn.com/r/styles/{style}/{name}.json",
+      "@shadcn": "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
     },
   })
 
@@ -192,7 +192,7 @@ test("get config", async () => {
       lib: path.resolve(__dirname, "../fixtures/config-jsx", "./lib"),
     },
     registries: {
-      "@shadcn": "https://ui.shadcn.com/r/styles/{style}/{name}.json",
+      "@shadcn": "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
     },
   })
 })

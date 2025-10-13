@@ -32,7 +32,7 @@ export default function DialogCloseButton() {
             </Label>
             <Input
               id="link"
-              defaultValue="https://ui.shadcn.com/docs/installation"
+              defaultValue="https://ui-v4-livid.vercel.app/docs/installation"
               readOnly
             />
           </div>

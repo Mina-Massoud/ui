@@ -16,7 +16,7 @@ describe("searchRegistries", () => {
       if (name === "@shadcn" || name === "@shadcn/registry") {
         return {
           name: "shadcn/ui",
-          homepage: "https://ui.shadcn.com",
+          homepage: "https://ui-v4-livid.vercel.app",
           items: [
             {
               name: "button",
@@ -95,7 +95,7 @@ describe("searchRegistries", () => {
       if (name === "@shadcn" || name === "@shadcn/registry") {
         return {
           name: "shadcn/ui",
-          homepage: "https://ui.shadcn.com",
+          homepage: "https://ui-v4-livid.vercel.app",
           items: [
             {
               name: "button",
@@ -475,7 +475,7 @@ describe("searchRegistries", () => {
       if (nameOrUrl === "@shadcn" || nameOrUrl === "@shadcn/registry") {
         return {
           name: "shadcn/ui",
-          homepage: "https://ui.shadcn.com",
+          homepage: "https://ui-v4-livid.vercel.app",
           items: [
             {
               name: "button",

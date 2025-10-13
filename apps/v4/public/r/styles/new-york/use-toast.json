@@ -1,8 +1,8 @@
 {
-  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "$schema": "https://ui-v4-livid.vercel.app/schema/registry-item.json",
   "name": "use-toast",
   "type": "registry:hook",
-  "author": "shadcn (https://ui.shadcn.com)",
+  "author": "shadcn (https://ui-v4-livid.vercel.app)",
   "files": [
     {
       "path": "hooks/use-toast.ts",

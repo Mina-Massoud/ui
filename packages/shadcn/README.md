@@ -36,7 +36,7 @@ npx shadcn add
 
 ## Documentation
 
-Visit https://ui.shadcn.com/docs/cli to view the documentation.
+Visit https://ui-v4-livid.vercel.app/docs/cli to view the documentation.
 
 ## License
 

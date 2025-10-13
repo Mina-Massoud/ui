@@ -522,7 +522,7 @@ describe("shadcn init - existing components.json", () => {
     const fixturePath = await createFixtureTestDirectory("next-app")
 
     const existingConfig = {
-      $schema: "https://ui.shadcn.com/schema.json",
+      $schema: "https://ui-v4-livid.vercel.app/schema.json",
       style: "default",
       tailwind: {
         css: "app/globals.css",
