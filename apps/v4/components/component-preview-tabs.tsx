@@ -82,7 +82,9 @@ export function ComponentPreviewTabs({
               data-align={align}
               className={cn(
                 "preview flex w-full justify-center data-[align=center]:items-center data-[align=end]:items-end data-[align=start]:items-start",
-                chromeLessOnMobile ? "sm:p-10" : "h-[450px] max-h-[450px] overflow-y-auto flex flex-col p-2"
+                chromeLessOnMobile
+                  ? "sm:p-10"
+                  : "flex h-[450px] max-h-[450px] flex-col overflow-y-auto p-2"
               )}
             >
               {component}
@@ -105,7 +107,7 @@ export function ComponentPreviewTabs({
           onClick={() => setIsExpanded(false)}
         >
           <div
-            className="relative h-[90vh] z-[105] w-[90vw] rounded-lg border bg-background p-4 shadow-lg"
+            className="bg-background relative z-[105] h-[90vh] w-[90vw] rounded-lg border p-4 shadow-lg"
             onClick={(e) => e.stopPropagation()}
           >
             <Button
@@ -118,7 +120,7 @@ export function ComponentPreviewTabs({
               <X className="h-4 w-4" />
               <span className="sr-only">Close</span>
             </Button>
-            <div className="flex h-full flex-col w-full items-center justify-center overflow-auto p-8">
+            <div className="flex h-full w-full flex-col items-center justify-center overflow-auto p-8">
               {component}
             </div>
           </div>

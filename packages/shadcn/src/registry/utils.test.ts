@@ -91,9 +91,9 @@ describe("isUrl", () => {
     expect(isUrl("http://example.com")).toBe(true)
     expect(isUrl("https://example.com/path")).toBe(true)
     expect(isUrl("https://subdomain.example.com")).toBe(true)
-    expect(isUrl("https://ui-v4-livid.vercel.app/r/styles/new-york/button.json")).toBe(
-      true
-    )
+    expect(
+      isUrl("https://ui-v4-livid.vercel.app/r/styles/new-york/button.json")
+    ).toBe(true)
   })
 
   it("should return false for non-URLs", () => {
@@ -121,7 +121,9 @@ describe("isLocalFile", () => {
     expect(isLocalFile("https://example.com/component.json")).toBe(false)
     expect(isLocalFile("http://registry.com/button.json")).toBe(false)
     expect(
-      isLocalFile("https://ui-v4-livid.vercel.app/r/styles/new-york/button.json")
+      isLocalFile(
+        "https://ui-v4-livid.vercel.app/r/styles/new-york/button.json"
+      )
     ).toBe(false)
   })
 

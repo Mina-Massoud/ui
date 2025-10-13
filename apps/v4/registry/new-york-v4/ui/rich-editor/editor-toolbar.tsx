@@ -113,7 +113,7 @@ export function EditorToolbar({
   onEnhanceSpacesChange,
 }: EditorToolbarProps) {
   return (
-    <CardContent className="bg-background/30 sticky top-0 z-[100] mx-auto w-full border-b p-2 backdrop-blur-2xl transition-all duration-300 md:p-3">
+    <CardContent className="bg-background/30 sticky top-0 z-40 mx-auto w-full border-b p-2 backdrop-blur-2xl transition-all duration-300 md:p-3">
       <div className="mx-auto flex w-full max-w-4xl flex-col items-stretch justify-between gap-2 md:flex-row md:items-center md:gap-3 lg:px-6">
         {/* Left Section - Text Formatting */}
         <div className="flex flex-wrap items-center gap-1.5 md:gap-2">

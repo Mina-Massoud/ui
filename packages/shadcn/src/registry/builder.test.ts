@@ -37,7 +37,9 @@ describe("buildUrlFromRegistryConfig", () => {
       "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
       { style: "new-york" } as any
     )
-    expect(url).toBe("https://ui-v4-livid.vercel.app/r/styles/new-york/button.json")
+    expect(url).toBe(
+      "https://ui-v4-livid.vercel.app/r/styles/new-york/button.json"
+    )
   })
 
   it("should handle both name and style placeholders", () => {

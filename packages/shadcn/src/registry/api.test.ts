@@ -1385,7 +1385,8 @@ describe("getRegistriesConfig", () => {
     const config = {
       style: "new-york",
       registries: {
-        "@shadcn": "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
+        "@shadcn":
+          "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
         "@acme": "https://acme.com/registry/{name}.json",
         "@private": {
           url: "https://private.registry.com/{name}.json",
@@ -1669,7 +1670,8 @@ describe("getRegistriesConfig", () => {
       const result = await getRegistriesIndex()
 
       expect(result).toEqual({
-        "@shadcn": "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
+        "@shadcn":
+          "https://ui-v4-livid.vercel.app/r/styles/{style}/{name}.json",
         "@example": "https://example.com/registry/styles/{style}/{name}.json",
         "@test": "https://test.com/registry/{name}.json",
       })

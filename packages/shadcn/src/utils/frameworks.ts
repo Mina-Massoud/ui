@@ -27,7 +27,8 @@ export const FRAMEWORKS = {
     name: "react-router",
     label: "React Router",
     links: {
-      installation: "https://ui-v4-livid.vercel.app/docs/installation/react-router",
+      installation:
+        "https://ui-v4-livid.vercel.app/docs/installation/react-router",
       tailwind:
         "https://tailwindcss.com/docs/installation/framework-guides/react-router",
     },
