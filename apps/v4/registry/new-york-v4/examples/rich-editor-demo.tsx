@@ -14,7 +14,7 @@ export default function RichEditorDemo() {
   }
 
   return (
-    <div className="mx-auto w-full max-w-4xl overflow-y-auto">
+    <div className="mx-auto w-full overflow-y-auto">
       <EditorProvider initialContainer={initialContainer} debug={false}>
         <Editor />
       </EditorProvider>

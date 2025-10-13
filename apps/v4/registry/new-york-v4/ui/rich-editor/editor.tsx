@@ -10,7 +10,9 @@
 "use client"
 
 import React, { useCallback, useEffect, useRef, useState } from "react"
+import { Eye } from "lucide-react"
 
+import { Button } from "../button"
 import { Card, CardContent } from "../card"
 import { AddBlockButton } from "./add-block-button"
 import { Block } from "./block"
@@ -646,7 +648,20 @@ export function Editor({
   }, [state.historyIndex, state.history.length, dispatch, toast, handleFormat])
 
   return (
-    <div className="bg-background flex flex-1 flex-col transition-colors duration-300">
+    <div className="bg-background relative flex flex-1 flex-col transition-colors duration-300">
+      {/* Floating toggle button for read-only mode */}
+      {readOnly && (
+        <Button
+          variant="default"
+          size="icon"
+          className="ring-primary/20 fixed top-4 right-4 z-[200] h-11 w-11 rounded-full shadow-2xl ring-2 transition-all hover:scale-110 md:top-6 md:right-6"
+          onClick={() => setReadOnly(false)}
+          title="Exit View Mode"
+        >
+          <Eye className="h-5 w-5" />
+        </Button>
+      )}
+
       {/* Editor with integrated toolbar */}
       <div className="mx-auto flex w-full flex-1 flex-col">
         <Card className="flex flex-1 flex-col gap-3 rounded-none border-2 pt-0 shadow-2xl transition-all duration-300">

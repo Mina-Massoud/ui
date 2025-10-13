@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/new-york-v4/examples/rich-editor-demo.tsx",
-      "content": "\"use client\"\n\nimport { EditorProvider } from \"../ui/rich-editor\"\nimport type { ContainerNode } from \"../ui/rich-editor\"\nimport { createDemoContent } from \"../ui/rich-editor/demo-content\"\nimport { Editor } from \"../ui/rich-editor/editor\"\n\nexport default function RichEditorDemo() {\n  const initialContainer: ContainerNode = {\n    id: \"root\",\n    type: \"container\",\n    children: createDemoContent(),\n    attributes: {},\n  }\n\n  return (\n    <div className=\"mx-auto w-full max-w-4xl overflow-y-auto\">\n      <EditorProvider initialContainer={initialContainer} debug={false}>\n        <Editor />\n      </EditorProvider>\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { EditorProvider } from \"../ui/rich-editor\"\nimport type { ContainerNode } from \"../ui/rich-editor\"\nimport { createDemoContent } from \"../ui/rich-editor/demo-content\"\nimport { Editor } from \"../ui/rich-editor/editor\"\n\nexport default function RichEditorDemo() {\n  const initialContainer: ContainerNode = {\n    id: \"root\",\n    type: \"container\",\n    children: createDemoContent(),\n    attributes: {},\n  }\n\n  return (\n    <div className=\"mx-auto w-full overflow-y-auto\">\n      <EditorProvider initialContainer={initialContainer} debug={false}>\n        <Editor />\n      </EditorProvider>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]
