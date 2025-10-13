@@ -11,8 +11,6 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react"
 
-import { useToast } from "@/hooks/use-toast"
-
 import { Card, CardContent } from "../card"
 import { AddBlockButton } from "./add-block-button"
 import { Block } from "./block"
@@ -73,6 +71,7 @@ import {
   createHandleSelectionChange,
   createHandleTypeChange,
 } from "./handlers/selection-handlers"
+import { useToast } from "./hooks/use-toast"
 import {
   ContainerNode,
   EditorActions,

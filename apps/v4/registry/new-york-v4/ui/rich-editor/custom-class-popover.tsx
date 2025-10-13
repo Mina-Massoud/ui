@@ -11,8 +11,6 @@ import React, { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { Code2, Pencil, Search } from "lucide-react"
 
-import { useToast } from "@/hooks/use-toast"
-
 import { Button } from "../button"
 import { Input } from "../input"
 import { Popover, PopoverContent, PopoverTrigger } from "../popover"
@@ -30,9 +28,10 @@ import {
   searchUserFriendlyClasses,
 } from "./class-mappings"
 import { useEditor } from "./context/editor-context"
+import { useIsMobile } from "./hooks/use-mobile"
+import { useToast } from "./hooks/use-toast"
 import { EditorActions } from "./reducer/actions"
 import { tailwindClasses } from "./tailwind-classes"
-import { useIsMobile } from "./hooks/use-mobile"
 
 export function CustomClassPopover() {
   const [state, dispatch] = useEditor()

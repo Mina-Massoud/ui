@@ -984,7 +984,7 @@ export const Index: Record<string, any> = {
     name: "rich-editor",
     description: "",
     type: "registry:ui",
-    registryDependencies: undefined,
+    registryDependencies: ["button","button-group","card","command","context-menu","dialog","input","label","popover","scroll-area","select","separator","sheet","switch","tabs","toggle-group"],
     files: [{
       path: "registry/new-york-v4/ui/rich-editor/index.ts",
       type: "registry:ui",
@@ -1023,6 +1023,14 @@ export const Index: Record<string, any> = {
       target: ""
     },{
       path: "registry/new-york-v4/ui/rich-editor/color-picker.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/color-picker-index.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/color-picker-interface.tsx",
       type: "registry:ui",
       target: ""
     },{
@@ -1155,6 +1163,14 @@ export const Index: Record<string, any> = {
       target: ""
     },{
       path: "registry/new-york-v4/ui/rich-editor/utils/tree-operations.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/use-toast.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/use-mobile.ts",
       type: "registry:ui",
       target: ""
     }],

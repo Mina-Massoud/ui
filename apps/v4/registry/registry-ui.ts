@@ -690,6 +690,9 @@ export const ui: Registry["items"] = [
     type: "registry:ui",
     dependencies: [
       "framer-motion",
+      "lucide-react",
+      "sonner",
+      "color",
       "@radix-ui/react-popover",
       "@radix-ui/react-dialog",
       "@radix-ui/react-dropdown-menu",
@@ -701,7 +704,24 @@ export const ui: Registry["items"] = [
       "@radix-ui/react-scroll-area",
       "@radix-ui/react-slot",
     ],
-    // registryDependencies removed - users should install these shadcn components first
+    registryDependencies: [
+      "button",
+      "button-group",
+      "card",
+      "command",
+      "context-menu",
+      "dialog",
+      "input",
+      "label",
+      "popover",
+      "scroll-area",
+      "select",
+      "separator",
+      "sheet",
+      "switch",
+      "tabs",
+      "toggle-group",
+    ],
     files: [
       {
         path: "ui/rich-editor/index.ts",
@@ -741,6 +761,14 @@ export const ui: Registry["items"] = [
       },
       {
         path: "ui/rich-editor/color-picker.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/color-picker-index.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/color-picker-interface.tsx",
         type: "registry:ui",
       },
       {
@@ -873,6 +901,14 @@ export const ui: Registry["items"] = [
       },
       {
         path: "ui/rich-editor/utils/tree-operations.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/hooks/use-toast.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/hooks/use-mobile.ts",
         type: "registry:ui",
       },
     ],

@@ -11,12 +11,11 @@ import React, { useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import { Link as LinkIcon, Trash2 } from "lucide-react"
 
-import { useToast } from "@/hooks/use-toast"
-
 import { Button } from "../button"
 import { Input } from "../input"
 import { Label } from "../label"
 import { Popover, PopoverContent, PopoverTrigger } from "../popover"
+import { useToast } from "./hooks/use-toast"
 import { EditorActions, useEditor } from "./index"
 
 export function LinkPopover() {

@@ -1,8 +1,8 @@
 {
-  "$schema": "https://ui-v4-livid.vercel.app/schema/registry-item.json",
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "typography-table",
   "type": "registry:example",
-  "author": "shadcn (https://ui-v4-livid.vercel.app)",
+  "author": "shadcn (https://ui.shadcn.com)",
   "files": [
     {
       "path": "examples/typography-table.tsx",
