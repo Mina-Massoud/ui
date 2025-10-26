@@ -1026,6 +1026,38 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
+      path: "registry/new-york-v4/ui/rich-editor/CoverImage.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/ExportFloatingButton.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/FreeImageBlock.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/InsertComponentsModal.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/MediaUploadPopover.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/QuickModeToggle.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/SelectionToolbar.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/TemplateSwitcherButton.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
       path: "registry/new-york-v4/ui/rich-editor/color-picker.tsx",
       type: "registry:ui",
       target: ""
@@ -1082,15 +1114,31 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/context/editor-context.tsx",
+      path: "registry/new-york-v4/ui/rich-editor/empty-content.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/actions.ts",
+      path: "registry/new-york-v4/ui/rich-editor/elements.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/editor-reducer.ts",
+      path: "registry/new-york-v4/ui/rich-editor/insert-components-data.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/templates.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/store/editor-store.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/lib/reducer/actions.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/lib/reducer/editor-reducer.ts",
       type: "registry:ui",
       target: ""
     },{
@@ -1142,6 +1190,14 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/block/block-renderer.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/block/block-styles.ts",
+      type: "registry:ui",
+      target: ""
+    },{
       path: "registry/new-york-v4/ui/rich-editor/utils/drag-auto-scroll.ts",
       type: "registry:ui",
       target: ""
@@ -1167,6 +1223,10 @@ export const Index: Record<string, any> = {
       target: ""
     },{
       path: "registry/new-york-v4/ui/rich-editor/utils/tree-operations.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/utils/class-replacement.ts",
       type: "registry:ui",
       target: ""
     },{

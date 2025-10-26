@@ -1,7 +1,7 @@
 "use client"
 
 import type { ContainerNode } from "../ui/rich-editor"
-import { EditorProvider } from "../ui/rich-editor/context/editor-context"
+import { EditorProvider } from "../ui/rich-editor"
 import { createDemoContent } from "../ui/rich-editor/demo-content"
 import { Editor } from "../ui/rich-editor/editor"
 

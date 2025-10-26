@@ -9,6 +9,7 @@
 
 import {
   ContainerNode,
+  CoverImage,
   EditorNode,
   EditorState,
   NodeAttributes,
@@ -315,12 +316,13 @@ export interface SetCurrentSelectionAction {
 export interface ToggleFormatAction {
   type: "TOGGLE_FORMAT"
   payload: {
-    format: "bold" | "italic" | "underline"
+    format: "bold" | "italic" | "underline" | "strikethrough" | "code"
   }
 }
 
 /**
  * APPLY_INLINE_ELEMENT_TYPE action - applies element type to selected text inline
+ * Note: 'code' is excluded - use toggleFormat('code') for inline code formatting
  */
 export interface ApplyInlineElementTypeAction {
   type: "APPLY_INLINE_ELEMENT_TYPE"
@@ -333,7 +335,7 @@ export interface ApplyInlineElementTypeAction {
       | "h4"
       | "h5"
       | "h6"
-      | "code"
+      | "li"
       | "blockquote"
   }
 }
@@ -412,6 +414,33 @@ export interface RedoAction {
 }
 
 /**
+ * SET_COVER_IMAGE action - sets or updates the cover image
+ */
+export interface SetCoverImageAction {
+  type: "SET_COVER_IMAGE"
+  payload: {
+    coverImage: CoverImage
+  }
+}
+
+/**
+ * REMOVE_COVER_IMAGE action - removes the cover image
+ */
+export interface RemoveCoverImageAction {
+  type: "REMOVE_COVER_IMAGE"
+}
+
+/**
+ * UPDATE_COVER_IMAGE_POSITION action - updates the vertical position of the cover image
+ */
+export interface UpdateCoverImagePositionAction {
+  type: "UPDATE_COVER_IMAGE_POSITION"
+  payload: {
+    position: number
+  }
+}
+
+/**
  * Union type of all possible editor actions.
  */
 export type EditorAction =
@@ -442,6 +471,9 @@ export type EditorAction =
   | DeleteSelectedBlocksAction
   | UndoAction
   | RedoAction
+  | SetCoverImageAction
+  | RemoveCoverImageAction
+  | UpdateCoverImagePositionAction
 
 /**
  * Action creator helpers for type-safe action creation.
@@ -591,7 +623,7 @@ export const EditorActions = {
    * Creates a TOGGLE_FORMAT action.
    */
   toggleFormat: (
-    format: "bold" | "italic" | "underline"
+    format: "bold" | "italic" | "underline" | "strikethrough" | "code"
   ): ToggleFormatAction => ({
     type: "TOGGLE_FORMAT",
     payload: { format },
@@ -599,6 +631,7 @@ export const EditorActions = {
 
   /**
    * Creates an APPLY_INLINE_ELEMENT_TYPE action.
+   * Note: 'code' is excluded - use toggleFormat('code') for inline code formatting
    */
   applyInlineElementType: (
     elementType:
@@ -609,7 +642,7 @@ export const EditorActions = {
       | "h4"
       | "h5"
       | "h6"
-      | "code"
+      | "li"
       | "blockquote"
   ): ApplyInlineElementTypeAction => ({
     type: "APPLY_INLINE_ELEMENT_TYPE",
@@ -683,5 +716,30 @@ export const EditorActions = {
    */
   redo: (): RedoAction => ({
     type: "REDO",
+  }),
+
+  /**
+   * Creates a SET_COVER_IMAGE action.
+   */
+  setCoverImage: (coverImage: CoverImage): SetCoverImageAction => ({
+    type: "SET_COVER_IMAGE",
+    payload: { coverImage },
+  }),
+
+  /**
+   * Creates a REMOVE_COVER_IMAGE action.
+   */
+  removeCoverImage: (): RemoveCoverImageAction => ({
+    type: "REMOVE_COVER_IMAGE",
+  }),
+
+  /**
+   * Creates an UPDATE_COVER_IMAGE_POSITION action.
+   */
+  updateCoverImagePosition: (
+    position: number
+  ): UpdateCoverImagePositionAction => ({
+    type: "UPDATE_COVER_IMAGE_POSITION",
+    payload: { position },
   }),
 }

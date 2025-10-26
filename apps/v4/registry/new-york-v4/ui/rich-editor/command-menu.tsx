@@ -20,10 +20,12 @@ import {
   List,
   ListOrdered,
   Quote,
+  Table,
   Type,
   Video,
 } from "lucide-react"
 
+import { EditorActions } from "."
 import {
   Command,
   CommandEmpty,
@@ -33,8 +35,7 @@ import {
   CommandList,
 } from "../command"
 import { Popover, PopoverAnchor, PopoverContent } from "../popover"
-import { useEditor } from "./context/editor-context"
-import { EditorActions } from "./reducer/actions"
+import { useEditorDispatch } from "./store/editor-store"
 
 export interface CommandOption {
   label: string
@@ -119,16 +120,16 @@ const commands: CommandOption[] = [
   },
   {
     label: "Bulleted List",
-    value: "ul",
+    value: "li",
     icon: <List className="h-4 w-4" />,
-    description: "Unordered list with bullets",
+    description: "Simple list item with bullet",
     keywords: ["list", "bullet", "unordered", "ul", "li"],
   },
   {
     label: "Numbered List",
     value: "ol",
     icon: <ListOrdered className="h-4 w-4" />,
-    description: "Ordered list with numbers",
+    description: "Numbered list item",
     keywords: ["list", "numbered", "ordered", "ol", "li"],
   },
   {
@@ -145,6 +146,13 @@ const commands: CommandOption[] = [
     description: "Upload or embed a video",
     keywords: ["video", "vid", "movie", "mp4", "upload"],
   },
+  {
+    label: "Table",
+    value: "table",
+    icon: <Table className="h-4 w-4" />,
+    description: "Create a table",
+    keywords: ["table", "grid", "rows", "columns", "cells"],
+  },
 ]
 
 export function CommandMenu({
@@ -160,7 +168,7 @@ export function CommandMenu({
   const [isUploading, setIsUploading] = useState(false)
   const commandRef = useRef<HTMLDivElement>(null)
 
-  const [, dispatch] = useEditor()
+  const dispatch = useEditorDispatch()
 
   // Handle command selection - for image/video, we'll use dispatch directly here
   const handleSelect = useCallback(
@@ -360,7 +368,14 @@ export function CommandMenu({
         return
       }
 
-      // For all other commands, call the original onSelect handler AFTER closing menu
+      // Special handling for table - just call onSelect which will open the table dialog
+      if (commandValue === "table") {
+        onClose()
+        onSelect(commandValue)
+        return
+      }
+
+      // For all other commands (including 'li' and 'ol'), call the original onSelect handler AFTER closing menu
       onClose()
       onSelect(commandValue)
     },

@@ -20,7 +20,6 @@ export type NodeType =
   | "h6"
   | "p"
   | "blockquote"
-  | "ul"
   | "ol"
   | "li"
   | "code"
@@ -50,6 +49,9 @@ export type NodeType =
  * - bold: boolean - makes text bold
  * - italic: boolean - makes text italic
  * - underline: boolean - makes text underlined
+ * - strikethrough: boolean - makes text strikethrough
+ * - code: boolean - makes text inline code
+ * - styles: Record<string, string> - inline CSS styles (e.g., { width: '50%' })
  *
  * @example
  * ```typescript
@@ -58,6 +60,7 @@ export type NodeType =
  *   italic: true,
  *   className: 'text-blue-500',
  *   href: 'https://example.com',
+ *   styles: { width: '75%' },
  * };
  * ```
  */
@@ -65,7 +68,10 @@ export interface NodeAttributes {
   bold?: boolean
   italic?: boolean
   underline?: boolean
-  [key: string]: string | number | boolean | undefined
+  strikethrough?: boolean
+  code?: boolean
+  styles?: Record<string, string>
+  [key: string]: string | number | boolean | Record<string, string> | undefined
 }
 
 /**
@@ -91,7 +97,10 @@ export interface InlineText {
   bold?: boolean
   italic?: boolean
   underline?: boolean
+  strikethrough?: boolean
+  code?: boolean
   // Inline element type (for text that should render as p, h1, h2, etc. within a paragraph)
+  // Note: 'code' is not included here - use the 'code' boolean property for inline code formatting
   elementType?:
     | "p"
     | "h1"
@@ -100,7 +109,7 @@ export interface InlineText {
     | "h4"
     | "h5"
     | "h6"
-    | "code"
+    | "li"
     | "blockquote"
   // Link URL (makes the text a clickable link)
   href?: string
@@ -238,6 +247,8 @@ export interface SelectionInfo {
     bold: boolean
     italic: boolean
     underline: boolean
+    strikethrough: boolean
+    code: boolean
   }
 
   /** Active element type on the selection (if all selected text has the same type) */
@@ -251,6 +262,8 @@ export interface SelectionInfo {
     | "h6"
     | "code"
     | "blockquote"
+    | "li"
+    | "ol"
     | null
 
   /** Active link href on the selection (if all selected text has the same href) */
@@ -261,6 +274,20 @@ export interface SelectionInfo {
 
   /** Active inline styles on the selection (if all selected text has the same styles) */
   styles?: Record<string, string> | null
+}
+
+/**
+ * Cover image configuration for the document
+ */
+export interface CoverImage {
+  /** URL of the cover image */
+  url: string
+
+  /** Alt text for accessibility */
+  alt?: string
+
+  /** Vertical position (0-100) for image positioning */
+  position?: number
 }
 
 /**
@@ -291,6 +318,9 @@ export interface EditorState {
 
   /** Set of block IDs that are currently selected (for multi-block operations like Ctrl+A) */
   selectedBlocks: Set<string>
+
+  /** Cover image for the document (like Notion) */
+  coverImage: CoverImage | null
 
   /** Optional metadata (created date, last modified, author, etc.) */
   metadata?: {

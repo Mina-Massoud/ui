@@ -21,31 +21,29 @@ export function escapeHTML(text: string): string {
 export function getTypeClassName(type: string): string {
   switch (type) {
     case "h1":
-      return "text-4xl font-extrabold text-foreground leading-[1.2]"
+      return "text-4xl font-bold text-foreground leading-[1.2] mb-2"
     case "h2":
-      return "text-3xl font-bold text-foreground leading-[1.2]"
+      return "text-3xl font-bold text-foreground leading-[1.2] mb-1.5"
     case "h3":
-      return "text-2xl font-semibold text-foreground leading-[1.3]"
+      return "text-2xl font-bold text-foreground leading-[1.2] mb-1"
     case "h4":
-      return "text-xl font-semibold text-foreground leading-[1.3]"
+      return "text-xl font-semibold text-foreground leading-[1.3] mb-1"
     case "h5":
-      return "text-lg font-semibold text-foreground leading-[1.4]"
+      return "text-lg font-semibold text-foreground leading-[1.4] mb-0.5"
     case "h6":
-      return "text-base font-semibold text-foreground leading-[1.4]"
+      return "text-base font-semibold text-foreground leading-[1.4] mb-0.5"
     case "p":
-      return "text-base text-foreground leading-relaxed"
-    case "ul":
-      return "text-base text-foreground leading-relaxed"
+      return "text-base text-foreground leading-[1.6]"
     case "ol":
-      return "text-base text-foreground leading-relaxed"
+      return "text-base text-foreground leading-[1.6] list-decimal list-inside"
     case "li":
-      return "text-base text-foreground leading-relaxed"
+      return "text-base text-foreground leading-[1.6] list-disc list-inside"
     case "blockquote":
-      return "text-base text-muted-foreground italic border-l-4 border-primary pl-6 py-2"
+      return "text-base text-muted-foreground italic border-l-4 border-primary pl-6 py-1"
     case "code":
-      return "font-mono text-sm bg-secondary text-secondary-foreground px-4 py-3 rounded-lg whitespace-pre-wrap break-words"
+      return "font-mono text-sm bg-secondary text-secondary-foreground px-4 py-2 rounded-lg whitespace-pre-wrap break-words"
     default:
-      return "text-lg text-foreground leading-relaxed"
+      return "text-base text-foreground leading-[1.6]"
   }
 }
 
@@ -82,6 +80,10 @@ export function buildHTML(textNode: TextNode, readOnly: boolean): string {
                 child.bold ? "font-bold" : "",
                 child.italic ? "italic" : "",
                 child.underline ? "underline" : "",
+                child.strikethrough ? "line-through" : "",
+                child.code
+                  ? "font-mono bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded"
+                  : "",
                 className || "", // Include custom className (only if not hex color)
               ]
                 .filter(Boolean)
@@ -99,7 +101,7 @@ export function buildHTML(textNode: TextNode, readOnly: boolean): string {
                 const linkClasses = ["hover:underline cursor-pointer", classes]
                   .filter(Boolean)
                   .join(" ")
-                const italicSpacing = child.italic ? "inline-block pr-1" : ""
+                const italicSpacing = child.italic ? "inline" : ""
                 const combinedClasses = [linkClasses, italicSpacing]
                   .filter(Boolean)
                   .join(" ")
@@ -108,7 +110,7 @@ export function buildHTML(textNode: TextNode, readOnly: boolean): string {
 
               if (child.elementType) {
                 const elementClasses = getTypeClassName(child.elementType)
-                const italicSpacing = child.italic ? "inline-block pr-1" : ""
+                const italicSpacing = child.italic ? "inline" : ""
                 const combinedClasses = [elementClasses, classes, italicSpacing]
                   .filter(Boolean)
                   .join(" ")
@@ -116,7 +118,7 @@ export function buildHTML(textNode: TextNode, readOnly: boolean): string {
               }
 
               if (classes || colorStyle) {
-                const italicSpacing = child.italic ? "inline-block pr-1" : ""
+                const italicSpacing = child.italic ? "inline" : ""
                 const combinedClasses = [classes, italicSpacing]
                   .filter(Boolean)
                   .join(" ")
@@ -159,6 +161,10 @@ export function buildHTML(textNode: TextNode, readOnly: boolean): string {
           child.bold ? "font-bold" : "",
           child.italic ? "italic" : "",
           child.underline ? "underline" : "",
+          child.strikethrough ? "line-through" : "",
+          child.code
+            ? "font-mono bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded"
+            : "",
           child.className || "",
         ]
           .filter(Boolean)
@@ -174,10 +180,7 @@ export function buildHTML(textNode: TextNode, readOnly: boolean): string {
           const linkClasses = ["underline cursor-pointer", classes]
             .filter(Boolean)
             .join(" ")
-          const italicSpacing = child.italic ? "inline-block pr-1" : ""
-          const combinedClasses = [linkClasses, italicSpacing]
-            .filter(Boolean)
-            .join(" ")
+          const combinedClasses = [linkClasses].filter(Boolean).join(" ")
           return `<a href="${child.href}" target="_blank" rel="noopener noreferrer" class="${combinedClasses}"${styleAttr}>${childContent}</a>`
         }
 
@@ -185,8 +188,7 @@ export function buildHTML(textNode: TextNode, readOnly: boolean): string {
         if (child.elementType) {
           const elementClasses = getTypeClassName(child.elementType)
           // Add extra spacing for italic text to prevent overlapping
-          const italicSpacing = child.italic ? "inline-block pr-1" : ""
-          const combinedClasses = [elementClasses, classes, italicSpacing]
+          const combinedClasses = [elementClasses, classes]
             .filter(Boolean)
             .join(" ")
           return `<span class="${combinedClasses}"${styleAttr}>${childContent}</span>`
@@ -194,10 +196,7 @@ export function buildHTML(textNode: TextNode, readOnly: boolean): string {
 
         if (classes || inlineStyles) {
           // Add extra spacing for italic text to prevent overlapping
-          const italicSpacing = child.italic ? "inline-block pr-1" : ""
-          const combinedClasses = [classes, italicSpacing]
-            .filter(Boolean)
-            .join(" ")
+          const combinedClasses = [classes].filter(Boolean).join(" ")
           const classAttr = combinedClasses ? ` class="${combinedClasses}"` : ""
           return `<span${classAttr}${styleAttr}>${childContent}</span>`
         }

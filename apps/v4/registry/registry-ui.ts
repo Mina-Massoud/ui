@@ -696,6 +696,7 @@ export const ui: Registry["items"] = [
       "next-themes",
       "clsx",
       "tailwind-merge",
+      "zustand",
       "@radix-ui/react-popover",
       "@radix-ui/react-dialog",
       "@radix-ui/react-dropdown-menu",
@@ -771,6 +772,38 @@ export const ui: Registry["items"] = [
         type: "registry:ui",
       },
       {
+        path: "ui/rich-editor/CoverImage.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/ExportFloatingButton.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/FreeImageBlock.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/InsertComponentsModal.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/MediaUploadPopover.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/QuickModeToggle.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/SelectionToolbar.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/TemplateSwitcherButton.tsx",
+        type: "registry:ui",
+      },
+      {
         path: "ui/rich-editor/color-picker.tsx",
         type: "registry:ui",
       },
@@ -827,15 +860,31 @@ export const ui: Registry["items"] = [
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/context/editor-context.tsx",
+        path: "ui/rich-editor/empty-content.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/reducer/actions.ts",
+        path: "ui/rich-editor/elements.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/reducer/editor-reducer.ts",
+        path: "ui/rich-editor/insert-components-data.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/templates.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/store/editor-store.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/lib/reducer/actions.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/lib/reducer/editor-reducer.ts",
         type: "registry:ui",
       },
       {
@@ -887,6 +936,14 @@ export const ui: Registry["items"] = [
         type: "registry:ui",
       },
       {
+        path: "ui/rich-editor/handlers/block/block-renderer.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/handlers/block/block-styles.ts",
+        type: "registry:ui",
+      },
+      {
         path: "ui/rich-editor/utils/drag-auto-scroll.ts",
         type: "registry:ui",
       },
@@ -912,6 +969,10 @@ export const ui: Registry["items"] = [
       },
       {
         path: "ui/rich-editor/utils/tree-operations.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/utils/class-replacement.ts",
         type: "registry:ui",
       },
       {

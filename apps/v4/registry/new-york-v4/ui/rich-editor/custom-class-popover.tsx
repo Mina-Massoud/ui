@@ -11,6 +11,10 @@ import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Code2, Pencil, Search } from "lucide-react"
 
+import { useIsMobile } from "@/hooks/use-mobile"
+import { useToast } from "@/hooks/use-toast"
+
+import { EditorActions, useEditorDispatch, useEditorState } from "."
 import { Button } from "../button"
 import { Input } from "../input"
 import { Popover, PopoverContent, PopoverTrigger } from "../popover"
@@ -27,14 +31,12 @@ import {
   getUserFriendlyClasses,
   searchUserFriendlyClasses,
 } from "./class-mappings"
-import { useEditor } from "./context/editor-context"
-import { useIsMobile } from "./hooks/use-mobile"
-import { useToast } from "./hooks/use-toast"
-import { EditorActions } from "./reducer/actions"
 import { tailwindClasses } from "./tailwind-classes"
+import { getReplacementInfo, mergeClasses } from "./utils/class-replacement"
 
 export function CustomClassPopover() {
-  const [state, dispatch] = useEditor()
+  const state = useEditorState()
+  const dispatch = useEditorDispatch()
   const { toast } = useToast()
   const [searchQuery, setSearchQuery] = useState("")
   const [isOpen, setIsOpen] = useState(false)
@@ -133,27 +135,53 @@ export function CustomClassPopover() {
     }
   }
 
-  // Handle class application
+  // Handle class application with smart replacement
   const handleQuickStyle = (className: string) => {
     // Use saved selection from ref instead of state
     if (!savedSelectionRef.current) return
+
+    // Get current classes from selection
+    const currentClassName = state.currentSelection?.className || ""
+
+    // Get replacement info
+    const replacementInfo = getReplacementInfo(currentClassName, className)
+
+    // Merge classes intelligently (replaces same-category classes)
+    const mergedClasses = mergeClasses(currentClassName, className)
 
     // Temporarily restore the selection in state for the action
     dispatch(
       EditorActions.setCurrentSelection({
         ...savedSelectionRef.current,
-        formats: { bold: false, italic: false, underline: false },
+        formats: {
+          bold: false,
+          italic: false,
+          underline: false,
+          strikethrough: false,
+          code: false,
+        },
       })
     )
 
-    // Apply the custom class
+    // Apply the merged custom class
     setTimeout(() => {
-      dispatch(EditorActions.applyCustomClass(className))
+      dispatch(EditorActions.applyCustomClass(mergedClasses))
 
-      toast({
-        title: "Custom Class Applied",
-        description: `Applied class: ${className}`,
-      })
+      // Show appropriate toast message
+      if (
+        replacementInfo.willReplace &&
+        replacementInfo.replacedClasses.length > 0
+      ) {
+        toast({
+          title: "Class Replaced",
+          description: `Replaced "${replacementInfo.replacedClasses.join(", ")}" with "${className}"`,
+        })
+      } else {
+        toast({
+          title: "Custom Class Applied",
+          description: `Applied class: ${className}`,
+        })
+      }
 
       setIsOpen(false)
       setPosition(null)
@@ -260,6 +288,7 @@ export function CustomClassPopover() {
   // Trigger button component
   const TriggerButton = () => (
     <button
+      data-custom-class-trigger
       className="bg-background border-border hover:border-primary flex h-8 w-8 items-center justify-center rounded-full border-2 shadow-lg transition-all hover:scale-110"
       onMouseDown={(e) => {
         // Prevent default to keep the selection

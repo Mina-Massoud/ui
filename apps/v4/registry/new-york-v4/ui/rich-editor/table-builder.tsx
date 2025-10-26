@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useRef, useState } from "react"
-import { GripVertical, Plus, X } from "lucide-react"
+import { GripVertical, Plus, Trash2, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
@@ -18,6 +18,7 @@ interface TableBuilderProps {
   onUpdate: (id: string, updates: Partial<EditorNode>) => void
   readOnly?: boolean
   onBlockDragStart?: (nodeId: string) => void
+  onDelete?: (nodeId?: string) => void
 }
 
 export function TableBuilder({
@@ -25,6 +26,7 @@ export function TableBuilder({
   onUpdate,
   readOnly = false,
   onBlockDragStart,
+  onDelete,
 }: TableBuilderProps) {
   const [hoveredCol, setHoveredCol] = useState<number | null>(null)
   const [hoveredRow, setHoveredRow] = useState<number | null>(null)
@@ -503,6 +505,21 @@ export function TableBuilder({
             className="text-muted-foreground hover:text-foreground h-4 w-4 transition-colors duration-200"
             strokeWidth={1.5}
           />
+        </div>
+      )}
+
+      {/* Delete Button for entire table */}
+      {!readOnly && isHovering && onDelete && (
+        <div className="absolute top-2 right-0 z-20 opacity-0 transition-opacity duration-200 group-hover/table:opacity-100">
+          <Button
+            size="icon"
+            variant="destructive"
+            className="h-6 w-6"
+            onClick={() => onDelete(node.id)}
+            title="Delete table"
+          >
+            <Trash2 className="h-3 w-3" />
+          </Button>
         </div>
       )}
 

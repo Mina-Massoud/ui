@@ -20,7 +20,7 @@ export interface BlockEventHandlerParams {
   onChangeBlockType?: (nodeId: string, newType: string) => void
   onInsertImage?: (nodeId: string) => void
   onCreateList?: (nodeId: string, listType: string) => void
-  currentContainer: ContainerNode
+  currentContainer: ContainerNode | (() => ContainerNode) // Can be value or getter for optimization
   dispatch: React.Dispatch<EditorAction>
   localRef: React.RefObject<HTMLElement | null>
   isComposingRef: React.MutableRefObject<boolean>
@@ -82,8 +82,20 @@ export function createHandleInput(
     const element = e.currentTarget
     const text = element.textContent || ""
 
-    // Check if the block is empty and user typed "/"
-    if (text === "/" && !readOnly && onChangeBlockType) {
+    // DEBUG: Log what user is typing
+    if (process.env.NODE_ENV === "development") {
+      console.log(`📝 [INPUT] Block ${textNode.id}:`, {
+        text,
+        innerHTML: element.innerHTML,
+        currentNodeContent: textNode.content,
+      })
+    }
+
+    // Check if this is a header block (h1) - headers don't show command menu
+    const isHeaderBlock = textNode.type === "h1"
+
+    // Check if the block is empty and user typed "/" (but not for header blocks)
+    if (text === "/" && !readOnly && onChangeBlockType && !isHeaderBlock) {
       setShowCommandMenu(true)
       setCommandMenuAnchor(element)
     } else if (showCommandMenu && text !== "/") {
@@ -97,10 +109,11 @@ export function createHandleInput(
     // Call the parent onInput handler
     onInput(element)
 
-    // Reset the flag after a short delay to allow React to process
+    // Reset the flag quickly to allow Block component to sync with state
+    // Reduced from 200ms since we're no longer debouncing state updates
     setTimeout(() => {
       shouldPreserveSelectionRef.current = false
-    }, 0)
+    }, 50)
   }
 }
 
@@ -120,6 +133,19 @@ export function createHandleKeyDown(params: BlockEventHandlerParams) {
       dispatch,
     } = params
 
+    // DEBUG: Log key presses
+    if (process.env.NODE_ENV === "development" && e.key === "Enter") {
+      const element = e.currentTarget
+      console.log(`⏎ [ENTER] Block ${textNode.id}:`, {
+        key: e.key,
+        shiftKey: e.shiftKey,
+        textContent: element.textContent,
+        innerHTML: element.innerHTML,
+        currentNodeContent: textNode.content,
+        nodeType: textNode.type,
+      })
+    }
+
     // Close command menu on Escape
     if (e.key === "Escape" && showCommandMenu) {
       e.preventDefault()
@@ -134,10 +160,9 @@ export function createHandleKeyDown(params: BlockEventHandlerParams) {
       return
     }
 
-    // For list items (ul/ol/li), handle Enter and Shift+Enter specially
+    // For list items (ol/li), handle Enter and Shift+Enter specially
     // For non-list items, Shift+Enter creates nested blocks
-    const isListItem =
-      textNode.type === "ul" || textNode.type === "ol" || textNode.type === "li"
+    const isListItem = textNode.type === "ol" || textNode.type === "li"
 
     // Handle Shift+Enter for list items - add line break within item
     if (e.key === "Enter" && e.shiftKey && isListItem) {
@@ -161,8 +186,14 @@ export function createHandleKeyDown(params: BlockEventHandlerParams) {
       e.preventDefault()
       e.stopPropagation()
 
+      // Get current container (call it if it's a getter function)
+      const container =
+        typeof currentContainer === "function"
+          ? currentContainer()
+          : currentContainer
+
       // Find the parent container
-      const parent = findParentById(currentContainer, textNode.id)
+      const parent = findParentById(container, textNode.id)
 
       if (parent) {
         // Create a new list item with the same type
@@ -238,6 +269,7 @@ export function createHandleCommandSelect(params: {
   onChangeBlockType?: (nodeId: string, newType: string) => void
   onInsertImage?: (nodeId: string) => void
   onCreateList?: (nodeId: string, listType: string) => void
+  onCreateTable?: (nodeId: string) => void
   localRef: React.RefObject<HTMLElement | null>
   setShowCommandMenu: (show: boolean) => void
   setCommandMenuAnchor: (el: HTMLElement | null) => void
@@ -248,6 +280,7 @@ export function createHandleCommandSelect(params: {
       onChangeBlockType,
       onInsertImage,
       onCreateList,
+      onCreateTable,
       localRef,
       setShowCommandMenu,
       setCommandMenuAnchor,
@@ -277,7 +310,16 @@ export function createHandleCommandSelect(params: {
       return
     }
 
-    // For other block types, just change the type
+    // Handle table creation
+    if (commandValue === "table" && onCreateTable) {
+      // Small delay to ensure menu is closed before opening table dialog
+      setTimeout(() => {
+        onCreateTable(textNode.id)
+      }, 50)
+      return
+    }
+
+    // For other block types (including 'li'), just change the type
     if (onChangeBlockType) {
       onChangeBlockType(textNode.id, commandValue)
 
