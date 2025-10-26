@@ -1058,6 +1058,22 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
+      path: "registry/new-york-v4/ui/rich-editor/_toolbar-components/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/_toolbar-components/LinkPopoverContent.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/_toolbar-components/CustomClassPopoverContent.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/_toolbar-components/FormatButtons.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
       path: "registry/new-york-v4/ui/rich-editor/color-picker.tsx",
       type: "registry:ui",
       target: ""

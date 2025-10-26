@@ -805,6 +805,22 @@ export const ui: Registry["items"] = [
         type: "registry:ui",
       },
       {
+        path: "ui/rich-editor/_toolbar-components/index.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/_toolbar-components/LinkPopoverContent.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/_toolbar-components/CustomClassPopoverContent.tsx",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/_toolbar-components/FormatButtons.tsx",
+        type: "registry:ui",
+      },
+      {
         path: "ui/rich-editor/color-picker.tsx",
         type: "registry:ui",
       },
