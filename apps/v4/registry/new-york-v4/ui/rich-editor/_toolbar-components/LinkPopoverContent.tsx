@@ -1,24 +1,25 @@
 /**
  * LinkPopoverContent Component
- * 
+ *
  * Reusable link editor content for toolbar popovers
  */
 
-"use client";
+"use client"
 
-import React from "react";
-import { Link as LinkIcon, Trash2 } from "lucide-react";
-import { Input } from "../../input";
-import { Button } from "../../button";
-import { Label } from "../../label";
+import React from "react"
+import { Link as LinkIcon, Trash2 } from "lucide-react"
+
+import { Button } from "../../button"
+import { Input } from "../../input"
+import { Label } from "../../label"
 
 interface LinkPopoverContentProps {
-  hrefInput: string;
-  setHrefInput: (value: string) => void;
-  hasExistingLink: boolean;
-  selectedText: string;
-  onApply: () => void;
-  onRemove: () => void;
+  hrefInput: string
+  setHrefInput: (value: string) => void
+  hasExistingLink: boolean
+  selectedText: string
+  onApply: () => void
+  onRemove: () => void
 }
 
 export function LinkPopoverContent({
@@ -32,10 +33,10 @@ export function LinkPopoverContent({
   return (
     <div className="space-y-3">
       <div>
-        <h4 className="font-medium text-sm mb-1">
-          {hasExistingLink ? 'Edit Link' : 'Add Link'}
+        <h4 className="mb-1 text-sm font-medium">
+          {hasExistingLink ? "Edit Link" : "Add Link"}
         </h4>
-        <p className="text-xs text-muted-foreground">
+        <p className="text-muted-foreground text-xs">
           Selected text: "{selectedText}"
         </p>
       </div>
@@ -49,8 +50,8 @@ export function LinkPopoverContent({
           value={hrefInput}
           onChange={(e) => setHrefInput(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              onApply();
+            if (e.key === "Enter") {
+              onApply()
             }
           }}
           className="flex-1"
@@ -65,20 +66,15 @@ export function LinkPopoverContent({
           size="sm"
           className="flex-1"
         >
-          <LinkIcon className="size-3.5 mr-1.5" />
-          {hasExistingLink ? 'Update' : 'Add Link'}
+          <LinkIcon className="mr-1.5 size-3.5" />
+          {hasExistingLink ? "Update" : "Add Link"}
         </Button>
         {hasExistingLink && (
-          <Button
-            onClick={onRemove}
-            variant="destructive"
-            size="sm"
-          >
+          <Button onClick={onRemove} variant="destructive" size="sm">
             <Trash2 className="size-3.5" />
           </Button>
         )}
       </div>
     </div>
-  );
+  )
 }
-

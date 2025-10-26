@@ -5,28 +5,34 @@
  * Can be used in toolbars, floating menus, and other UI elements
  */
 
-"use client";
+"use client"
 
-import React from "react";
+import React from "react"
+import {
+  Code,
+  Heading1,
+  Heading2,
+  Heading3,
+  List,
+  ListOrdered,
+  Quote,
+  Type,
+} from "lucide-react"
+
+import { cn } from "@/lib/utils"
+
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../select";
+} from "../select"
 import {
-  Type,
-  Heading1,
-  Heading2,
-  Heading3,
-  Quote,
-  Code,
-  List,
-  ListOrdered,
-} from "lucide-react";
-import { cn } from "@/lib/utils";
-import { ELEMENT_OPTIONS, type ElementType, type ElementOption } from "./elements";
+  ELEMENT_OPTIONS,
+  type ElementOption,
+  type ElementType,
+} from "./elements"
 
 // Icon mapping
 const iconMap: Record<string, React.ReactNode> = {
@@ -38,31 +44,31 @@ const iconMap: Record<string, React.ReactNode> = {
   Quote: <Quote className="h-4 w-4" />,
   List: <List className="h-4 w-4" />,
   ListOrdered: <ListOrdered className="h-4 w-4" />,
-};
+}
 
 // Helper to get icon with custom size
 const getIcon = (iconName?: string, iconSize?: string) => {
-  if (!iconName) return null;
-  const IconComponent = iconMap[iconName];
-  if (!IconComponent) return null;
-  
+  if (!iconName) return null
+  const IconComponent = iconMap[iconName]
+  if (!IconComponent) return null
+
   // Clone the icon with custom size if provided
   if (iconSize && React.isValidElement(IconComponent)) {
-    return React.cloneElement(IconComponent, { className: iconSize } as any);
+    return React.cloneElement(IconComponent, { className: iconSize } as any)
   }
-  return IconComponent;
-};
+  return IconComponent
+}
 
 interface ElementSelectorProps {
-  value: ElementType | null;
-  onValueChange: (value: ElementType) => void;
-  elements?: ElementOption[];
-  variant?: "default" | "compact" | "icon-only";
-  placeholder?: string;
-  className?: string;
-  disabled?: boolean;
-  showDescription?: boolean;
-  showIcon?: boolean;
+  value: ElementType | null
+  onValueChange: (value: ElementType) => void
+  elements?: ElementOption[]
+  variant?: "default" | "compact" | "icon-only"
+  placeholder?: string
+  className?: string
+  disabled?: boolean
+  showDescription?: boolean
+  showIcon?: boolean
 }
 
 export function ElementSelector({
@@ -77,7 +83,8 @@ export function ElementSelector({
   showIcon = true,
 }: ElementSelectorProps) {
   // Get the current element option
-  const currentElement = elements.find((el) => el.value === value) || elements[0];
+  const currentElement =
+    elements.find((el) => el.value === value) || elements[0]
 
   // Variant-specific styling
   const triggerClassName = cn(
@@ -88,7 +95,7 @@ export function ElementSelector({
       "h-9 w-9 border-0 bg-transparent hover:bg-accent/50 focus:ring-0 p-0",
     variant === "default" && "min-w-[140px]",
     className
-  );
+  )
 
   return (
     <Select
@@ -104,7 +111,8 @@ export function ElementSelector({
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              {showIcon && getIcon(currentElement.icon, currentElement.iconSize)}
+              {showIcon &&
+                getIcon(currentElement.icon, currentElement.iconSize)}
               <span
                 className={cn(
                   "font-normal",
@@ -122,28 +130,25 @@ export function ElementSelector({
           <SelectItem
             key={element.value}
             value={element.value}
-            className={cn(
-              "cursor-pointer",
-              showDescription && "py-2"
-            )}
+            className={cn("cursor-pointer", showDescription && "py-2")}
           >
-            <div className="flex items-start gap-2 w-full">
+            <div className="flex w-full items-start gap-2">
               {showIcon && (
-                <div className="mt-0.5 text-muted-foreground">
+                <div className="text-muted-foreground mt-0.5">
                   {getIcon(element.icon, element.iconSize)}
                 </div>
               )}
-              <div className="flex-1 min-w-0">
+              <div className="min-w-0 flex-1">
                 <div className="flex items-center justify-between gap-2">
                   <span className="font-medium">{element.label}</span>
                   {element.shortcut && (
-                    <span className="text-xs text-muted-foreground font-mono">
+                    <span className="text-muted-foreground font-mono text-xs">
                       {element.shortcut}
                     </span>
                   )}
                 </div>
                 {showDescription && element.description && (
-                  <p className="text-xs text-muted-foreground mt-0.5">
+                  <p className="text-muted-foreground mt-0.5 text-xs">
                     {element.description}
                   </p>
                 )}
@@ -153,10 +158,9 @@ export function ElementSelector({
         ))}
       </SelectContent>
     </Select>
-  );
+  )
 }
 
 // Re-export for convenience
-export { ELEMENT_OPTIONS };
-export type { ElementType, ElementOption };
-
+export { ELEMENT_OPTIONS }
+export type { ElementType, ElementOption }

@@ -7,7 +7,6 @@
  * @packageDocumentation
  */
 
-import { InsertPosition } from "../../utils/tree-operations"
 import {
   ContainerNode,
   CoverImage,
@@ -16,6 +15,7 @@ import {
   NodeAttributes,
   SelectionInfo,
 } from "../../types"
+import { InsertPosition } from "../../utils/tree-operations"
 
 /**
  * Updates a node's properties by ID.

@@ -1,25 +1,26 @@
 /**
  * CustomClassPopoverContent Component
- * 
+ *
  * Reusable custom class picker content for toolbar popovers
  */
 
-"use client";
+"use client"
 
-import React from "react";
-import { Search, Code2 } from "lucide-react";
-import { Input } from "../../input";
-import { Button } from "../../button";
-import { ScrollArea } from "../../scroll-area";
-import { Switch } from "../../switch";
+import React from "react"
+import { Code2, Search } from "lucide-react"
+
+import { Button } from "../../button"
+import { Input } from "../../input"
+import { ScrollArea } from "../../scroll-area"
+import { Switch } from "../../switch"
 
 interface CustomClassPopoverContentProps {
-  searchQuery: string;
-  setSearchQuery: (value: string) => void;
-  devMode: boolean;
-  setDevMode: (value: boolean) => void;
-  filteredClasses: any[];
-  onApplyClass: (className: string) => void;
+  searchQuery: string
+  setSearchQuery: (value: string) => void
+  devMode: boolean
+  setDevMode: (value: boolean) => void
+  filteredClasses: any[]
+  onApplyClass: (className: string) => void
 }
 
 export function CustomClassPopoverContent({
@@ -33,9 +34,9 @@ export function CustomClassPopoverContent({
   return (
     <div className="space-y-3">
       {/* Dev Mode Toggle */}
-      <div className="flex items-center justify-between pb-2 border-b">
+      <div className="flex items-center justify-between border-b pb-2">
         <div className="flex items-center gap-2">
-          <Code2 className="h-4 w-4 text-muted-foreground" />
+          <Code2 className="text-muted-foreground h-4 w-4" />
           <span className="text-sm font-medium">Dev Mode</span>
         </div>
         <Switch
@@ -46,7 +47,7 @@ export function CustomClassPopoverContent({
       </div>
 
       <div className="relative">
-        <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+        <Search className="text-muted-foreground absolute top-2.5 left-2 h-4 w-4" />
         <Input
           autoFocus
           placeholder={
@@ -68,7 +69,7 @@ export function CustomClassPopoverContent({
             <>
               {filteredClasses.map((group) => (
                 <div key={group.category}>
-                  <h4 className="text-xs font-semibold mb-2 text-muted-foreground">
+                  <h4 className="text-muted-foreground mb-2 text-xs font-semibold">
                     {group.category}
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
@@ -78,7 +79,7 @@ export function CustomClassPopoverContent({
                         variant="outline"
                         size="sm"
                         onClick={() => onApplyClass(cls)}
-                        className="text-xs h-6 px-2"
+                        className="h-6 px-2 text-xs"
                       >
                         {cls}
                       </Button>
@@ -92,7 +93,7 @@ export function CustomClassPopoverContent({
             <>
               {filteredClasses.map((group) => (
                 <div key={group.category}>
-                  <h4 className="text-xs font-semibold mb-2 text-muted-foreground">
+                  <h4 className="text-muted-foreground mb-2 text-xs font-semibold">
                     {group.category}
                   </h4>
                   <div className="flex flex-wrap gap-1.5">
@@ -103,7 +104,7 @@ export function CustomClassPopoverContent({
                           variant="outline"
                           size="sm"
                           onClick={() => onApplyClass(item.value)}
-                          className="text-xs h-6 px-2"
+                          className="h-6 px-2 text-xs"
                           title={`Applies: ${item.value}`}
                         >
                           {item.label}
@@ -116,13 +117,12 @@ export function CustomClassPopoverContent({
             </>
           )}
           {filteredClasses.length === 0 && (
-            <div className="text-center py-8 text-sm text-muted-foreground">
+            <div className="text-muted-foreground py-8 text-center text-sm">
               No classes found matching &quot;{searchQuery}&quot;
             </div>
           )}
         </div>
       </ScrollArea>
     </div>
-  );
+  )
 }
-

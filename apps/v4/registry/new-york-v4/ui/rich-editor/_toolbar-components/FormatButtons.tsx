@@ -1,32 +1,36 @@
 /**
  * FormatButtons Component
- * 
+ *
  * Reusable text formatting buttons (Bold, Italic, Underline, Strikethrough, Code)
  */
 
-"use client";
+"use client"
 
-import React from "react";
-import { Bold, Italic, Underline, Strikethrough, Code } from "lucide-react";
-import { Button } from "../../button";
+import React from "react"
+import { Bold, Code, Italic, Strikethrough, Underline } from "lucide-react"
+
+import { cn } from "@/lib/utils"
+
+import { Button } from "../../button"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../../tooltip";
-import { cn } from "@/lib/utils";
+} from "../../tooltip"
 
 interface FormatButtonsProps {
   formats: {
-    bold: boolean;
-    italic: boolean;
-    underline: boolean;
-    strikethrough: boolean;
-    code: boolean;
-  };
-  onFormat: (format: "bold" | "italic" | "underline" | "strikethrough" | "code") => void;
-  size?: "sm" | "md";
+    bold: boolean
+    italic: boolean
+    underline: boolean
+    strikethrough: boolean
+    code: boolean
+  }
+  onFormat: (
+    format: "bold" | "italic" | "underline" | "strikethrough" | "code"
+  ) => void
+  size?: "sm" | "md"
 }
 
 export function FormatButtons({
@@ -34,11 +38,11 @@ export function FormatButtons({
   onFormat,
   size = "md",
 }: FormatButtonsProps) {
-  const buttonSize = size === "sm" ? "h-7 w-7" : "h-8 w-8";
+  const buttonSize = size === "sm" ? "h-7 w-7" : "h-8 w-8"
 
   return (
     <TooltipProvider delayDuration={300}>
-      <div className="flex items-center gap-1 border-x border-x-border/50 px-2">
+      <div className="border-x-border/50 flex items-center gap-1 border-x px-2">
         <Tooltip>
           <TooltipTrigger asChild>
             <Button
@@ -46,8 +50,9 @@ export function FormatButtons({
               size="icon"
               className={cn(
                 buttonSize,
-                "rounded-md hover:bg-accent/50 transition-colors duration-75",
-                formats.bold && "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                "hover:bg-accent/50 rounded-md transition-colors duration-75",
+                formats.bold &&
+                  "bg-blue-100 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/30"
               )}
               onClick={() => onFormat("bold")}
             >
@@ -66,8 +71,9 @@ export function FormatButtons({
               size="icon"
               className={cn(
                 buttonSize,
-                "rounded-md hover:bg-accent/50 transition-colors duration-75",
-                formats.italic && "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                "hover:bg-accent/50 rounded-md transition-colors duration-75",
+                formats.italic &&
+                  "bg-blue-100 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/30"
               )}
               onClick={() => onFormat("italic")}
             >
@@ -86,8 +92,9 @@ export function FormatButtons({
               size="icon"
               className={cn(
                 buttonSize,
-                "rounded-md hover:bg-accent/50 transition-colors duration-75",
-                formats.underline && "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                "hover:bg-accent/50 rounded-md transition-colors duration-75",
+                formats.underline &&
+                  "bg-blue-100 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/30"
               )}
               onClick={() => onFormat("underline")}
             >
@@ -106,8 +113,9 @@ export function FormatButtons({
               size="icon"
               className={cn(
                 buttonSize,
-                "rounded-md hover:bg-accent/50 transition-colors duration-75",
-                formats.strikethrough && "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                "hover:bg-accent/50 rounded-md transition-colors duration-75",
+                formats.strikethrough &&
+                  "bg-blue-100 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/30"
               )}
               onClick={() => onFormat("strikethrough")}
             >
@@ -126,8 +134,9 @@ export function FormatButtons({
               size="icon"
               className={cn(
                 buttonSize,
-                "rounded-md hover:bg-accent/50 transition-colors duration-75",
-                formats.code && "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/30"
+                "hover:bg-accent/50 rounded-md transition-colors duration-75",
+                formats.code &&
+                  "bg-blue-100 text-blue-600 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-400 dark:hover:bg-blue-900/30"
               )}
               onClick={() => onFormat("code")}
             >
@@ -140,6 +149,5 @@ export function FormatButtons({
         </Tooltip>
       </div>
     </TooltipProvider>
-  );
+  )
 }
-
