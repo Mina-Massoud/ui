@@ -4,7 +4,7 @@
  * Functions for handling text selection and formatting in the editor
  */
 
-import { EditorActions } from "../reducer/actions"
+import { EditorActions } from "../lib/reducer/actions"
 import { ContainerNode, isTextNode, SelectionInfo, TextNode } from "../types"
 import { detectFormatsInRange, restoreSelection } from "../utils/editor-helpers"
 import { findNodeById } from "../utils/tree-operations"

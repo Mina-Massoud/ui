@@ -4,7 +4,7 @@
  * Functions for handling file uploads in the editor
  */
 
-import { EditorActions } from "../reducer/actions"
+import { EditorActions } from "../lib/reducer/actions"
 import { ContainerNode, TextNode } from "../types"
 import { uploadImage } from "../utils/image-upload"
 

@@ -14,32 +14,26 @@ import { Link as LinkIcon, MoreHorizontal, Type } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { useToast } from "@/hooks/use-toast"
 
-import {
-  EditorActions,
-  useEditorDispatch,
-  useEditorState,
-  type SelectionInfo,
-} from "../lib"
-import {
-  getUserFriendlyClasses,
-  searchUserFriendlyClasses,
-} from "../lib/class-mappings"
-import { tailwindClasses } from "../lib/tailwind-classes"
-import {
-  getReplacementInfo,
-  mergeClasses,
-} from "../lib/utils/class-replacement"
+import { Button } from "../button"
+import { Popover, PopoverContent, PopoverTrigger } from "../popover"
+import { Separator } from "../separator"
 import {
   CustomClassPopoverContent,
   FormatButtons,
   LinkPopoverContent,
 } from "./_toolbar-components"
-import { ColorPickerComponent } from "./ColorPicker"
-import { ElementSelector, type ElementType } from "./ElementSelector"
-import { FontSizePicker } from "./FontSizePicker"
-import { Button } from "./ui/button"
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover"
-import { Separator } from "./ui/separator"
+import {
+  getUserFriendlyClasses,
+  searchUserFriendlyClasses,
+} from "./class-mappings"
+import { ColorPickerComponent } from "./color-picker"
+import { ElementSelector, ElementType } from "./ElementSelector"
+import { FontSizePicker } from "./font-size-picker"
+import { EditorActions } from "./lib/reducer/actions"
+import { useEditorDispatch, useEditorState } from "./store/editor-store"
+import { tailwindClasses } from "./tailwind-classes"
+import { SelectionInfo } from "./types"
+import { getReplacementInfo, mergeClasses } from "./utils/class-replacement"
 
 interface SelectionToolbarProps {
   selection: SelectionInfo | null

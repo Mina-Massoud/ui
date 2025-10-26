@@ -14,8 +14,7 @@ import {
   hasInlineChildren,
   isTextNode,
   TextNode,
-} from "../types"
-import { applyFormatting } from "../utils/inline-formatting"
+} from "../../types"
 import {
   cloneNode,
   deleteNodeById,
@@ -23,7 +22,7 @@ import {
   insertNode,
   moveNode,
   updateNodeById,
-} from "../utils/tree-operations"
+} from "../../utils/tree-operations"
 import { EditorAction } from "./actions"
 
 /**

@@ -4,7 +4,7 @@
  * Functions for handling keyboard events in the editor
  */
 
-import { EditorActions } from "../reducer/actions"
+import { EditorActions } from "../lib/reducer/actions"
 import {
   ContainerNode,
   getNodeTextContent,

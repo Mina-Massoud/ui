@@ -979,7 +979,7 @@ export const Block = React.memo(
     }
 
     // Get the current node from store to check if its content changed
-    const { useEditorStore } = require("../lib/store/editor-store")
+    const { useEditorStore } = require("./store/editor-store")
     const store = useEditorStore.getState()
     const currentNode = store.getNode(nextProps.nodeId)
 

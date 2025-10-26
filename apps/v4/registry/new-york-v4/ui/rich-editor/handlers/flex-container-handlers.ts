@@ -4,7 +4,7 @@
  * Handles drag and drop operations for flex containers
  */
 
-import { EditorActions } from "../reducer/actions"
+import { EditorActions } from "../lib/reducer/actions"
 import { ContainerNode, isTextNode, TextNode } from "../types"
 import { findNodeAnywhere } from "../utils/editor-helpers"
 
