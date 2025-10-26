@@ -709,6 +709,7 @@ export const ui: Registry["items"] = [
       "@radix-ui/react-slot",
     ],
     registryDependencies: [
+      "alert-dialog",
       "button",
       "button-group",
       "card",
