@@ -764,17 +764,24 @@ export const Block = React.memo(
       suppressContentEditableWarning: true,
       ...(placeholder ? { placeholder } : {}),
       className: `!ml-5
-      ${isListItem ? "relative" : ""} 
-      ${getTypeClassName(textNode.type)}
-      ${className}
-      ${readOnly ? "" : "outline-none"}
-      ${isListItem ? "px-3 py-0.5 mb-1" : textNode.type.startsWith("h") ? "px-3 py-2 mb-2" : "px-3 py-1.5 mb-2"}
-      ${notionBased && isFirstBlock && textNode.type === "h1" ? "mt-8 pb-4" : ""}
-      transition-all
-      ${!readOnly && isActive ? "border-b bg-accent/5" : ""}
-      ${!readOnly ? "hover:bg-accent/5" : ""}
-      ${readOnly ? "cursor-default" : ""}
-    `,
+        ${isListItem ? "relative" : ""} 
+        ${getTypeClassName(textNode.type)}
+        ${className}
+        ${readOnly ? "" : "outline-none focus:outline-none"}
+        ${isListItem ? "px-3 py-0.5 mb-1 list-disc pl-6" : textNode.type.startsWith("h") ? "px-3 py-2 mb-2" : "px-3 py-1.5 mb-2"}
+        ${textNode.type === "ol" ? "list-decimal" : ""}
+        ${notionBased && isFirstBlock && textNode.type === "h1" ? "mt-8 pb-4" : ""}
+        transition-all
+        ${!readOnly && isActive ? "border-b bg-accent/5" : ""}
+        ${!readOnly ? "hover:bg-accent/5" : ""}
+        ${readOnly ? "cursor-default" : ""}
+        empty:before:content-[attr(placeholder)] empty:before:text-muted-foreground empty:before:opacity-40 empty:before:pointer-events-none
+        ${isListItem ? "empty:before:inline-block empty:before:pl-1" : ""}
+        [&[data-show-command-placeholder='true']]:empty:before:content-['Type_/_for_commands...'] [&[data-show-command-placeholder='true']]:empty:before:text-muted-foreground [&[data-show-command-placeholder='true']]:empty:before:opacity-50
+        ${isListItem ? "[&[data-show-command-placeholder='true']]:empty:before:inline-block [&[data-show-command-placeholder='true']]:empty:before:pl-1" : ""}
+        selection:bg-blue-100 selection:text-blue-900
+        [&::marker]:mr-2
+      `,
       style: {
         marginLeft: isListItem
           ? `${depth * 0.5 + 1.5}rem`
