@@ -1212,7 +1212,7 @@ export function createInitialState(
 
   // If no children provided or empty array, create a default empty heading
   if (!defaultChildren || defaultChildren.length === 0) {
-    const timestamp = Date.now()
+    const timestamp = "initial-header-node"
     const defaultNode: TextNode = {
       id: `h1-${timestamp}`,
       type: "h1",

@@ -1058,6 +1058,10 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
+      path: "registry/new-york-v4/ui/rich-editor/ElementSelector.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
       path: "registry/new-york-v4/ui/rich-editor/_toolbar-components/index.ts",
       type: "registry:ui",
       target: ""

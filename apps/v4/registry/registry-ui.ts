@@ -805,6 +805,10 @@ export const ui: Registry["items"] = [
         type: "registry:ui",
       },
       {
+        path: "ui/rich-editor/ElementSelector.tsx",
+        type: "registry:ui",
+      },
+      {
         path: "ui/rich-editor/_toolbar-components/index.ts",
         type: "registry:ui",
       },
