@@ -1020,19 +1020,19 @@ EditorProps = {}) {
           notionBased={notionBased}
           onNotionBasedChange={onNotionBasedChange}
         />
-        {/* Toolbar - hidden in readOnly mode */}
-        {!readOnly && (
-          <EditorToolbar
-            isUploading={isUploading}
-            onImageUploadClick={handleImageUploadClick}
-            onMultipleImagesUploadClick={handleMultipleImagesUploadClick}
-            onVideoUploadClick={handleVideoUploadClick}
-            onInsertComponentClick={handleInsertComponentClick}
-            onCreateList={handleCreateList}
-            onCreateTable={() => setTableDialogOpen(true)}
-          />
-        )}
-        <Card className="relative flex flex-1 flex-col gap-3 rounded-none border-2 py-0 shadow-2xl transition-all duration-300">
+        {/* Toolbar - always shown now with read-only toggle */}
+        <EditorToolbar
+          isUploading={isUploading}
+          readOnly={readOnly}
+          onReadOnlyChange={setReadOnly}
+          onImageUploadClick={handleImageUploadClick}
+          onMultipleImagesUploadClick={handleMultipleImagesUploadClick}
+          onVideoUploadClick={handleVideoUploadClick}
+          onInsertComponentClick={handleInsertComponentClick}
+          onCreateList={handleCreateList}
+          onCreateTable={() => setTableDialogOpen(true)}
+        />
+        <div className="relative flex flex-1 flex-col gap-3 rounded-none transition-all duration-300">
           {/* Table Dialog */}
           <TableDialog
             open={tableDialogOpen}
@@ -1091,9 +1091,7 @@ EditorProps = {}) {
 
           {/* Editor Content */}
           <CardContent
-            className={`mx-auto flex w-full flex-1 flex-col px-0 transition-all duration-300 ${
-              readOnly ? "py-14 md:py-20" : ""
-            }`}
+            className={`mx-auto flex w-full flex-1 flex-col px-0 transition-all duration-300`}
           >
             <div ref={editorContentRef} className="h-full">
               <>
@@ -1111,9 +1109,9 @@ EditorProps = {}) {
                     notionBased && coverImage
                       ? "pt-[280px] lg:pt-[420px]"
                       : notionBased
-                        ? "pt-[50px]"
+                        ? "pt-[30px]"
                         : "pt-4"
-                  } px-10 transition-all duration-300`}
+                  } relative px-10 transition-all duration-300`}
                 >
                   {container.children.map((node, index) => {
                     const isText = isTextNode(node)
@@ -1310,7 +1308,7 @@ EditorProps = {}) {
                 readOnly={readOnly}
               />
             ))}
-        </Card>
+        </div>
       </div>
 
       {/* Selection Toolbar - Floats above selected text (Notion-style) */}
@@ -1319,6 +1317,7 @@ EditorProps = {}) {
         <SelectionToolbar
           selection={currentSelection}
           selectedColor={selectedColor}
+          editorRef={editorContentRef}
           onFormat={handleFormat}
           onTypeChange={(type) => handleTypeChange(type as TextNode["type"])}
           onColorSelect={handleApplyColor}

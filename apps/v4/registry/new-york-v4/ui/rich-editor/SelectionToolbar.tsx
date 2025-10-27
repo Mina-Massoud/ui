@@ -38,6 +38,7 @@ import { getReplacementInfo, mergeClasses } from "./utils/class-replacement"
 interface SelectionToolbarProps {
   selection: SelectionInfo | null
   selectedColor: string
+  editorRef: React.RefObject<HTMLDivElement | null>
   onFormat: (
     format: "bold" | "italic" | "underline" | "strikethrough" | "code"
   ) => void
@@ -49,6 +50,7 @@ interface SelectionToolbarProps {
 export function SelectionToolbar({
   selection,
   selectedColor,
+  editorRef,
   onFormat,
   onTypeChange,
   onColorSelect,
@@ -111,31 +113,45 @@ export function SelectionToolbar({
       return
     }
 
+    // Get the editor container from ref
+    if (!editorRef.current) {
+      setIsVisible(false)
+      return
+    }
+
+    const editorRect = editorRef.current.getBoundingClientRect()
+
     // Calculate position above the selection
-    const toolbarHeight = 44 // Approximate toolbar height
+    const toolbarHeight = toolbarRef.current?.offsetHeight || 44 // Use actual toolbar height
     const gap = 8 // Gap between selection and toolbar
 
-    // Position toolbar centered above the selection
-    let left = rect.left + rect.width / 2
-    const top = rect.top + window.scrollY - toolbarHeight - gap
+    // Position toolbar centered above the selection, relative to editor container
+    let left = rect.left - editorRect.left + rect.width / 2
+    const top = rect.top - editorRect.top - toolbarHeight - gap
 
     // Adjust horizontal position if toolbar would go off-screen
     if (toolbarRef.current) {
       const toolbarWidth = toolbarRef.current.offsetWidth
       left = left - toolbarWidth / 2
 
-      // Keep toolbar within viewport
+      // Keep toolbar within editor container bounds
       const padding = 16
       if (left < padding) {
         left = padding
-      } else if (left + toolbarWidth > window.innerWidth - padding) {
-        left = window.innerWidth - toolbarWidth - padding
+      } else if (left + toolbarWidth > editorRect.width - padding) {
+        left = editorRect.width - toolbarWidth - padding
       }
     }
 
     setPosition({ top, left })
     setIsVisible(true)
-  }, [selection, linkPopoverOpen, customClassPopoverOpen, position.top])
+  }, [
+    selection,
+    linkPopoverOpen,
+    customClassPopoverOpen,
+    position.top,
+    editorRef,
+  ])
 
   // Link handlers
   const handleApplyLink = () => {

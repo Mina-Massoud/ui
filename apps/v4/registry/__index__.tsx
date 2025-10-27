@@ -8362,18 +8362,18 @@ export const Index: Record<string, any> = {
     categories: undefined,
     meta: undefined,
   },
-  "rich-editor-readonly-demo": {
-    name: "rich-editor-readonly-demo",
+  "rich-editor-with-content-demo": {
+    name: "rich-editor-with-content-demo",
     description: "",
     type: "registry:example",
     registryDependencies: ["rich-editor"],
     files: [{
-      path: "registry/new-york-v4/examples/rich-editor-readonly-demo.tsx",
+      path: "registry/new-york-v4/examples/rich-editor-with-content-demo.tsx",
       type: "registry:example",
       target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/examples/rich-editor-readonly-demo.tsx")
+      const mod = await import("@/registry/new-york-v4/examples/rich-editor-with-content-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),
@@ -8392,6 +8392,24 @@ export const Index: Record<string, any> = {
     }],
     component: React.lazy(async () => {
       const mod = await import("@/registry/new-york-v4/examples/rich-editor-custom-upload-demo.tsx")
+      const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
+      return { default: mod.default || mod[exportName] }
+    }),
+    categories: undefined,
+    meta: undefined,
+  },
+  "rich-editor-readonly-demo": {
+    name: "rich-editor-readonly-demo",
+    description: "",
+    type: "registry:example",
+    registryDependencies: ["rich-editor"],
+    files: [{
+      path: "registry/new-york-v4/examples/rich-editor-readonly-demo.tsx",
+      type: "registry:example",
+      target: ""
+    }],
+    component: React.lazy(async () => {
+      const mod = await import("@/registry/new-york-v4/examples/rich-editor-readonly-demo.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

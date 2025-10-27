@@ -1,12 +1,12 @@
 ---
 title: Rich Editor
-description: A powerful, block-based rich text editor with tables, images, formatting, and mobile-optimized UX.
+description: A powerful, block-based rich text editor built entirely with Tailwind CSS and shadcn/ui. Features Notion-style editing, tables, images, custom classes, and more.
 component: true
 ---
 
 <ComponentPreview
   name="rich-editor-demo"
-  description="A comprehensive block-based rich text editor with demo content"
+  description="Basic editor with Notion-style mode enabled (empty state)"
 />
 
 ## Installation
@@ -35,41 +35,75 @@ See [Dark Mode Setup](/docs/dark-mode/next) for detailed instructions on configu
 
 ## Usage
 
+### Basic Editor (Empty State)
+
+Start with an empty editor in Notion mode:
+
 ```tsx showLineNumbers
 import { EditorProvider } from "@/components/ui/rich-editor"
-import type { ContainerNode } from "@/components/ui/rich-editor"
 import { Editor } from "@/components/ui/rich-editor/editor"
-
-  const handleImageUpload = async (file: File): Promise<string> => {
-    // Simulate upload delay (1000ms)
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
-    // In production, you would:
-    // 1. Upload to your backend API
-    // 2. Return the permanent URL
-    // Example:
-    // const formData = new FormData();
-    // formData.append('image', file);
-    // const response = await fetch('/api/upload', {
-    //   method: 'POST',
-    //   body: formData
-    // });
-    // const data = await response.json();
-    // return data.url;
-
-    // For demo purposes, return a data URL
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  };
 
 export default function MyEditor() {
   return (
     <EditorProvider>
-        <Editor onUploadImage={handleImageUpload} />
+      <Editor notionBased />
+    </EditorProvider>
+  )
+}
+```
+
+### Editor with Initial Content
+
+Load the editor with pre-existing content:
+
+```tsx showLineNumbers
+import { EditorProvider } from "@/components/ui/rich-editor"
+import type { ContainerNode } from "@/components/ui/rich-editor"
+import { createDemoContent } from "@/components/ui/rich-editor/demo-content"
+import { Editor } from "@/components/ui/rich-editor/editor"
+
+export default function MyEditor() {
+  const initialContainer: ContainerNode = {
+    id: "root",
+    type: "container",
+    children: createDemoContent(),
+    attributes: {},
+  }
+
+  return (
+    <EditorProvider initialContainer={initialContainer}>
+      <Editor notionBased />
+    </EditorProvider>
+  )
+}
+```
+
+### Custom Upload Handler
+
+Integrate with your backend for image and video uploads using a single handler:
+
+```tsx showLineNumbers
+import { EditorProvider } from "@/components/ui/rich-editor"
+import { Editor } from "@/components/ui/rich-editor/editor"
+
+export default function MyEditor() {
+  const handleUpload = async (file: File): Promise<string> => {
+    // Upload to your backend API (handles both images and videos)
+    const formData = new FormData()
+    formData.append("file", file)
+
+    const response = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    })
+
+    const data = await response.json()
+    return data.url // Return the permanent URL
+  }
+
+  return (
+    <EditorProvider>
+      <Editor notionBased onUploadImage={handleUpload} />
     </EditorProvider>
   )
 }
@@ -77,27 +111,56 @@ export default function MyEditor() {
 
 ## Features
 
-- ✨ **Block-based architecture** - Drag & drop blocks with intuitive organization
-- 📝 **Rich text formatting** - Bold, italic, underline, strikethrough, colors, and font sizes
-- 📊 **Advanced tables** - Drag columns/rows, resize, markdown import, and cell formatting
-- 🖼️ **Image management** - Multi-select with Ctrl+Click, drag & drop, custom upload handlers
-- 🎨 **Custom Tailwind classes** - Built-in class picker with live preview
-- 🔗 **Smart links** - Easy link insertion with automatic protocol handling
-- ⌨️ **Keyboard shortcuts** - Full keyboard navigation and formatting shortcuts
-- 📱 **Mobile optimized** - Sheet drawers, touch-friendly controls, automatic keyboard management
-- 🌙 **Dark mode** - Full dark mode support out of the box
-- 🔄 **Undo/Redo** - Complete history management with Ctrl+Z/Ctrl+Y
-- 📤 **HTML export** - Export your content to clean HTML
+### ✨ Version 0.2.0 - New Features!
+
+- **🎨 Notion-Style Mode** - Cover images and enhanced first-block styling
+- **🖼️ Free-Floating Images** - Drag images anywhere with resize handles and z-index control
+- **📝 Simplified Lists** - Easy-to-use bulleted (li) and numbered (ol) lists
+- **🎯 Template Switcher** - Blog, Gallery, and Halloween templates with one-click switching
+- **🐛 Mobile Drag & Drop** - Full touch support with visual feedback
+- **✨ Bug Fixes** - Selection improvements, better image handling, enhanced video blocks
+
+### Core Features
+
+- **📋 Block-Based Architecture** - Every element is an independent, draggable block
+- **✨ Rich Text Formatting** - Bold, italic, underline, strikethrough, and combinations
+- **🎨 Inline Element Types** - Mix H1-H6 styles and inline code within paragraphs
+- **🎨 Color Support** - Preset Tailwind colors + custom hex/RGB colors
+- **📏 Font Size Control** - Preset sizes + custom pixel values
+- **🎨 Background Colors** - Apply backgrounds to any block with presets or custom colors
+- **📊 Advanced Tables** - Drag columns/rows, resize, markdown import, and cell formatting
+- **🖼️ Image Management** - Multi-select with Ctrl+Click, drag & drop, grid layouts, free positioning
+- **🔗 Smart Links** - Modern link popover with URL management
+- **✏️ Custom Tailwind Classes** - Apply any Tailwind class with smart class picker
+- **⌨️ Keyboard Shortcuts** - Full keyboard navigation and formatting shortcuts
+- **📱 Mobile Optimized** - Sheet drawers, touch-friendly controls, automatic keyboard management
+- **🌙 Dark Mode** - Full dark mode support out of the box
+- **🔄 Undo/Redo** - Complete history management with Ctrl+Z/Ctrl+Y
+- **📤 HTML Export** - Export your content to clean, semantic HTML
+- **👁️ Read-Only Mode** - Perfect for displaying published content
 
 ## Examples
 
-### Read-Only Mode
+### Editor with Content
 
-<ComponentPreview name="rich-editor-readonly-demo" />
+<ComponentPreview
+  name="rich-editor-with-content-demo"
+  description="Editor loaded with comprehensive demo content showcasing all features"
+/>
 
 ### Custom Upload Handler
 
-<ComponentPreview name="rich-editor-custom-upload-demo" />
+<ComponentPreview
+  name="rich-editor-custom-upload-demo"
+  description="Editor with custom upload handler for images and videos"
+/>
+
+### Read-Only Mode
+
+<ComponentPreview
+  name="rich-editor-readonly-demo"
+  description="Display content without editing capabilities"
+/>
 
 ## API Reference
 
@@ -115,10 +178,11 @@ Wraps your editor and provides the context for all editor operations.
 
 The main editor component that renders the editing interface.
 
-| Prop            | Type                              | Default | Description                                                              |
-| --------------- | --------------------------------- | ------- | ------------------------------------------------------------------------ |
-| `readOnly`      | `boolean`                         | `false` | Enable read-only mode (disables editing)                                 |
-| `onUploadImage` | `(file: File) => Promise<string>` | -       | Custom image upload handler. Should return the URL of the uploaded image |
+| Prop            | Type                              | Default | Description                                                                      |
+| --------------- | --------------------------------- | ------- | -------------------------------------------------------------------------------- |
+| `readOnly`      | `boolean`                         | `false` | Enable read-only mode (disables editing)                                         |
+| `notionBased`   | `boolean`                         | `true`  | Enable Notion-style mode with cover images and enhanced styling                  |
+| `onUploadImage` | `(file: File) => Promise<string>` | -       | Custom upload handler for images and videos. Should return the URL of the upload |
 
 ### ContainerNode
 
@@ -138,73 +202,105 @@ interface ContainerNode {
 Editor nodes can be text blocks, images, tables, flex containers, or nested containers.
 
 ```tsx
-type EditorNode =
-  | TextNode
-  | ImageNode
-  | TableNode
-  | FlexContainerNode
-  | ContainerNode
+type EditorNode = TextNode | ContainerNode
+
+interface TextNode {
+  id: string
+  type:
+    | "p"
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "blockquote"
+    | "code"
+    | "li"
+    | "ol"
+    | "table"
+    | "thead"
+    | "tbody"
+    | "tr"
+    | "th"
+    | "td"
+    | "img"
+    | "video"
+  content?: string
+  children?: InlineNode[]
+  attributes?: Record<string, any>
+  styles?: Record<string, string>
+}
+
+interface InlineNode {
+  content: string
+  bold?: boolean
+  italic?: boolean
+  underline?: boolean
+  strikethrough?: boolean
+  code?: boolean
+  elementType?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6" | "code"
+  href?: string
+  className?: string
+  styles?: Record<string, string>
+}
 ```
 
 ## Keyboard Shortcuts
 
-| Shortcut               | Action                 |
-| ---------------------- | ---------------------- |
-| `Ctrl/Cmd + B`         | Toggle bold            |
-| `Ctrl/Cmd + I`         | Toggle italic          |
-| `Ctrl/Cmd + U`         | Toggle underline       |
-| `Ctrl/Cmd + Z`         | Undo                   |
-| `Ctrl/Cmd + Shift + Z` | Redo                   |
-| `Shift + Enter`        | Create nested block    |
-| `Ctrl/Cmd + K`         | Insert link            |
-| `Ctrl + Click`         | Multi-select images    |
-| `Delete/Backspace`     | Delete selected blocks |
+| Shortcut               | Action                      |
+| ---------------------- | --------------------------- |
+| `Ctrl/Cmd + B`         | Toggle bold                 |
+| `Ctrl/Cmd + I`         | Toggle italic               |
+| `Ctrl/Cmd + U`         | Toggle underline            |
+| `Ctrl/Cmd + Z`         | Undo                        |
+| `Ctrl/Cmd + Shift + Z` | Redo                        |
+| `Enter`                | Create new block after      |
+| `Shift + Enter`        | Create nested block         |
+| `Ctrl/Cmd + K`         | Insert link                 |
+| `Ctrl + Click`         | Multi-select images         |
+| `Delete/Backspace`     | Delete block (when empty)   |
+| `- ` (dash space)      | Convert to bulleted list    |
+| `1. ` (number period)  | Convert to numbered list    |
+| `/`                    | Open command menu (planned) |
 
 ## Block Types
 
 The editor supports the following block types:
 
-- **Text Block** - Paragraph, heading, list item with rich formatting
-- **Image Block** - Single or grouped images with captions
-- **Table Block** - Full-featured tables with drag, resize, and formatting
-- **Flex Container** - Layout container for side-by-side content
-- **Nested Container** - Nested blocks for hierarchical content
+- **Paragraph (p)** - Standard text content with inline formatting
+- **Headings (h1-h6)** - Six levels of headings for document structure
+- **Blockquote** - Styled quotes and callouts with custom backgrounds
+- **Code Block** - Syntax-friendly code display
+- **Lists (li/ol)** - Bulleted and numbered lists with auto-conversion
+- **Table** - Full-featured tables with drag, resize, and formatting
+- **Image** - Single images, grid layouts, and free-positioned images
+- **Video** - Embedded video with playback controls
+- **Container** - Nested blocks for hierarchical content organization
 
 ## Customization
-
-### Custom Image Upload
-
-Provide your own upload handler to integrate with your backend:
-
-```tsx showLineNumbers
-async function handleUpload(file: File): Promise<string> {
-  const formData = new FormData()
-  formData.append("image", file)
-
-  const response = await fetch("/api/upload", {
-    method: "POST",
-    body: formData,
-  })
-
-  const data = await response.json()
-  return data.url
-}
-
-;<Editor onUploadImage={handleUpload} />
-```
 
 ### Accessing Editor State
 
 Access the editor state and actions through the context:
 
 ```tsx showLineNumbers
-import { useEditor } from "@/components/ui/rich-editor"
+import {
+  useEditorState,
+  useEditorDispatch,
+  useContainer,
+} from "@/components/ui/rich-editor/store/editor-store"
 
 function MyComponent() {
-  const { state, dispatch } = useEditor()
+  const state = useEditorState()
+  const dispatch = useEditorDispatch()
+  const container = useContainer()
 
   // Access current content
-  console.log(state.container)
+  console.log(container)
+
+  // Access selection
+  console.log(state.currentSelection)
 
   // Dispatch actions
   dispatch({ type: "ADD_BLOCK", payload: { ... } })
@@ -218,8 +314,79 @@ Export your content to HTML for storage or display:
 ```tsx showLineNumbers
 import { serializeToHTML } from "@/components/ui/rich-editor/utils/serialize-to-html"
 
-const html = serializeToHTML(state.container)
+const html = serializeToHTML(container)
 ```
+
+### Custom Classes
+
+Apply any Tailwind CSS class to text or blocks using the Custom Class Popover:
+
+1. Select text
+2. Click the pencil icon (✏️) in the selection toolbar
+3. Search for classes or type custom ones
+4. Apply gradients, shadows, borders, backgrounds, and more!
+
+Example classes you can apply:
+
+- **Gradients**: `bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent`
+- **Shadows**: `drop-shadow-lg text-blue-600`
+- **Borders**: `border-2 border-green-600 px-2 rounded`
+- **Backgrounds**: `bg-yellow-200 dark:bg-yellow-800 px-2 py-1 rounded`
+
+## Notion-Style Mode
+
+Enable Notion-style features with the `notionBased` prop:
+
+```tsx
+<Editor notionBased />
+```
+
+Features in Notion mode:
+
+- **Cover Images** - Beautiful header images with drag-to-reposition
+- **First Block Styling** - Automatic large heading for document titles
+- **Enhanced Spacing** - Optimized padding and margins
+- **Modern Layout** - Centered content with proper max-width
+
+## Templates
+
+The editor includes pre-designed templates accessible via the Template Switcher button:
+
+### Blog Template
+
+Perfect for articles and blog posts with:
+
+- Professional typography
+- Metadata sections
+- Table of contents structure
+- Code examples
+
+### Gallery Template
+
+Ideal for photographers and artists:
+
+- Image-focused layout
+- Multiple grid configurations
+- Caption support
+- Portfolio-ready design
+
+### Halloween Template
+
+Festive seasonal design with:
+
+- Themed colors and styling
+- Special decorative elements
+- Holiday-appropriate content
+
+## Mobile Optimization
+
+The editor is fully optimized for mobile devices:
+
+- **Touch-Friendly Controls** - Large tap targets for all buttons
+- **Sheet Drawers** - Mobile-optimized panels for tables, images, and settings
+- **Drag & Drop** - Full touch support with visual feedback
+- **Keyboard Management** - Automatic keyboard handling for inputs
+- **Responsive Layout** - Adapts seamlessly to all screen sizes
 
 ## Notes
 
@@ -227,10 +394,28 @@ const html = serializeToHTML(state.container)
 - Images are stored as **base64** by default. Provide a custom upload handler for production use.
 - The editor is **mobile-responsive** and uses Sheet components on smaller screens.
 - All colors and classes use **Tailwind CSS** and follow shadcn/ui design patterns.
+- Built with **TypeScript** for excellent IntelliSense and type safety.
+- State management uses **reducers** for predictable updates and undo/redo support.
+
+## Demo Content
+
+The `createDemoContent()` function returns a comprehensive example document showcasing:
+
+- All text formatting options
+- Every block type
+- Color and font size examples
+- Image layouts
+- Tables
+- Nested containers
+- Links and custom classes
+- Keyboard shortcuts reference
+- Feature documentation
+
+Perfect for testing and learning how to structure your own content!
 
 ## Credits
 
 Created by **Mina Massoud**
 
-- 🔗 [Portfolio](https://mina-massoud.com/)
+- 🌐 [Portfolio](https://mina-massoud.com/)
 - ⭐ [GitHub](https://github.com/Mina-Massoud)

@@ -51,7 +51,7 @@ export function createDemoContent(
     {
       id: `h1-${timestamp}-1`,
       type: "h1",
-      content: "✨ Mina Rich Editor",
+      content: "✨ Rich Text Editor",
       attributes: {},
     } as TextNode,
 
@@ -81,17 +81,6 @@ export function createDemoContent(
     } as TextNode,
 
     {
-      id: `img-${timestamp}-version-celebration`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/freakandy.gif",
-        alt: "Celebration animation",
-        caption: "🎉 Celebrating v0.2.0 release!",
-      },
-    } as TextNode,
-
-    {
       id: `h2-${timestamp}-version-2`,
       type: "h2",
       content: "🆕 What's New in v0.2.0",
@@ -104,17 +93,6 @@ export function createDemoContent(
       content:
         "Quick-start your content with beautiful pre-designed templates. Switch between templates instantly and customize to your needs:",
       attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-version-3b`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/template-dialog.png",
-        alt: "Template selection dialog",
-        caption: "📄 Choose from multiple pre-designed templates",
-      },
     } as TextNode,
 
     {
@@ -170,17 +148,6 @@ export function createDemoContent(
     } as TextNode,
 
     {
-      id: `img-${timestamp}-version-3f`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/blog-template-showcase.png",
-        alt: "Blog template showcase",
-        caption: "📝 Blog template with structured content and metadata",
-      },
-    } as TextNode,
-
-    {
       id: `h4-${timestamp}-version-3g`,
       type: "h3",
       content: "🖼️ Gallery Template",
@@ -193,17 +160,6 @@ export function createDemoContent(
       content:
         "Perfect for photographers and artists - showcase your work in stunning image collections:",
       attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-version-3i`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/gallery-template-showcase.png",
-        alt: "Gallery template showcase",
-        caption: "🖼️ Gallery template with organized photo collections",
-      },
     } as TextNode,
 
     {
@@ -335,18 +291,6 @@ export function createDemoContent(
         { content: " from the insert component dialog:", bold: false },
       ],
       attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-version-5d`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/insert-component.png",
-        alt: "Insert Component dialog showing Free Movement Image option",
-        caption:
-          "➕ Click the plus icon in the toolbar to access the Insert Component dialog",
-      },
     } as TextNode,
 
     {
@@ -719,9 +663,9 @@ export function createDemoContent(
       id: `p-${timestamp}-2`,
       type: "p",
       children: [
-        { content: "The ", bold: false },
+        { content: "A ", bold: false },
         {
-          content: "first block-based rich text editor",
+          content: "modern block-based rich text editor",
           bold: true,
           className: "text-blue-600 dark:text-blue-400",
         },
@@ -737,12 +681,7 @@ export function createDemoContent(
           bold: true,
           className: "text-purple-600 dark:text-purple-400",
         },
-        { content: ". Created by ", bold: false },
-        {
-          content: "Mina Massoud",
-          bold: true,
-          className: "text-orange-600 dark:text-orange-400",
-        },
+        { content: ".", bold: false },
       ],
       attributes: {},
     } as TextNode,
@@ -806,19 +745,9 @@ export function createDemoContent(
           className: "text-green-600 dark:text-green-400",
         },
         {
-          content:
-            "Feel free to contribute UI components for these features on ",
+          content: "Feel free to contribute UI components for these features.",
           italic: true,
         },
-        {
-          content: "GitHub",
-          italic: true,
-          bold: true,
-          underline: true,
-          href: "https://github.com/Mina-Massoud/mina-rich-editor",
-          className: "text-blue-600 dark:text-blue-400",
-        },
-        { content: ".", italic: true },
       ],
       attributes: {
         className: "bg-red-50 dark:bg-red-900/20 border-l-4 border-red-600",
@@ -866,18 +795,6 @@ export function createDemoContent(
         },
       ],
       attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-13`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/block-bold-italic-underline-color.png",
-        alt: "Text formatting toolbar showing bold, italic, underline, and color picker options",
-        caption:
-          "🎨 Select text to reveal the formatting toolbar with bold, italic, underline, and color options",
-      },
     } as TextNode,
 
     // ========================================
@@ -1110,18 +1027,6 @@ console.log(message);`,
     } as TextNode,
 
     {
-      id: `img-${timestamp}-43`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/element-type-select.png",
-        alt: "Element type selector dropdown showing options for h1, h2, h3, h4, h5, h6, p, code, and blockquote",
-        caption:
-          "📋 Select text and use the element type dropdown to apply heading styles inline",
-      },
-    } as TextNode,
-
-    {
       id: `code-${timestamp}-44`,
       type: "code",
       content: `// Inline element types structure
@@ -1185,18 +1090,6 @@ const richParagraph = {
     } as TextNode,
 
     {
-      id: `img-${timestamp}-48`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/custom-class.png",
-        alt: "Pencil icon appearing next to selected text for accessing custom class popover",
-        caption:
-          "✏️ The smart pencil icon appears when you select text - click it to customize styles",
-      },
-    } as TextNode,
-
-    {
       id: `h3-${timestamp}-49`,
       type: "h3",
       content: "🎨 Custom Class Popover",
@@ -1209,18 +1102,6 @@ const richParagraph = {
       content:
         "The Custom Class Popover gives you complete control over text styling with preset Tailwind classes organized by category:",
       attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-51`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/custom-class-2-popver-opened-state.png",
-        alt: "Custom class popover showing text colors, background colors, font sizes, and search functionality",
-        caption:
-          "🎨 Custom Class Popover with organized preset classes and search functionality",
-      },
     } as TextNode,
 
     {
@@ -1288,18 +1169,6 @@ const richParagraph = {
       content:
         "With custom classes, you can create stunning text effects and perfect typography:",
       attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-55`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/much-better-result.png",
-        alt: "Example of beautifully styled text using custom Tailwind classes with mixed heading styles",
-        caption:
-          "✨ Beautiful results with custom Tailwind classes - perfectly styled inline elements",
-      },
     } as TextNode,
 
     {
@@ -1546,18 +1415,6 @@ const styledText = {
       attributes: {},
     } as TextNode,
 
-    {
-      id: `img-${timestamp}-56`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/color-picker.png",
-        alt: "Color picker popover showing preset Tailwind colors and custom color selector",
-        caption:
-          "🎨 Beautiful color picker with preset Tailwind colors and custom color selection",
-      },
-    } as TextNode,
-
     // ========================================
     // FONT SIZE SECTION
     // ========================================
@@ -1614,18 +1471,6 @@ const styledText = {
         },
       ],
       attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-63`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/font-size-controller.png",
-        alt: "Font size picker with preset sizes and custom input",
-        caption:
-          "📏 Font size controller with preset sizes and custom value input",
-      },
     } as TextNode,
 
     // ========================================
@@ -1712,60 +1557,49 @@ const styledText = {
       id: `p-${timestamp}-82`,
       type: "p",
       children: [
-        { content: "Visit ", bold: false },
+        { content: "You can create clickable links like ", bold: false },
         {
-          content: "Mina's Portfolio",
+          content: "this example link",
           bold: true,
           underline: true,
-          href: "https://mina-massoud.com/",
+          href: "https://example.com/",
           className: "text-blue-600 dark:text-blue-400",
         },
-        { content: " to see more projects, or check out ", bold: false },
+        { content: " or ", bold: false },
         {
-          content: "Mina Scheduler",
+          content: "another link",
           bold: true,
           underline: true,
-          href: "https://github.com/Mina-Massoud/mina-scheduler",
+          href: "https://example.com/page",
           className: "text-purple-600 dark:text-purple-400",
         },
-        { content: " on GitHub!", bold: false },
+        { content: " anywhere in your content!", bold: false },
       ],
       attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-83`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/modern-link-popover.png",
-        alt: "Modern link popover with URL input and save button",
-        caption: "🔗 Modern link popover for adding and editing URLs",
-      },
     } as TextNode,
 
     {
       id: `p-${timestamp}-84`,
       type: "p",
       children: [
-        { content: "Social Links: ", bold: true },
+        { content: "Multiple links: ", bold: true },
         {
-          content: "GitHub",
-          href: "https://github.com/Mina-Massoud",
+          content: "Link One",
+          href: "https://example.com/one",
           underline: true,
           className: "text-gray-800 dark:text-gray-200",
         },
         { content: " • ", bold: false },
         {
-          content: "LinkedIn",
-          href: "https://linkedin.com/in/mina-melad/",
+          content: "Link Two",
+          href: "https://example.com/two",
           underline: true,
           className: "text-blue-600 dark:text-blue-400",
         },
         { content: " • ", bold: false },
         {
-          content: "Portfolio",
-          href: "https://mina-massoud.com/",
+          content: "Link Three",
+          href: "https://example.com/three",
           underline: true,
           className: "text-purple-600 dark:text-purple-400",
         },
@@ -1789,50 +1623,6 @@ const styledText = {
       content:
         "Upload and manage images with ease. The editor supports single images, grid layouts, and drag-and-drop reordering:",
       attributes: {},
-    } as TextNode,
-
-    {
-      id: `h3-${timestamp}-92`,
-      type: "h3",
-      content: "Single Image",
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-93`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/preview-export-code.png",
-        alt: "Preview of HTML export feature with formatted code",
-        caption: "📤 Example of the HTML export preview feature",
-      },
-    } as TextNode,
-
-    {
-      id: `h3-${timestamp}-94`,
-      type: "h3",
-      content: "Image Grid Layout",
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `p-${timestamp}-95`,
-      type: "p",
-      content:
-        "Create beautiful image galleries with automatic grid layout. Drag and drop images to reorder them:",
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-96`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/image-grid.png",
-        alt: "Image grid layout showing multiple images in a responsive grid",
-        caption: "📸 Image grid with drag-and-drop reordering support",
-      },
     } as TextNode,
 
     {
@@ -2134,17 +1924,6 @@ function MyComponent() {
   return <div dangerouslySetInnerHTML={{ __html: html }} />;
 }`,
       attributes: {},
-    } as TextNode,
-
-    {
-      id: `img-${timestamp}-133`,
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/image_docs/preview-export-code.png",
-        alt: "HTML export preview showing formatted code output",
-        caption: "📤 Preview and copy HTML export code with one click",
-      },
     } as TextNode,
 
     // ========================================
@@ -2623,279 +2402,6 @@ const initialContent = {
     } as TextNode,
 
     // ========================================
-    // ABOUT THE CREATOR
-    // ========================================
-    {
-      id: `h2-${timestamp}-180`,
-      type: "h2",
-      content: "👨‍💻 About the Creator",
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `p-${timestamp}-181`,
-      type: "p",
-      children: [
-        { content: "Built with ❤️ by ", bold: false },
-        {
-          content: "Mina Massoud",
-          bold: true,
-          className: "text-blue-600 dark:text-blue-400",
-        },
-        {
-          content: " - Frontend Developer based in Cairo, Egypt 🇪🇬",
-          bold: false,
-        },
-      ],
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `blockquote-${timestamp}-182`,
-      type: "blockquote",
-      children: [
-        { content: '"', bold: false },
-        {
-          content:
-            "22 years old guy with alot of passion to change people's lives'! 😄",
-          italic: true,
-        },
-        { content: '"', bold: false },
-      ],
-      attributes: {
-        className:
-          "bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/30 dark:to-blue-900/30 border-l-4 border-purple-600",
-      },
-    } as TextNode,
-
-    {
-      id: `h3-${timestamp}-183`,
-      type: "h3",
-      content: "Connect with Me",
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `container-${timestamp}-184`,
-      type: "container",
-      attributes: {
-        listType: "ul",
-      },
-      children: [
-        {
-          id: `li-${timestamp}-184-1`,
-          type: "li",
-          children: [
-            { content: "🌐 Portfolio: ", bold: false },
-            {
-              content: "mina-massoud.com",
-              bold: true,
-              underline: true,
-              href: "https://mina-massoud.com/",
-              className: "text-blue-600 dark:text-blue-400",
-            },
-          ],
-          attributes: {},
-        } as TextNode,
-        {
-          id: `li-${timestamp}-184-2`,
-          type: "li",
-          children: [
-            { content: "💼 LinkedIn: ", bold: false },
-            {
-              content: "linkedin.com/in/mina-melad",
-              bold: true,
-              underline: true,
-              href: "https://linkedin.com/in/mina-melad/",
-              className: "text-blue-600 dark:text-blue-400",
-            },
-          ],
-          attributes: {},
-        } as TextNode,
-        {
-          id: `li-${timestamp}-184-3`,
-          type: "li",
-          children: [
-            { content: "💻 GitHub: ", bold: false },
-            {
-              content: "github.com/Mina-Massoud",
-              bold: true,
-              underline: true,
-              href: "https://github.com/Mina-Massoud",
-              className: "text-blue-600 dark:text-blue-400",
-            },
-          ],
-          attributes: {},
-        } as TextNode,
-      ],
-    } as ContainerNode,
-
-    // Free-positioned spider decoration
-    {
-      id: "",
-      type: "img",
-      content: "",
-      attributes: {
-        src: "/templates/haloween/Halloween-Noicon.gif",
-        alt: "Halloween spider decoration",
-        isFreePositioned: true,
-        styles: {
-          left: "140px",
-          top: "0px",
-          width: "150px",
-          height: "auto",
-          position: "fixed",
-          zIndex: "10",
-        },
-      },
-    } as TextNode,
-
-    // ========================================
-    // MINA SCHEDULER
-    // ========================================
-    {
-      id: `h2-${timestamp}-190`,
-      type: "h2",
-      content: "📅 Discover Mina Scheduler",
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `p-${timestamp}-191`,
-      type: "p",
-      content:
-        "If you love this Rich Editor, check out my other powerful library - a fully customizable calendar scheduler for React!",
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `container-${timestamp}-192`,
-      type: "container",
-      attributes: {
-        listType: "ul",
-      },
-      children: [
-        {
-          id: `li-${timestamp}-192-1`,
-          type: "li",
-          children: [
-            { content: "⭐ 560+ Stars on GitHub", bold: true },
-            { content: " - Trusted by developers worldwide", bold: false },
-          ],
-          attributes: {},
-        } as TextNode,
-        {
-          id: `li-${timestamp}-192-2`,
-          type: "li",
-          content: "🎨 Built with Next UI & shadcn/ui",
-          attributes: {},
-        } as TextNode,
-        {
-          id: `li-${timestamp}-192-3`,
-          type: "li",
-          content: "📆 Day, Week, Month Views",
-          attributes: {},
-        } as TextNode,
-        {
-          id: `li-${timestamp}-192-4`,
-          type: "li",
-          content: "🎯 Drag & Drop Events",
-          attributes: {},
-        } as TextNode,
-        {
-          id: `li-${timestamp}-192-5`,
-          type: "li",
-          content: "💾 State Management with Reducers",
-          attributes: {},
-        } as TextNode,
-        {
-          id: `li-${timestamp}-192-6`,
-          type: "li",
-          content: "✨ TypeScript-First with Full Type Safety",
-          attributes: {},
-        } as TextNode,
-      ],
-    } as ContainerNode,
-
-    {
-      id: `p-${timestamp}-193`,
-      type: "p",
-      children: [
-        { content: "🔗 GitHub: ", bold: true },
-        {
-          content: "github.com/Mina-Massoud/mina-scheduler",
-          bold: true,
-          underline: true,
-          href: "https://github.com/Mina-Massoud/mina-scheduler",
-          className: "text-blue-600 dark:text-blue-400",
-        },
-      ],
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `p-${timestamp}-194`,
-      type: "p",
-      children: [
-        { content: "🌐 Live Demo: ", bold: true },
-        {
-          content: "mina-scheduler.vercel.app",
-          bold: true,
-          underline: true,
-          href: "https://mina-scheduler.vercel.app/",
-          className: "text-blue-600 dark:text-blue-400",
-        },
-      ],
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `code-${timestamp}-195`,
-      type: "code",
-      content: `// Install Mina Scheduler
-npm install mina-scheduler
-
-// Use in your React app
-import { Scheduler } from 'mina-scheduler';
-
-function App() {
-  return (
-    <Scheduler 
-      events={events}
-      onEventClick={handleEventClick}
-      onEventDrop={handleEventDrop}
-    />
-  );
-}`,
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `blockquote-${timestamp}-196`,
-      type: "blockquote",
-      children: [
-        { content: "💡 ", bold: false },
-        {
-          content: "Both libraries share the same philosophy: ",
-          italic: true,
-        },
-        {
-          content:
-            "beautiful UI, clean code, TypeScript-first, and developer-friendly APIs. ",
-          italic: true,
-          bold: true,
-        },
-        {
-          content: "If you enjoy this Rich Editor, you'll love Mina Scheduler!",
-          italic: true,
-        },
-      ],
-      attributes: {
-        className: "bg-blue-100 dark:bg-blue-900/30 border-blue-600",
-      },
-    } as TextNode,
-
-    // ========================================
     // CALL TO ACTION
     // ========================================
     {
@@ -3040,14 +2546,14 @@ function App() {
       id: `p-${timestamp}-211`,
       type: "p",
       children: [
-        { content: "Thank you for trying ", bold: false },
+        { content: "Thank you for trying this ", bold: false },
         {
-          content: "Mina Rich Editor",
+          content: "Rich Text Editor",
           bold: true,
           className: "text-purple-600 dark:text-purple-400",
         },
-        { content: "! This is the ", bold: false },
-        { content: "first block-based rich text editor", bold: true },
+        { content: "! This is a ", bold: false },
+        { content: "modern block-based editor", bold: true },
         { content: " built entirely with ", bold: false },
         {
           content: "Tailwind CSS",
@@ -3062,24 +2568,8 @@ function App() {
         },
         {
           content:
-            ". If you find it useful, please star the repository on GitHub and share it with other developers!",
+            ". If you find it useful, feel free to share it with other developers!",
           bold: false,
-        },
-      ],
-      attributes: {},
-    } as TextNode,
-
-    {
-      id: `p-${timestamp}-212`,
-      type: "p",
-      children: [
-        { content: "⭐ Star on GitHub: ", bold: true },
-        {
-          content: "github.com/Mina-Massoud/mina-rich-editor",
-          bold: true,
-          underline: true,
-          href: "https://github.com/Mina-Massoud/mina-rich-editor",
-          className: "text-blue-600 dark:text-blue-400",
         },
       ],
       attributes: {},
@@ -3089,12 +2579,9 @@ function App() {
       id: `blockquote-${timestamp}-213`,
       type: "blockquote",
       children: [
-        { content: "Built with ❤️ in Cairo, Egypt 🇪🇬 by ", italic: true },
         {
-          content: "Mina Massoud",
-          bold: true,
+          content: "Built with ❤️ using modern web technologies",
           italic: true,
-          className: "text-blue-600 dark:text-blue-400",
         },
       ],
       attributes: {

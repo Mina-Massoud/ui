@@ -6,7 +6,7 @@
 
 import React from "react"
 
-import { EditorAction } from "../../reducer/actions"
+import { EditorAction } from "../../lib/reducer/actions"
 import { ContainerNode, TextNode } from "../../types"
 import { findParentById } from "../../utils/tree-operations"
 

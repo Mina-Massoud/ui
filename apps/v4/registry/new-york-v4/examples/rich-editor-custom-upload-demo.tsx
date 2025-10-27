@@ -13,9 +13,9 @@ export default function RichEditorCustomUploadDemo() {
     attributes: {},
   }
 
-  // Example custom upload handler
-  const handleImageUpload = async (file: File): Promise<string> => {
-    // Simulate upload delay (1000ms)
+  // Example custom upload handler for both images and videos
+  const handleUpload = async (file: File): Promise<string> => {
+    // Simulate upload delay
     await new Promise((resolve) => setTimeout(resolve, 1000))
 
     // In production, you would:
@@ -23,7 +23,7 @@ export default function RichEditorCustomUploadDemo() {
     // 2. Return the permanent URL
     // Example:
     // const formData = new FormData();
-    // formData.append('image', file);
+    // formData.append('file', file);
     // const response = await fetch('/api/upload', {
     //   method: 'POST',
     //   body: formData
@@ -43,7 +43,7 @@ export default function RichEditorCustomUploadDemo() {
   return (
     <div className="mx-auto w-full overflow-y-auto">
       <EditorProvider initialContainer={initialContainer}>
-        <Editor onUploadImage={handleImageUpload} />
+        <Editor notionBased onUploadImage={handleUpload} />
       </EditorProvider>
     </div>
   )

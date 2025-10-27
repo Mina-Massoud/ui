@@ -763,14 +763,14 @@ export const Block = React.memo(
       contentEditable: !readOnly,
       suppressContentEditableWarning: true,
       ...(placeholder ? { placeholder } : {}),
-      className: `!ml-5
+      className: `!ml-6
         ${isListItem ? "relative" : ""} 
         ${getTypeClassName(textNode.type)}
         ${className}
         ${readOnly ? "" : "outline-none focus:outline-none"}
         ${isListItem ? "px-3 py-0.5 mb-1 list-disc pl-6" : textNode.type.startsWith("h") ? "px-3 py-2 mb-2" : "px-3 py-1.5 mb-2"}
         ${textNode.type === "ol" ? "list-decimal" : ""}
-        ${notionBased && isFirstBlock && textNode.type === "h1" ? "mt-8 pb-4" : ""}
+        ${notionBased && isFirstBlock && textNode.type === "h1" ? "pb-4" : ""}
         transition-all
         ${!readOnly && isActive ? "border-b bg-accent/5" : ""}
         ${!readOnly ? "hover:bg-accent/5" : ""}
@@ -814,7 +814,7 @@ export const Block = React.memo(
           >
             {/* Drag Handle & Add Button - Mobile: inline, Desktop: absolute positioned */}
             {!readOnly && onBlockDragStart && (
-              <div className="mb-1 flex items-center gap-0.5 transition-opacity duration-200 md:absolute md:top-1/2 md:left-0 md:mb-0 md:-ml-[4.5rem] md:-translate-y-1/2 md:opacity-0 md:group-hover:opacity-100">
+              <div className="mb-1 flex items-center gap-0.5 transition-opacity duration-200 md:absolute md:top-1/2 md:left-0 md:mb-0 md:-ml-[2rem] md:-translate-y-1/2 md:opacity-0 md:group-hover:opacity-100">
                 {/* Add Cover Button - Only show on first block in Notion mode if no cover */}
                 {notionBased &&
                   isFirstBlock &&

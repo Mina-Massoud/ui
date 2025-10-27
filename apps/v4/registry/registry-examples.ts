@@ -2658,12 +2658,12 @@ export const examples: Registry["items"] = [
     ],
   },
   {
-    name: "rich-editor-readonly-demo",
+    name: "rich-editor-with-content-demo",
     type: "registry:example",
     registryDependencies: ["rich-editor"],
     files: [
       {
-        path: "examples/rich-editor-readonly-demo.tsx",
+        path: "examples/rich-editor-with-content-demo.tsx",
         type: "registry:example",
       },
     ],
@@ -2675,6 +2675,17 @@ export const examples: Registry["items"] = [
     files: [
       {
         path: "examples/rich-editor-custom-upload-demo.tsx",
+        type: "registry:example",
+      },
+    ],
+  },
+  {
+    name: "rich-editor-readonly-demo",
+    type: "registry:example",
+    registryDependencies: ["rich-editor"],
+    files: [
+      {
+        path: "examples/rich-editor-readonly-demo.tsx",
         type: "registry:example",
       },
     ],

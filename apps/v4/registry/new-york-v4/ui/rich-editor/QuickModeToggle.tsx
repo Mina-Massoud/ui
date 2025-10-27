@@ -32,6 +32,8 @@ export function QuickModeToggle({
     setTheme(theme === "dark" ? "light" : "dark")
   }
 
+  return null
+
   return (
     <TooltipProvider>
       <div className="bg-background fixed top-[4.5rem] right-2 z-[105] flex items-center gap-1 rounded-lg border p-1 shadow-lg md:top-20 md:right-4 md:p-1.5 lg:top-17">
