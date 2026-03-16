@@ -3,7 +3,7 @@
 import { EditorProvider } from "../ui/rich-editor"
 import type { ContainerNode } from "../ui/rich-editor"
 import { createDemoContent } from "../ui/rich-editor/demo-content"
-import { Editor } from "../ui/rich-editor/editor"
+import { Editor } from "../ui/rich-editor/Editor"
 
 export default function RichEditorReadonlyDemo() {
   const initialContainer: ContainerNode = {
