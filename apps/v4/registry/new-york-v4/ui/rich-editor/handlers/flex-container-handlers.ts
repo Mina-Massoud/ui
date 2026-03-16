@@ -11,7 +11,6 @@ import { findNodeAnywhere } from "../utils/editor-helpers"
 export interface FlexContainerHandlerParams {
   container: ContainerNode
   dispatch: React.Dispatch<any>
-  toast: any
   draggingNodeId: string | null
   setDragOverFlexId: (id: string | null) => void
   setFlexDropPosition: (pos: "left" | "right" | null) => void
@@ -38,18 +37,13 @@ export function createHandleFlexContainerDragOver(
     e.preventDefault()
     e.stopPropagation()
 
-    // Check if we're dragging something
-    const draggedNodeId = e.dataTransfer.getData("text/plain")
-    if (!draggedNodeId && !draggingNodeId) {
+    // Only proceed if we have a dragging node from state
+    if (!draggingNodeId) {
       return
     }
 
-    const actualDraggingId = draggingNodeId || draggedNodeId
-
     // Find the dragging node
-    const draggingResult = actualDraggingId
-      ? findNodeAnywhere(actualDraggingId, container)
-      : null
+    const draggingResult = findNodeAnywhere(draggingNodeId, container)
 
     if (!draggingResult || !isTextNode(draggingResult.node)) {
       // Not a valid node to drag
@@ -109,7 +103,6 @@ export function createHandleFlexContainerDrop(
     const {
       container,
       dispatch,
-      toast,
       draggingNodeId,
       setDragOverFlexId,
       setFlexDropPosition,
@@ -148,8 +141,7 @@ export function createHandleFlexContainerDrop(
     const isInSameContainer = draggingResult.parentId === flexContainerId
 
     if (isInSameContainer) {
-      // Case 1: Reordering within the same flex container
-
+      // Reordering within the same flex container
       const currentIndex = flexContainer.children.findIndex(
         (c) => c.id === draggingNodeId
       )
@@ -170,14 +162,8 @@ export function createHandleFlexContainerDrop(
           children: newChildren as any,
         })
       )
-
-      toast({
-        title: "Image repositioned!",
-        description: "Image moved within the flex container",
-      })
     } else {
-      // Case 2: Adding image from outside to the flex container
-
+      // Adding image from outside to the flex container
       const newChildren = [...flexContainer.children]
 
       if (position === "left") {
@@ -186,20 +172,14 @@ export function createHandleFlexContainerDrop(
         newChildren.push(draggingNode)
       }
 
-      // Batch: delete from old location and update container
-      const actions = [
-        EditorActions.deleteNode(draggingNodeId),
-        EditorActions.updateNode(flexContainerId, {
-          children: newChildren as any,
-        }),
-      ]
-
-      dispatch(EditorActions.batch(actions))
-
-      toast({
-        title: "Image added!",
-        description: "Image added to the flex container",
-      })
+      dispatch(
+        EditorActions.batch([
+          EditorActions.deleteNode(draggingNodeId),
+          EditorActions.updateNode(flexContainerId, {
+            children: newChildren as any,
+          }),
+        ])
+      )
     }
 
     setDragOverFlexId(null)

@@ -94,6 +94,8 @@ export function VideoBlock({
       draggable
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
+      data-node-id={node.id}
+      data-node-type="video"
       className={`group relative mb-4 cursor-move !border-0 p-4 transition-all duration-200 ${isActive ? "ring-primary/[0.05] bg-accent/5 ring-2" : "hover:bg-accent/5"} ${isSelected ? "bg-blue-500/10 ring-2 ring-blue-500" : ""} `}
       onClick={handleClick}
     >

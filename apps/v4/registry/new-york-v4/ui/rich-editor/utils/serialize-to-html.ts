@@ -393,7 +393,9 @@ function serializeContainerNode(
   const listTypeFromAttribute = node.attributes?.listType as string | undefined
   const listType =
     listTypeFromAttribute ||
-    (isTextNode(firstChild) && (firstChild as TextNode).type === "li"
+    (firstChild &&
+    isTextNode(firstChild) &&
+    (firstChild as TextNode).type === "li"
       ? "ol"
       : undefined)
   const isListContainer = !!listType

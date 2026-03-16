@@ -12,10 +12,10 @@
 
 import { useCallback, useRef, useState } from "react"
 
-import { streamToBlocks } from "../ai/stream-to-blocks"
+import { parseInlineMarkdown, streamToBlocks } from "../ai/stream-to-blocks"
 import type { AIProvider, AIStreamOptions } from "../ai/types"
 import { useActiveNodeId, useEditorDispatch } from "../store/editor-store"
-import type { SelectionInfo } from "../types"
+import type { InlineText, SelectionInfo } from "../types"
 
 /**
  * Configuration for {@link useEditorAI}.
@@ -43,19 +43,23 @@ export interface UseEditorAIReturn {
 
   /**
    * Stream AI content for replacing selected text.
-   * Returns the final replacement text (caller dispatches REPLACE_SELECTION_TEXT).
+   * Returns the final replacement text and parsed InlineText[] children.
+   * When `styled: true`, AI returns markdown-formatted text parsed into rich InlineText[].
    */
   replaceSelectionWithAI: (
     instruction: string,
     selection: SelectionInfo,
-    options?: AIStreamOptions
-  ) => Promise<string>
+    options?: AIStreamOptions & { styled?: boolean }
+  ) => Promise<{ text: string; children: InlineText[] }>
 
   /** Whether a generation is currently in progress. */
   isGenerating: boolean
 
   /** Live preview of streaming text (for selection replacement). */
   streamingPreview: string
+
+  /** Live preview of rich InlineText[] (for styled selection replacement). */
+  streamingPreviewChildren: InlineText[]
 
   /** Reset the streaming preview. */
   resetPreview: () => void
@@ -74,10 +78,14 @@ export function useEditorAI(options: UseEditorAIOptions): UseEditorAIReturn {
   const activeNodeId = useActiveNodeId()
   const [isGenerating, setIsGenerating] = useState(false)
   const [streamingPreview, setStreamingPreview] = useState("")
+  const [streamingPreviewChildren, setStreamingPreviewChildren] = useState<
+    InlineText[]
+  >([])
   const abortControllerRef = useRef<AbortController | null>(null)
 
   const resetPreview = useCallback(() => {
     setStreamingPreview("")
+    setStreamingPreviewChildren([])
   }, [])
 
   const abort = useCallback(() => {
@@ -111,9 +119,20 @@ export function useEditorAI(options: UseEditorAIOptions): UseEditorAIReturn {
       setIsGenerating(true)
 
       try {
+        const fallbackSystemPrompt =
+          "You are a content generator inside a rich text editor. Output ONLY clean markdown content. Rules:\n" +
+          '- NO preamble (no "Here\'s...", "Sure!", "I\'d be happy to...")\n' +
+          "- NO trailing summary or sign-off\n" +
+          "- Start directly with the content\n" +
+          "- Use proper markdown: # headings, - lists, ```code blocks```, **bold**, *italic*\n" +
+          "- Each code block must use triple backtick fences on their own lines"
+
         const mergedOptions: AIStreamOptions = {
           ...streamOptions,
-          systemPrompt: streamOptions?.systemPrompt ?? defaultSystemPrompt,
+          systemPrompt:
+            streamOptions?.systemPrompt ??
+            defaultSystemPrompt ??
+            fallbackSystemPrompt,
         }
 
         const rawStream = provider.stream(prompt, mergedOptions)
@@ -146,8 +165,8 @@ export function useEditorAI(options: UseEditorAIOptions): UseEditorAIReturn {
     async (
       instruction: string,
       selection: SelectionInfo,
-      streamOptions?: AIStreamOptions
-    ): Promise<string> => {
+      streamOptions?: AIStreamOptions & { styled?: boolean }
+    ): Promise<{ text: string; children: InlineText[] }> => {
       if (abortControllerRef.current) {
         abortControllerRef.current.abort()
       }
@@ -156,10 +175,14 @@ export function useEditorAI(options: UseEditorAIOptions): UseEditorAIReturn {
       abortControllerRef.current = controller
       setIsGenerating(true)
       setStreamingPreview("")
+      setStreamingPreviewChildren([])
+
+      const isStyled = streamOptions?.styled ?? false
 
       try {
-        const systemPrompt =
-          'You are a text editing assistant. Return ONLY the rewritten text. No explanations, no markdown formatting, no quotes, no prefixes like "Here\'s...". Just the rewritten text itself.'
+        const systemPrompt = isStyled
+          ? "You are a text editing assistant. Return ONLY the rewritten text. Use markdown: **bold**, *italic*, ~~strikethrough~~, `code` where appropriate. No explanations, no quotes."
+          : 'You are a text editing assistant. Return ONLY the rewritten text. No explanations, no markdown formatting, no quotes, no prefixes like "Here\'s...". Just the rewritten text itself.'
 
         const fullPrompt = `${instruction}\n\nText:\n${selection.text}`
 
@@ -175,15 +198,24 @@ export function useEditorAI(options: UseEditorAIOptions): UseEditorAIReturn {
           if (controller.signal.aborted) break
           accumulated += chunk
           setStreamingPreview(accumulated)
+          if (isStyled) {
+            setStreamingPreviewChildren(parseInlineMarkdown(accumulated))
+          }
         }
 
         // Collapse newlines to spaces for inline replacement
         const finalText = accumulated.replace(/\n+/g, " ").trim()
         setStreamingPreview(finalText)
-        return finalText
+
+        const children = isStyled
+          ? parseInlineMarkdown(finalText)
+          : [{ content: finalText }]
+        setStreamingPreviewChildren(children)
+
+        return { text: finalText, children }
       } catch (error) {
         if (error instanceof DOMException && error.name === "AbortError") {
-          return ""
+          return { text: "", children: [] }
         }
         console.error("[useEditorAI] Selection replacement failed:", error)
         throw error
@@ -202,6 +234,7 @@ export function useEditorAI(options: UseEditorAIOptions): UseEditorAIReturn {
     replaceSelectionWithAI,
     isGenerating,
     streamingPreview,
+    streamingPreviewChildren,
     resetPreview,
     abort,
   }

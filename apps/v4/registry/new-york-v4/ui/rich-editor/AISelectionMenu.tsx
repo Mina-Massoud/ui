@@ -4,6 +4,7 @@
  * A Notion-style AI editing menu that appears when clicking the AI button
  * in the SelectionToolbar. Provides preset actions (rephrase, fix grammar,
  * change tone) and custom prompts for AI-powered text replacement.
+ * Supports styled mode for AI-powered formatting (bold, italic, code).
  *
  * @packageDocumentation
  */
@@ -14,6 +15,8 @@ import React, { useCallback, useRef, useState } from "react"
 import {
   Briefcase,
   Check,
+  Code,
+  Highlighter,
   Loader2,
   Maximize2,
   MessageCircle,
@@ -22,13 +25,14 @@ import {
   RefreshCw,
   Sparkles,
   SpellCheck,
+  Type,
   X,
 } from "lucide-react"
 
 import { EditorActions, useEditorDispatch } from "."
 import type { AIProvider } from "./ai/types"
 import { useEditorAI } from "./hooks/useEditorAI"
-import type { SelectionInfo } from "./types"
+import type { InlineText, SelectionInfo } from "./types"
 
 // ─── Preset Actions ──────────────────────────────────────────────────────────
 
@@ -36,9 +40,10 @@ interface PresetAction {
   label: string
   icon: React.ReactNode
   prompt: string
+  styled?: boolean
 }
 
-const presetActions: PresetAction[] = [
+const rewritePresets: PresetAction[] = [
   {
     label: "Rephrase",
     icon: <PenLine className="h-3.5 w-3.5" />,
@@ -71,6 +76,58 @@ const presetActions: PresetAction[] = [
   },
 ]
 
+const stylePresets: PresetAction[] = [
+  {
+    label: "Emphasize key words",
+    icon: <Highlighter className="h-3.5 w-3.5" />,
+    prompt:
+      "Add **bold** to the most important words/phrases. Keep text otherwise identical.",
+    styled: true,
+  },
+  {
+    label: "Add emphasis",
+    icon: <Type className="h-3.5 w-3.5" />,
+    prompt:
+      "Add **bold** and *italic* to emphasize key concepts. Keep text otherwise identical.",
+    styled: true,
+  },
+  {
+    label: "Code terms",
+    icon: <Code className="h-3.5 w-3.5" />,
+    prompt:
+      "Wrap technical terms, function names, and code references in `backticks`. Keep text otherwise identical.",
+    styled: true,
+  },
+]
+
+// ─── Rich Preview Component ─────────────────────────────────────────────────
+
+function RichPreview({ children }: { children: InlineText[] }) {
+  return (
+    <span>
+      {children.map((segment, i) => {
+        let el: React.ReactNode = segment.content
+        if (segment.bold) el = <strong key={i}>{el}</strong>
+        if (segment.italic) el = <em key={i}>{el}</em>
+        if (segment.code)
+          el = (
+            <code
+              key={i}
+              className="bg-muted rounded px-1 py-0.5 font-mono text-[11px]"
+            >
+              {el}
+            </code>
+          )
+        if (segment.strikethrough) el = <s key={i}>{el}</s>
+        if (segment.underline) el = <u key={i}>{el}</u>
+        // If none of the above wrapped, use a fragment with key
+        if (typeof el === "string") el = <span key={i}>{el}</span>
+        return el
+      })}
+    </span>
+  )
+}
+
 // ─── Types ───────────────────────────────────────────────────────────────────
 
 type MenuState = "idle" | "generating" | "preview"
@@ -93,7 +150,10 @@ export function AISelectionMenu({
   const [menuState, setMenuState] = useState<MenuState>("idle")
   const [customPrompt, setCustomPrompt] = useState("")
   const [lastPrompt, setLastPrompt] = useState("")
+  const [lastStyled, setLastStyled] = useState(false)
   const [result, setResult] = useState("")
+  const [isStyledResult, setIsStyledResult] = useState(false)
+  const [resultChildren, setResultChildren] = useState<InlineText[]>([])
   const inputRef = useRef<HTMLInputElement>(null)
   const dispatch = useEditorDispatch()
 
@@ -101,21 +161,29 @@ export function AISelectionMenu({
     replaceSelectionWithAI,
     isGenerating,
     streamingPreview,
+    streamingPreviewChildren,
     resetPreview,
     abort,
   } = useEditorAI({ provider, defaultSystemPrompt })
 
   // ── Run AI ─────────────────────────────────────────────────────────────────
   const runAI = useCallback(
-    async (prompt: string) => {
+    async (prompt: string, styled = false) => {
       setLastPrompt(prompt)
+      setLastStyled(styled)
       setMenuState("generating")
+      setIsStyledResult(styled)
       resetPreview()
 
       try {
-        const text = await replaceSelectionWithAI(prompt, selection)
+        const { text, children } = await replaceSelectionWithAI(
+          prompt,
+          selection,
+          { styled }
+        )
         if (text) {
           setResult(text)
+          setResultChildren(children)
           setMenuState("preview")
         } else {
           setMenuState("idle")
@@ -130,20 +198,33 @@ export function AISelectionMenu({
   // ── Accept result ──────────────────────────────────────────────────────────
   const handleAccept = useCallback(() => {
     if (!result) return
-    dispatch(
-      EditorActions.replaceSelectionText(
-        selection.nodeId,
-        selection.start,
-        selection.end,
-        result
+    if (isStyledResult && resultChildren.length > 0) {
+      dispatch(
+        EditorActions.replaceSelectionWithInlines(
+          selection.nodeId,
+          selection.start,
+          selection.end,
+          resultChildren
+        )
       )
-    )
+    } else {
+      dispatch(
+        EditorActions.replaceSelectionText(
+          selection.nodeId,
+          selection.start,
+          selection.end,
+          result
+        )
+      )
+    }
     onClose()
-  }, [result, dispatch, selection, onClose])
+  }, [result, isStyledResult, resultChildren, dispatch, selection, onClose])
 
   // ── Discard ────────────────────────────────────────────────────────────────
   const handleDiscard = useCallback(() => {
     setResult("")
+    setResultChildren([])
+    setIsStyledResult(false)
     resetPreview()
     setMenuState("idle")
   }, [resetPreview])
@@ -151,9 +232,9 @@ export function AISelectionMenu({
   // ── Retry ──────────────────────────────────────────────────────────────────
   const handleRetry = useCallback(() => {
     if (lastPrompt) {
-      runAI(lastPrompt)
+      runAI(lastPrompt, lastStyled)
     }
-  }, [lastPrompt, runAI])
+  }, [lastPrompt, lastStyled, runAI])
 
   // ── Custom prompt submit ───────────────────────────────────────────────────
   const handleCustomSubmit = useCallback(() => {
@@ -178,6 +259,19 @@ export function AISelectionMenu({
     [handleCustomSubmit, onClose]
   )
 
+  // ── Preset button renderer ────────────────────────────────────────────────
+  const renderPreset = (action: PresetAction) => (
+    <button
+      key={action.label}
+      type="button"
+      onClick={() => runAI(action.prompt, action.styled)}
+      className="text-foreground hover:bg-accent flex w-full items-center gap-2.5 px-3 py-1.5 text-xs transition-colors"
+    >
+      <span className="text-muted-foreground">{action.icon}</span>
+      {action.label}
+    </button>
+  )
+
   // ── Idle State ─────────────────────────────────────────────────────────────
   if (menuState === "idle") {
     return (
@@ -200,19 +294,20 @@ export function AISelectionMenu({
           </p>
         </div>
 
-        {/* Preset actions */}
+        {/* Rewrite presets */}
         <div className="py-1">
-          {presetActions.map((action) => (
-            <button
-              key={action.label}
-              type="button"
-              onClick={() => runAI(action.prompt)}
-              className="text-foreground hover:bg-accent flex w-full items-center gap-2.5 px-3 py-1.5 text-xs transition-colors"
-            >
-              <span className="text-muted-foreground">{action.icon}</span>
-              {action.label}
-            </button>
-          ))}
+          <p className="text-muted-foreground/50 px-3 pt-2 pb-1 text-[10px] tracking-wider uppercase">
+            Rewrite
+          </p>
+          {rewritePresets.map(renderPreset)}
+        </div>
+
+        {/* Style presets */}
+        <div className="border-border border-t py-1">
+          <p className="text-muted-foreground/50 px-3 pt-2 pb-1 text-[10px] tracking-wider uppercase">
+            Style
+          </p>
+          {stylePresets.map(renderPreset)}
         </div>
 
         {/* Custom prompt */}
@@ -256,9 +351,15 @@ export function AISelectionMenu({
 
         {/* Live preview */}
         <div className="max-h-[200px] overflow-y-auto px-3 py-3">
-          <p className="text-foreground/80 text-xs whitespace-pre-wrap">
-            {streamingPreview || "..."}
-          </p>
+          {isStyledResult && streamingPreviewChildren.length > 0 ? (
+            <span className="text-foreground/80 text-xs">
+              <RichPreview>{streamingPreviewChildren}</RichPreview>
+            </span>
+          ) : (
+            <p className="text-foreground/80 text-xs whitespace-pre-wrap">
+              {streamingPreview || "..."}
+            </p>
+          )}
         </div>
       </div>
     )
@@ -290,7 +391,13 @@ export function AISelectionMenu({
         <p className="text-muted-foreground/50 mb-1 text-[10px] font-medium tracking-wider uppercase">
           Replacement
         </p>
-        <p className="text-foreground text-xs">{result}</p>
+        {isStyledResult && resultChildren.length > 0 ? (
+          <span className="text-foreground text-xs">
+            <RichPreview>{resultChildren}</RichPreview>
+          </span>
+        ) : (
+          <p className="text-foreground text-xs">{result}</p>
+        )}
       </div>
 
       {/* Actions */}

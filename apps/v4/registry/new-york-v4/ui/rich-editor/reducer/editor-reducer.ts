@@ -19,6 +19,7 @@ import {
   handleApplyLink,
   handleRemoveLink,
   handleReplaceSelectionText,
+  handleReplaceSelectionWithInlines,
   handleToggleFormat,
 } from "./operations/format-ops"
 // History operations
@@ -168,6 +169,9 @@ export function editorReducer(
 
     case "REPLACE_SELECTION_TEXT":
       return handleReplaceSelectionText(state, action.payload)
+
+    case "REPLACE_SELECTION_WITH_INLINES":
+      return handleReplaceSelectionWithInlines(state, action.payload)
 
     default: {
       // Exhaustiveness check

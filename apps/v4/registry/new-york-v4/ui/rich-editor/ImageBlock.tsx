@@ -1,12 +1,13 @@
 /**
  * ImageBlock Component
  *
- * Renders an image node with upload state, loading indicator, and error handling
+ * Renders an image node with upload state, loading indicator, error handling,
+ * and resize functionality via the useImageResize hook.
  */
 
 "use client"
 
-import React, { useEffect, useRef, useState } from "react"
+import React, { useCallback, useEffect, useRef, useState } from "react"
 import { ImageIcon, Loader2, X } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -14,6 +15,7 @@ import { Card } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 
 import { TextNode } from "."
+import { useImageResize } from "./hooks/useImageResize"
 import { useEditorDispatch } from "./store/editor-store"
 
 interface ImageBlockProps {
@@ -39,110 +41,74 @@ export function ImageBlock({
 }: ImageBlockProps) {
   const dispatch = useEditorDispatch()
   const [imageError, setImageError] = useState(false)
-  const [isResizing, setIsResizing] = useState(false)
-  const [resizeSide, setResizeSide] = useState<"left" | "right" | null>(null)
-  const [currentWidth, setCurrentWidth] = useState<number>(100)
+  const [aspectRatio, setAspectRatio] = useState<number | null>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const startXRef = useRef<number>(0)
-  const startWidthRef = useRef<number>(100)
 
-  // Initialize width from node attributes styles
+  // Parse initial width from node attributes
+  const getInitialWidth = (): number => {
+    const styles = node.attributes?.styles
+    if (styles && typeof styles === "object" && !Array.isArray(styles)) {
+      const width = (styles as Record<string, string>).width
+      if (width && typeof width === "string" && width.endsWith("%")) {
+        const v = parseFloat(width)
+        if (!isNaN(v)) return v
+      }
+    }
+    return 100
+  }
+
+  const getNodeAttributes = useCallback(
+    () => (node.attributes || {}) as Record<string, any>,
+    [node.attributes]
+  )
+
+  const {
+    currentWidth,
+    isResizing,
+    dimensionLabel,
+    handlePointerDown,
+    handlePointerMove,
+    handlePointerUp,
+    setWidthPreset,
+    onKeyDown,
+    setCurrentWidth,
+  } = useImageResize({
+    nodeId: node.id,
+    initialWidth: getInitialWidth(),
+    unit: "percent",
+    minWidth: 20,
+    maxWidth: 100,
+    containerRef: containerRef as React.RefObject<HTMLElement>,
+    dispatch,
+    getNodeAttributes,
+    aspectRatio,
+  })
+
+  // Sync width when node attributes change externally
   useEffect(() => {
     const styles = node.attributes?.styles
     if (styles && typeof styles === "object" && !Array.isArray(styles)) {
       const width = (styles as Record<string, string>).width
       if (width && typeof width === "string" && width.endsWith("%")) {
         const widthValue = parseFloat(width)
-        if (!isNaN(widthValue)) {
+        if (!isNaN(widthValue) && !isResizing) {
           setCurrentWidth(widthValue)
         }
       }
     }
-  }, [node.attributes?.styles])
+  }, [node.attributes?.styles, isResizing, setCurrentWidth])
 
   const handleClick = (e: React.MouseEvent) => {
-    // Don't trigger click when resizing
     if (isResizing) return
 
-    // Check for Ctrl/Cmd click first
     if (onClickWithModifier) {
       onClickWithModifier(e, node.id)
     }
 
-    // Only call regular onClick if not a modifier click
     if (!e.ctrlKey && !e.metaKey) {
       onClick()
     }
   }
-
-  const handleResizeStart = (e: React.MouseEvent, side: "left" | "right") => {
-    e.preventDefault()
-    e.stopPropagation()
-    setIsResizing(true)
-    setResizeSide(side)
-    startXRef.current = e.clientX
-    startWidthRef.current = currentWidth
-  }
-
-  useEffect(() => {
-    if (!isResizing) return
-
-    const handleMouseMove = (e: MouseEvent) => {
-      if (!containerRef.current) return
-
-      const containerWidth = containerRef.current.offsetWidth
-      const deltaX = e.clientX - startXRef.current
-
-      // For left handle, invert the delta (dragging left decreases width)
-      const adjustedDelta = resizeSide === "left" ? -deltaX : deltaX
-      const deltaPercent = (adjustedDelta / containerWidth) * 100
-
-      // Calculate new width, constrained between 20% and 100%
-      let newWidth = startWidthRef.current + deltaPercent
-      newWidth = Math.max(20, Math.min(100, newWidth))
-
-      setCurrentWidth(newWidth)
-    }
-
-    const handleMouseUp = () => {
-      setIsResizing(false)
-      setResizeSide(null)
-
-      // Update node attributes with new width
-      const existingStyles = node.attributes?.styles
-      const stylesObj =
-        existingStyles &&
-        typeof existingStyles === "object" &&
-        !Array.isArray(existingStyles)
-          ? (existingStyles as Record<string, string>)
-          : {}
-
-      const newStyles = {
-        ...stylesObj,
-        width: `${currentWidth.toFixed(2)}%`,
-      }
-
-      dispatch({
-        type: "UPDATE_ATTRIBUTES",
-        payload: {
-          id: node.id,
-          attributes: {
-            ...node.attributes,
-            styles: newStyles,
-          },
-          merge: false,
-        },
-      })
-    }
-
-    document.addEventListener("mousemove", handleMouseMove)
-    document.addEventListener("mouseup", handleMouseUp)
-
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove)
-      document.removeEventListener("mouseup", handleMouseUp)
-    }
-  }, [isResizing, resizeSide, currentWidth, node.id, node.attributes, dispatch])
 
   const handleDragStart = (e: React.DragEvent) => {
     e.dataTransfer.effectAllowed = "move"
@@ -170,16 +136,30 @@ export function ImageBlock({
   const hasError =
     node.attributes?.error === "true" || node.attributes?.error === true
 
-  const handleImageLoad = () => {
+  const handleImageLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
     setImageError(false)
+    const img = e.currentTarget
+    if (img.naturalWidth && img.naturalHeight) {
+      setAspectRatio(img.naturalWidth / img.naturalHeight)
+    }
   }
 
   const handleImageError = () => {
     setImageError(true)
   }
 
+  const showResizeHandles = !isUploading && !hasError && imageUrl
+
   return (
-    <div ref={containerRef} className="relative mb-4" style={{ width: "100%" }}>
+    <div
+      ref={containerRef}
+      className="relative mb-4"
+      style={{ width: "100%" }}
+      onKeyDown={onKeyDown}
+      tabIndex={isActive ? 0 : undefined}
+      data-node-id={node.id}
+      data-node-type="img"
+    >
       <Card
         draggable={!isResizing}
         onDragStart={handleDragStart}
@@ -223,6 +203,13 @@ export function ImageBlock({
 
         {/* Image container */}
         <div className="relative w-full">
+          {/* Dimension overlay during resize */}
+          {isResizing && dimensionLabel && (
+            <div className="pointer-events-none absolute top-2 left-1/2 z-30 -translate-x-1/2 rounded bg-black/75 px-2 py-1 text-xs text-white">
+              {dimensionLabel}
+            </div>
+          )}
+
           {/* Uploading state - show spinner overlay */}
           {isUploading && (
             <div className="bg-muted/50 border-primary/50 flex h-64 w-full flex-col items-center justify-center rounded-lg border-2 border-dashed">
@@ -288,26 +275,56 @@ export function ImageBlock({
         </div>
 
         {/* Resize handles */}
-        {!isUploading && !hasError && imageUrl && (
+        {showResizeHandles && (
           <>
-            {/* Left resize handle */}
+            {/* Left resize handle — large hit area (44px), small visual indicator */}
             <div
-              className="absolute top-1/2 left-0 z-20 flex h-16 w-2 -translate-y-1/2 cursor-ew-resize items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 hover:!opacity-100"
-              onMouseDown={(e) => handleResizeStart(e, "left")}
+              className="absolute top-1/2 left-0 z-20 flex h-11 w-11 -translate-y-1/2 cursor-ew-resize items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 hover:!opacity-100"
+              style={{ touchAction: "none" }}
+              onPointerDown={(e) => handlePointerDown(e, "left")}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
             >
-              <div className="bg-primary/50 hover:bg-primary h-12 w-1 rounded-full transition-colors" />
+              <div className="bg-primary/50 hover:bg-primary h-10 w-1.5 rounded-full transition-colors" />
             </div>
 
-            {/* Right resize handle */}
+            {/* Right resize handle — large hit area (44px), small visual indicator */}
             <div
-              className="absolute top-1/2 right-0 z-20 flex h-16 w-2 -translate-y-1/2 cursor-ew-resize items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 hover:!opacity-100"
-              onMouseDown={(e) => handleResizeStart(e, "right")}
+              className="absolute top-1/2 right-0 z-20 flex h-11 w-11 -translate-y-1/2 cursor-ew-resize items-center justify-center opacity-0 transition-opacity group-hover:opacity-100 hover:!opacity-100"
+              style={{ touchAction: "none" }}
+              onPointerDown={(e) => handlePointerDown(e, "right")}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
             >
-              <div className="bg-primary/50 hover:bg-primary h-12 w-1 rounded-full transition-colors" />
+              <div className="bg-primary/50 hover:bg-primary h-10 w-1.5 rounded-full transition-colors" />
             </div>
           </>
         )}
       </Card>
+
+      {/* Width preset toolbar — shown when image is active */}
+      {isActive && showResizeHandles && (
+        <div className="mt-2 flex items-center justify-center gap-1">
+          {([25, 50, 75, 100] as const).map((preset) => (
+            <Button
+              key={preset}
+              variant="outline"
+              size="sm"
+              className={`h-7 px-3 text-xs ${
+                Math.round(currentWidth) === preset
+                  ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                  : ""
+              }`}
+              onClick={(e) => {
+                e.stopPropagation()
+                setWidthPreset(preset)
+              }}
+            >
+              {preset}%
+            </Button>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
