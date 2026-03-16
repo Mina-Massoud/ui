@@ -4,7 +4,7 @@
  * Functions for handling node operations (add, delete, create nested, etc.)
  */
 
-import { EditorActions } from "../lib/reducer/actions"
+import { EditorActions } from "../reducer/actions"
 import {
   ContainerNode,
   EditorNode,
@@ -14,23 +14,28 @@ import {
   TextNode,
 } from "../types"
 import { findNodeInTree } from "../utils/editor-helpers"
+import { generateId } from "../utils/id-generator"
+import { serializeToHtml } from "../utils/serialize-to-html"
 
+/** Parameters shared by node operation handler factories. */
 export interface NodeOperationHandlerParams {
-  container: ContainerNode
+  container: ContainerNode | (() => ContainerNode)
   dispatch: React.Dispatch<any>
   toast: any
   nodeRefs: React.MutableRefObject<Map<string, HTMLElement>>
   editorContentRef: React.RefObject<HTMLDivElement | null>
 }
 
-/**
- * Handle node click
- */
+/** Creates a click handler that sets the clicked text node as the active node, ignoring container nodes. */
 export function createHandleNodeClick(
   params: Pick<NodeOperationHandlerParams, "container" | "dispatch">
 ) {
   return (nodeId: string) => {
-    const { container, dispatch } = params
+    const { container: containerOrGetter, dispatch } = params
+    const container =
+      typeof containerOrGetter === "function"
+        ? containerOrGetter()
+        : containerOrGetter
     // Don't set container nodes as active - they're not focusable
     // Only text nodes and image nodes can be focused
     const result = findNodeInTree(nodeId, container)
@@ -43,14 +48,16 @@ export function createHandleNodeClick(
   }
 }
 
-/**
- * Handle delete node
- */
+/** Creates a handler that deletes a node and automatically unwraps its parent flex container if only one child remains. */
 export function createHandleDeleteNode(
   params: Pick<NodeOperationHandlerParams, "container" | "dispatch" | "toast">
 ) {
   return (nodeId: string) => {
-    const { container, dispatch, toast } = params
+    const { container: containerOrGetter, dispatch, toast } = params
+    const container =
+      typeof containerOrGetter === "function"
+        ? containerOrGetter()
+        : containerOrGetter
 
     // Find the node being deleted to determine its type
     const findNode = (nodes: EditorNode[]): EditorNode | null => {
@@ -142,9 +149,7 @@ export function createHandleDeleteNode(
   }
 }
 
-/**
- * Handle add block
- */
+/** Creates a handler that inserts a new empty paragraph before or after the given target node and focuses it. */
 export function createHandleAddBlock(
   params: Pick<NodeOperationHandlerParams, "dispatch" | "nodeRefs">
 ) {
@@ -152,7 +157,7 @@ export function createHandleAddBlock(
     const { dispatch, nodeRefs } = params
     // Create new paragraph node
     const newNode: TextNode = {
-      id: "p-" + Date.now(),
+      id: generateId("p"),
       type: "p",
       content: "",
       attributes: {},
@@ -161,24 +166,26 @@ export function createHandleAddBlock(
     dispatch(EditorActions.insertNode(newNode, targetId, position))
     dispatch(EditorActions.setActiveNode(newNode.id))
 
-    // Focus the new node after a brief delay
-    setTimeout(() => {
+    // Wait for the browser to paint the new paragraph before focusing it.
+    requestAnimationFrame(() => {
       const newElement = nodeRefs.current.get(newNode.id)
       if (newElement) {
         newElement.focus()
       }
-    }, 50)
+    })
   }
 }
 
-/**
- * Handle create nested block
- */
+/** Creates a handler that wraps the current root-level node in a new container and appends a new empty paragraph beside it. */
 export function createHandleCreateNested(
   params: Pick<NodeOperationHandlerParams, "container" | "dispatch" | "toast">
 ) {
   return (nodeId: string) => {
-    const { container, dispatch, toast } = params
+    const { container: containerOrGetter, dispatch, toast } = params
+    const container =
+      typeof containerOrGetter === "function"
+        ? containerOrGetter()
+        : containerOrGetter
     const result = findNodeInTree(nodeId, container)
     if (!result) return
 
@@ -191,7 +198,7 @@ export function createHandleCreateNested(
     if (isAlreadyNested) {
       // We're inside a nested container, so just add a new paragraph to the parent container
       const newParagraph: TextNode = {
-        id: "p-" + Date.now(),
+        id: generateId("p"),
         type: "p",
         content: "",
         attributes: {},
@@ -210,7 +217,7 @@ export function createHandleCreateNested(
     const textNode = node as TextNode
 
     // Create the new paragraph that will be focused
-    const newParagraphId = "p-" + Date.now()
+    const newParagraphId = generateId("p")
     const newParagraph: TextNode = {
       id: newParagraphId,
       type: "p",
@@ -220,7 +227,7 @@ export function createHandleCreateNested(
 
     // Create a nested container with the current node inside it
     const nestedContainer: ContainerNode = {
-      id: "container-" + Date.now(),
+      id: generateId("container"),
       type: "container",
       children: [
         // Copy the current node
@@ -261,9 +268,7 @@ export function createHandleCreateNested(
   }
 }
 
-/**
- * Handle change block type
- */
+/** Creates a handler that changes a node's block type and clears its content, typically called from the command menu. */
 export function createHandleChangeBlockType(
   params: Pick<NodeOperationHandlerParams, "dispatch" | "nodeRefs">
 ) {
@@ -277,19 +282,17 @@ export function createHandleChangeBlockType(
       })
     )
 
-    // Focus the updated node after a brief delay
-    setTimeout(() => {
+    // Wait for the browser to paint the type-changed block before focusing it.
+    requestAnimationFrame(() => {
       const element = nodeRefs.current.get(nodeId)
       if (element) {
         element.focus()
       }
-    }, 50)
+    })
   }
 }
 
-/**
- * Handle insert image from command
- */
+/** Creates a handler that deletes the current empty block and opens the file input to trigger an image upload. */
 export function createHandleInsertImageFromCommand(
   params: Pick<NodeOperationHandlerParams, "dispatch" | "nodeRefs">,
   fileInputRef: React.RefObject<HTMLInputElement | null>
@@ -299,20 +302,26 @@ export function createHandleInsertImageFromCommand(
     // Delete the current empty block
     dispatch(EditorActions.deleteNode(nodeId))
 
-    // Trigger the file input
-    setTimeout(() => {
+    // Wait for the delete dispatch to flush before triggering the file input.
+    requestAnimationFrame(() => {
       fileInputRef.current?.click()
-    }, 100)
+    })
   }
 }
 
-/**
- * Handle create list - Creates a simple list item (li, ol, or ul type based on listType)
- */
+/** Creates a handler that appends a new list item of the specified type to the end of the editor container. */
 export function createHandleCreateList(params: NodeOperationHandlerParams) {
   return (listType: "ul" | "ol" | "li") => {
-    const { container, dispatch, toast, editorContentRef } = params
-    const timestamp = Date.now()
+    const {
+      container: containerOrGetter,
+      dispatch,
+      toast,
+      editorContentRef,
+    } = params
+    const container =
+      typeof containerOrGetter === "function"
+        ? containerOrGetter()
+        : containerOrGetter
 
     // For 'ul' and 'ol', we create 'ol' type items (numbered)
     // For 'li', we create 'li' type items (bulleted)
@@ -320,7 +329,7 @@ export function createHandleCreateList(params: NodeOperationHandlerParams) {
 
     // Create a simple list item
     const listItem: TextNode = {
-      id: `${itemType}-${timestamp}`,
+      id: generateId(itemType),
       type: itemType as any,
       content: "",
       attributes: {},
@@ -365,9 +374,7 @@ export function createHandleCreateList(params: NodeOperationHandlerParams) {
   }
 }
 
-/**
- * Handle create list from command menu - converts current block to a list item
- */
+/** Creates a handler that converts the current block into a list item of the given type when triggered from the command menu. */
 export function createHandleCreateListFromCommand(
   params: Pick<NodeOperationHandlerParams, "dispatch" | "toast" | "nodeRefs">
 ) {
@@ -389,28 +396,34 @@ export function createHandleCreateListFromCommand(
       description: `Converted to ${listTypeLabel} list item`,
     })
 
-    // Focus the converted item
-    setTimeout(() => {
+    // Wait for the browser to paint the converted list item before focusing it.
+    requestAnimationFrame(() => {
       const element = nodeRefs.current.get(nodeId)
       if (element) {
         element.focus()
         dispatch(EditorActions.setActiveNode(nodeId))
       }
-    }, 50)
+    })
   }
 }
 
-/**
- * Handle create link
- */
+/** Creates a handler that inserts a new paragraph with a default placeholder link at the end of the container. */
 export function createHandleCreateLink(params: NodeOperationHandlerParams) {
   return () => {
-    const { container, dispatch, toast, editorContentRef } = params
-    const timestamp = Date.now()
+    const {
+      container: containerOrGetter,
+      dispatch,
+      toast,
+      editorContentRef,
+    } = params
+    const container =
+      typeof containerOrGetter === "function"
+        ? containerOrGetter()
+        : containerOrGetter
 
     // Create a paragraph with a link
     const linkNode: TextNode = {
-      id: `p-${timestamp}`,
+      id: generateId("p"),
       type: "p",
       children: [
         {
@@ -459,20 +472,26 @@ export function createHandleCreateLink(params: NodeOperationHandlerParams) {
   }
 }
 
-/**
- * Handle create table
- */
+/** Creates a handler that builds and inserts a fully structured table node with the specified row and column count. */
 export function createHandleCreateTable(
   params: NodeOperationHandlerParams,
   activeNodeId?: string
 ) {
   return (rows: number, cols: number) => {
-    const { container, dispatch, toast, editorContentRef } = params
-    const timestamp = Date.now()
+    const {
+      container: containerOrGetter,
+      dispatch,
+      toast,
+      editorContentRef,
+    } = params
+    const container =
+      typeof containerOrGetter === "function"
+        ? containerOrGetter()
+        : containerOrGetter
 
     // Create header cells
     const headerCells: TextNode[] = Array.from({ length: cols }, (_, i) => ({
-      id: `th-${timestamp}-${i}`,
+      id: generateId("th"),
       type: "th",
       content: `Column ${i + 1}`,
       attributes: {},
@@ -480,7 +499,7 @@ export function createHandleCreateTable(
 
     // Create header row
     const headerRow: StructuralNode = {
-      id: `tr-header-${timestamp}`,
+      id: generateId("tr-header"),
       type: "tr",
       children: headerCells,
       attributes: {},
@@ -488,35 +507,32 @@ export function createHandleCreateTable(
 
     // Create thead
     const thead: StructuralNode = {
-      id: `thead-${timestamp}`,
+      id: generateId("thead"),
       type: "thead",
       children: [headerRow],
       attributes: {},
     }
 
     // Create body rows
-    const bodyRows: StructuralNode[] = Array.from(
-      { length: rows },
-      (_, rowIdx) => {
-        const cells: TextNode[] = Array.from({ length: cols }, (_, colIdx) => ({
-          id: `td-${timestamp}-${rowIdx}-${colIdx}`,
-          type: "td",
-          content: "",
-          attributes: {},
-        }))
+    const bodyRows: StructuralNode[] = Array.from({ length: rows }, () => {
+      const cells: TextNode[] = Array.from({ length: cols }, () => ({
+        id: generateId("td"),
+        type: "td",
+        content: "",
+        attributes: {},
+      }))
 
-        return {
-          id: `tr-${timestamp}-${rowIdx}`,
-          type: "tr",
-          children: cells,
-          attributes: {},
-        }
+      return {
+        id: generateId("tr"),
+        type: "tr",
+        children: cells,
+        attributes: {},
       }
-    )
+    })
 
     // Create tbody
     const tbody: StructuralNode = {
-      id: `tbody-${timestamp}`,
+      id: generateId("tbody"),
       type: "tbody",
       children: bodyRows,
       attributes: {},
@@ -524,7 +540,7 @@ export function createHandleCreateTable(
 
     // Create table
     const table: StructuralNode = {
-      id: `table-${timestamp}`,
+      id: generateId("table"),
       type: "table",
       children: [thead, tbody],
       attributes: {},
@@ -532,7 +548,7 @@ export function createHandleCreateTable(
 
     // Wrap table in a container for consistent handling
     const tableWrapper: ContainerNode = {
-      id: `table-wrapper-${timestamp}`,
+      id: generateId("table-wrapper"),
       type: "container",
       children: [table],
       attributes: {},
@@ -592,9 +608,7 @@ export function createHandleCreateTable(
   }
 }
 
-/**
- * Handle copy HTML
- */
+/** Creates an async handler that serializes the editor container to HTML and copies it to the clipboard. */
 export function createHandleCopyHtml(
   params: Pick<NodeOperationHandlerParams, "toast">,
   enhanceSpaces: boolean,
@@ -602,7 +616,6 @@ export function createHandleCopyHtml(
 ) {
   return async (container: ContainerNode) => {
     const { toast } = params
-    const { serializeToHtml } = require("../utils/serialize-to-html")
     let html = serializeToHtml(container)
 
     // Wrap with spacing classes if enhance spaces is enabled
@@ -628,9 +641,7 @@ export function createHandleCopyHtml(
   }
 }
 
-/**
- * Handle copy JSON
- */
+/** Creates an async handler that serializes the container's children to pretty-printed JSON and copies it to the clipboard. */
 export function createHandleCopyJson(
   params: Pick<NodeOperationHandlerParams, "toast">,
   setCopiedJson: (copied: boolean) => void

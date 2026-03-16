@@ -1,13 +1,12 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { ImageIcon, MoveVertical, Trash2, Upload, X } from "lucide-react"
+import { MoveVertical, Trash2, Upload } from "lucide-react"
 
+import { EditorActions } from "@/lib/reducer/actions"
+import { useEditorDispatch, useEditorState } from "@/lib/store/editor-store"
 import { cn } from "@/lib/utils"
-
-import { EditorActions } from "."
-import { Button } from "../button"
-import { useEditorDispatch, useEditorState } from "./store/editor-store"
+import { Button } from "@/components/ui/button"
 
 interface CoverImageProps {
   onUploadImage?: (file: File) => Promise<string>
@@ -23,7 +22,7 @@ export function CoverImage({
   const { coverImage } = state
   const [isHovered, setIsHovered] = useState(false)
   const [isDragging, setIsDragging] = useState(false)
-  const [isUploading, setIsUploading] = useState(false)
+  const [, setIsUploading] = useState(false)
   const [dragPosition, setDragPosition] = useState(coverImage?.position ?? 50)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -80,21 +79,6 @@ export function CoverImage({
     }
   }
 
-  const handleDrop = async (e: React.DragEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-
-    const file = e.dataTransfer.files?.[0]
-    if (file) {
-      await handleFileSelect(file)
-    }
-  }
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault()
-    e.stopPropagation()
-  }
-
   const handleRemove = () => {
     dispatch(EditorActions.removeCoverImage())
   }
@@ -148,7 +132,7 @@ export function CoverImage({
   return (
     <div
       ref={containerRef}
-      className="group absolute top-0 mb-8 h-[300px] w-full overflow-hidden rounded-lg lg:h-[420px]"
+      className="group absolute top-0 mb-8 h-[250px] w-full overflow-hidden rounded-lg lg:h-[420px]"
       onMouseEnter={() => !readOnly && setIsHovered(true)}
       onMouseLeave={() => !readOnly && setIsHovered(false)}
     >

@@ -3,20 +3,15 @@
 import React from "react"
 import { ImagePlus } from "lucide-react"
 
+import { INSERT_COMPONENTS } from "@/lib/insert-components-data"
 import { cn } from "@/lib/utils"
-
-import { Button } from "../button"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "../dialog"
-import {
-  INSERT_COMPONENTS,
-  type InsertComponent,
-} from "./insert-components-data"
+} from "@/components/ui/dialog"
 
 interface InsertComponentsModalProps {
   open: boolean

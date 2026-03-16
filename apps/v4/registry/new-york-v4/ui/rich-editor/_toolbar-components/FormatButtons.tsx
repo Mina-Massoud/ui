@@ -10,14 +10,13 @@ import React from "react"
 import { Bold, Code, Italic, Strikethrough, Underline } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-
-import { Button } from "../../button"
+import { Button } from "@/components/ui/button"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../../tooltip"
+} from "@/components/ui/tooltip"
 
 interface FormatButtonsProps {
   formats: {
@@ -41,7 +40,7 @@ export function FormatButtons({
   const buttonSize = size === "sm" ? "h-7 w-7" : "h-8 w-8"
 
   return (
-    <TooltipProvider delayDuration={300}>
+    <TooltipProvider {...{ delay: 300, delayDuration: 300 }}>
       <div className="border-x-border/50 flex items-center gap-1 border-x px-2">
         <Tooltip>
           <TooltipTrigger asChild>

@@ -19,20 +19,19 @@ import {
   Type,
 } from "lucide-react"
 
+import {
+  ELEMENT_OPTIONS,
+  type ElementOption,
+  type ElementType,
+} from "@/lib/elements"
 import { cn } from "@/lib/utils"
-
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "../select"
-import {
-  ELEMENT_OPTIONS,
-  type ElementOption,
-  type ElementType,
-} from "./elements"
+} from "@/components/ui/select"
 
 // Icon mapping
 const iconMap: Record<string, React.ReactNode> = {
@@ -76,7 +75,6 @@ export function ElementSelector({
   onValueChange,
   elements = ELEMENT_OPTIONS,
   variant = "default",
-  placeholder = "Select element",
   className,
   disabled = false,
   showDescription = true,
@@ -100,7 +98,7 @@ export function ElementSelector({
   return (
     <Select
       value={value || "p"}
-      onValueChange={onValueChange}
+      onValueChange={onValueChange as any}
       disabled={disabled}
     >
       <SelectTrigger className={triggerClassName}>

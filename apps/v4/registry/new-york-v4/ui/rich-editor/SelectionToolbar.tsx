@@ -9,54 +9,59 @@
 
 import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
-import { Link as LinkIcon, MoreHorizontal, Type } from "lucide-react"
+import { Link as LinkIcon, Sparkles, Type } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { useToast } from "@/hooks/use-toast"
+import { Button } from "@/components/ui/button"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+import { Separator } from "@/components/ui/separator"
 
-import { Button } from "../button"
-import { Popover, PopoverContent, PopoverTrigger } from "../popover"
-import { Separator } from "../separator"
+import { EditorActions, useEditorDispatch, type SelectionInfo } from "."
 import {
   CustomClassPopoverContent,
   FormatButtons,
   LinkPopoverContent,
 } from "./_toolbar-components"
+import type { AIProvider } from "./ai/types"
+import { AISelectionMenu } from "./AISelectionMenu"
 import {
   getUserFriendlyClasses,
   searchUserFriendlyClasses,
 } from "./class-mappings"
-import { ColorPickerComponent } from "./color-picker"
-import { ElementSelector, ElementType } from "./ElementSelector"
-import { FontSizePicker } from "./font-size-picker"
-import { EditorActions } from "./lib/reducer/actions"
-import { useEditorDispatch, useEditorState } from "./store/editor-store"
+import { ColorPickerComponent } from "./ColorPicker"
+import { ElementSelector, type ElementType } from "./ElementSelector"
+import { FontSizePicker } from "./FontSizePicker"
+import { useToast } from "./hooks/use-toast"
 import { tailwindClasses } from "./tailwind-classes"
-import { SelectionInfo } from "./types"
 import { getReplacementInfo, mergeClasses } from "./utils/class-replacement"
 
 interface SelectionToolbarProps {
   selection: SelectionInfo | null
   selectedColor: string
-  editorRef: React.RefObject<HTMLDivElement | null>
   onFormat: (
     format: "bold" | "italic" | "underline" | "strikethrough" | "code"
   ) => void
   onTypeChange: (type: string) => void
   onColorSelect: (color: string) => void
   onFontSizeSelect: (fontSize: string) => void
+  aiProvider?: AIProvider
+  aiSystemPrompt?: string
 }
 
 export function SelectionToolbar({
   selection,
   selectedColor,
-  editorRef,
   onFormat,
   onTypeChange,
   onColorSelect,
   onFontSizeSelect,
+  aiProvider,
+  aiSystemPrompt,
 }: SelectionToolbarProps) {
-  const state = useEditorState()
   const dispatch = useEditorDispatch()
   const { toast } = useToast()
   const [position, setPosition] = useState({ top: 0, left: 0 })
@@ -72,12 +77,15 @@ export function SelectionToolbar({
   const [searchQuery, setSearchQuery] = useState("")
   const [devMode, setDevMode] = useState(false)
 
+  // AI menu state
+  const [aiMenuOpen, setAiMenuOpen] = useState(false)
+
   // Store selection for link/class application
   const savedSelectionRef = useRef<typeof selection>(null)
 
   useEffect(() => {
     // Keep toolbar visible and position stable if either popover is open
-    if (linkPopoverOpen || customClassPopoverOpen) {
+    if (linkPopoverOpen || customClassPopoverOpen || aiMenuOpen) {
       return
     }
 
@@ -113,45 +121,31 @@ export function SelectionToolbar({
       return
     }
 
-    // Get the editor container from ref
-    if (!editorRef.current) {
-      setIsVisible(false)
-      return
-    }
-
-    const editorRect = editorRef.current.getBoundingClientRect()
-
     // Calculate position above the selection
-    const toolbarHeight = toolbarRef.current?.offsetHeight || 44 // Use actual toolbar height
+    const toolbarHeight = 44 // Approximate toolbar height
     const gap = 8 // Gap between selection and toolbar
 
-    // Position toolbar centered above the selection, relative to editor container
-    let left = rect.left - editorRect.left + rect.width / 2
-    const top = rect.top - editorRect.top - toolbarHeight - gap
+    // Position toolbar centered above the selection
+    let left = rect.left + rect.width / 2
+    const top = rect.top - toolbarHeight - gap
 
     // Adjust horizontal position if toolbar would go off-screen
     if (toolbarRef.current) {
       const toolbarWidth = toolbarRef.current.offsetWidth
       left = left - toolbarWidth / 2
 
-      // Keep toolbar within editor container bounds
+      // Keep toolbar within viewport
       const padding = 16
       if (left < padding) {
         left = padding
-      } else if (left + toolbarWidth > editorRect.width - padding) {
-        left = editorRect.width - toolbarWidth - padding
+      } else if (left + toolbarWidth > window.innerWidth - padding) {
+        left = window.innerWidth - toolbarWidth - padding
       }
     }
 
     setPosition({ top, left })
     setIsVisible(true)
-  }, [
-    selection,
-    linkPopoverOpen,
-    customClassPopoverOpen,
-    position.top,
-    editorRef,
-  ])
+  }, [selection, linkPopoverOpen, customClassPopoverOpen, position.top])
 
   // Link handlers
   const handleApplyLink = () => {
@@ -159,7 +153,7 @@ export function SelectionToolbar({
 
     dispatch(EditorActions.setCurrentSelection(savedSelectionRef.current))
 
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       dispatch(EditorActions.applyLink(hrefInput.trim()))
 
       toast({
@@ -169,7 +163,7 @@ export function SelectionToolbar({
 
       setHrefInput("")
       setLinkPopoverOpen(false)
-    }, 0)
+    })
   }
 
   const handleRemoveLink = () => {
@@ -177,7 +171,7 @@ export function SelectionToolbar({
 
     dispatch(EditorActions.setCurrentSelection(savedSelectionRef.current))
 
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       dispatch(EditorActions.removeLink())
 
       toast({
@@ -187,7 +181,7 @@ export function SelectionToolbar({
 
       setHrefInput("")
       setLinkPopoverOpen(false)
-    }, 0)
+    })
   }
 
   // Custom class handlers with smart replacement
@@ -216,7 +210,7 @@ export function SelectionToolbar({
       })
     )
 
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       dispatch(EditorActions.applyCustomClass(mergedClasses))
 
       // Show appropriate toast message
@@ -239,7 +233,7 @@ export function SelectionToolbar({
 
       setCustomClassPopoverOpen(false)
       setSearchQuery("")
-    }, 0)
+    })
   }
 
   // Filter classes for custom class popover
@@ -261,7 +255,12 @@ export function SelectionToolbar({
   // Use savedSelection if current selection is lost but popovers are open
   const activeSelection = selection || savedSelectionRef.current
 
-  if (!activeSelection && !linkPopoverOpen && !customClassPopoverOpen) {
+  if (
+    !activeSelection &&
+    !linkPopoverOpen &&
+    !customClassPopoverOpen &&
+    !aiMenuOpen
+  ) {
     return null
   }
 
@@ -285,8 +284,11 @@ export function SelectionToolbar({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             ref={toolbarRef}
+            role="toolbar"
+            aria-label="Text formatting"
+            aria-orientation="horizontal"
             className={cn(
-              "absolute z-[200] duration-200",
+              "fixed z-[200] duration-200",
               "pointer-events-auto inline-flex items-stretch rounded-lg shadow-md",
               "bg-popover/95 border-border/50 border backdrop-blur-sm",
               "text-sm leading-tight"
@@ -341,6 +343,9 @@ export function SelectionToolbar({
                 <Button
                   variant="ghost"
                   size="icon"
+                  aria-label={hasExistingLink ? "Edit link" : "Insert link"}
+                  aria-haspopup="dialog"
+                  aria-expanded={linkPopoverOpen}
                   className={cn(
                     "hover:bg-accent/50 h-7 min-w-fit gap-1.5 rounded-md px-2 transition-colors duration-75",
                     hasExistingLink && "text-blue-500"
@@ -356,13 +361,14 @@ export function SelectionToolbar({
               <PopoverContent
                 className="w-80"
                 align="start"
-                onOpenAutoFocus={(e) => e.preventDefault()}
-                onInteractOutside={(e) => {
-                  // Prevent closing when clicking on the toolbar
-                  const target = e.target as HTMLElement
-                  if (toolbarRef.current?.contains(target)) {
-                    e.preventDefault()
-                  }
+                {...{ onOpenAutoFocus: (e: any) => e.preventDefault() }}
+                {...{
+                  onInteractOutside: (e: any) => {
+                    const target = e.target as HTMLElement
+                    if (toolbarRef.current?.contains(target)) {
+                      e.preventDefault()
+                    }
+                  },
                 }}
               >
                 <LinkPopoverContent
@@ -385,6 +391,9 @@ export function SelectionToolbar({
                 <Button
                   variant="ghost"
                   size="icon"
+                  aria-label="Apply custom class"
+                  aria-haspopup="dialog"
+                  aria-expanded={customClassPopoverOpen}
                   className="hover:bg-accent/50 h-7 min-w-fit gap-1.5 rounded-md px-2 transition-colors duration-75"
                   onMouseDown={(e) => {
                     e.preventDefault()
@@ -399,13 +408,14 @@ export function SelectionToolbar({
               <PopoverContent
                 className="w-96"
                 align="start"
-                onOpenAutoFocus={(e) => e.preventDefault()}
-                onInteractOutside={(e) => {
-                  // Prevent closing when clicking on the toolbar
-                  const target = e.target as HTMLElement
-                  if (toolbarRef.current?.contains(target)) {
-                    e.preventDefault()
-                  }
+                {...{ onOpenAutoFocus: (e: any) => e.preventDefault() }}
+                {...{
+                  onInteractOutside: (e: any) => {
+                    const target = e.target as HTMLElement
+                    if (toolbarRef.current?.contains(target)) {
+                      e.preventDefault()
+                    }
+                  },
                 }}
               >
                 <CustomClassPopoverContent
@@ -423,6 +433,50 @@ export function SelectionToolbar({
               orientation="vertical"
               className="bg-border/50 mx-1.5 my-auto h-6"
             />
+
+            {/* AI Selection Menu */}
+            {aiProvider && activeSelection && (
+              <Popover open={aiMenuOpen} onOpenChange={setAiMenuOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    aria-label="AI edit"
+                    aria-haspopup="dialog"
+                    aria-expanded={aiMenuOpen}
+                    className="hover:bg-accent/50 h-7 min-w-fit gap-1.5 rounded-md px-2 transition-colors duration-75"
+                    onMouseDown={(e) => {
+                      e.preventDefault()
+                      e.stopPropagation()
+                    }}
+                  >
+                    <Sparkles className="h-3.5 w-3.5" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent
+                  className="w-auto border-0 bg-transparent p-0 shadow-none"
+                  align="end"
+                  side="bottom"
+                  sideOffset={8}
+                  {...{ onOpenAutoFocus: (e: any) => e.preventDefault() }}
+                  {...{
+                    onInteractOutside: (e: any) => {
+                      const target = e.target as HTMLElement
+                      if (toolbarRef.current?.contains(target)) {
+                        e.preventDefault()
+                      }
+                    },
+                  }}
+                >
+                  <AISelectionMenu
+                    selection={activeSelection}
+                    provider={aiProvider}
+                    defaultSystemPrompt={aiSystemPrompt}
+                    onClose={() => setAiMenuOpen(false)}
+                  />
+                </PopoverContent>
+              </Popover>
+            )}
           </motion.div>
         )}
     </AnimatePresence>

@@ -697,6 +697,7 @@ export const ui: Registry["items"] = [
       "clsx",
       "tailwind-merge",
       "zustand",
+      "radix-ui",
       "@radix-ui/react-popover",
       "@radix-ui/react-dialog",
       "@radix-ui/react-dropdown-menu",
@@ -730,84 +731,76 @@ export const ui: Registry["items"] = [
       "textarea",
       "toggle-group",
       "tooltip",
+      "dropdown-menu",
+      "sonner",
     ],
     files: [
-      {
-        path: "ui/rich-editor/index.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/types.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/editor.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/editor-toolbar.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/block.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/image-block.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/video-block.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/flex-container.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/add-block-button.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/block-context-menu.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/CoverImage.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/ExportFloatingButton.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/FreeImageBlock.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/InsertComponentsModal.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/MediaUploadPopover.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/QuickModeToggle.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/SelectionToolbar.tsx",
-        type: "registry:ui",
-      },
+      // ── Entry point & core types ──
+      { path: "ui/rich-editor/index.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/types.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/class-mappings.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/elements.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/empty-content.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/demo-content.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/insert-components-data.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/tailwind-classes.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/templates.ts", type: "registry:ui" },
+      // ── Components ──
+      { path: "ui/rich-editor/Editor.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/EditorToolbar.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/Block.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/BlockContainer.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/BlockContextMenu.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/BlockDragHandle.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/ImageBlock.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/VideoBlock.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/FlexContainer.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/FreeImageBlock.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/AddBlockButton.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/CoverImage.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/ColorPicker.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/CommandMenu.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/CustomClassPopover.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/CompactEditor.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/CompactToolbar.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/ElementSelector.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/ExportFloatingButton.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/FontSizePicker.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/GroupImagesButton.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/InsertComponentsModal.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/LinkPopover.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/MediaUploadPopover.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/QuickModeToggle.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/RemoteCursor.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/SelectionToolbar.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/TableBuilder.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/TableDialog.tsx", type: "registry:ui" },
       {
         path: "ui/rich-editor/TemplateSwitcherButton.tsx",
         type: "registry:ui",
       },
+      // ── AI ──
+      { path: "ui/rich-editor/AICommandMenu.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/AISelectionMenu.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/ai/types.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/ai/openai-provider.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/ai/anthropic-provider.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/ai/gemini-provider.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/ai/demo-provider.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/ai/stream-to-blocks.ts", type: "registry:ui" },
+      // ── Collaboration ──
+      { path: "ui/rich-editor/CollaborationProvider.tsx", type: "registry:ui" },
+      { path: "ui/rich-editor/collaboration/index.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/collaboration/types.ts", type: "registry:ui" },
       {
-        path: "ui/rich-editor/ElementSelector.tsx",
+        path: "ui/rich-editor/collaboration/awareness.ts",
         type: "registry:ui",
       },
+      {
+        path: "ui/rich-editor/collaboration/y-binding.ts",
+        type: "registry:ui",
+      },
+      // ── Toolbar sub-components ──
       {
         path: "ui/rich-editor/_toolbar-components/index.ts",
         type: "registry:ui",
@@ -824,92 +817,45 @@ export const ui: Registry["items"] = [
         path: "ui/rich-editor/_toolbar-components/FormatButtons.tsx",
         type: "registry:ui",
       },
+      // ── Store & Reducer ──
+      { path: "ui/rich-editor/store/editor-store.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/reducer/actions.ts", type: "registry:ui" },
       {
-        path: "ui/rich-editor/color-picker.tsx",
+        path: "ui/rich-editor/reducer/editor-reducer.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/color-picker-index.tsx",
+        path: "ui/rich-editor/reducer/selection-range.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/color-picker-interface.tsx",
+        path: "ui/rich-editor/reducer/operations/index.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/command-menu.tsx",
+        path: "ui/rich-editor/reducer/operations/format-ops.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/custom-class-popover.tsx",
+        path: "ui/rich-editor/reducer/operations/history-ops.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/font-size-picker.tsx",
+        path: "ui/rich-editor/reducer/operations/node-ops.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/group-images-button.tsx",
+        path: "ui/rich-editor/reducer/operations/shared.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/link-popover.tsx",
+        path: "ui/rich-editor/reducer/operations/ui-ops.ts",
         type: "registry:ui",
       },
+      // ── Handlers ──
+      { path: "ui/rich-editor/handlers/index.ts", type: "registry:ui" },
       {
-        path: "ui/rich-editor/media-upload-popover.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/table-builder.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/table-dialog.tsx",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/class-mappings.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/tailwind-classes.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/demo-content.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/empty-content.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/elements.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/insert-components-data.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/templates.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/store/editor-store.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/lib/reducer/actions.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/lib/reducer/editor-reducer.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/handlers/index.ts",
+        path: "ui/rich-editor/handlers/clipboard-handlers.ts",
         type: "registry:ui",
       },
       {
@@ -940,20 +886,13 @@ export const ui: Registry["items"] = [
         path: "ui/rich-editor/handlers/selection-handlers.ts",
         type: "registry:ui",
       },
-      {
-        path: "ui/rich-editor/handlers/block/index.ts",
-        type: "registry:ui",
-      },
+      { path: "ui/rich-editor/handlers/block/index.ts", type: "registry:ui" },
       {
         path: "ui/rich-editor/handlers/block/block-drag-handlers.ts",
         type: "registry:ui",
       },
       {
         path: "ui/rich-editor/handlers/block/block-event-handlers.ts",
-        type: "registry:ui",
-      },
-      {
-        path: "ui/rich-editor/handlers/block/block-utils.ts",
         type: "registry:ui",
       },
       {
@@ -965,17 +904,20 @@ export const ui: Registry["items"] = [
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/utils/drag-auto-scroll.ts",
+        path: "ui/rich-editor/handlers/block/block-utils.ts",
         type: "registry:ui",
       },
+      // ── Utils ──
       {
-        path: "ui/rich-editor/utils/editor-helpers.ts",
+        path: "ui/rich-editor/utils/class-replacement.ts",
         type: "registry:ui",
       },
-      {
-        path: "ui/rich-editor/utils/image-upload.ts",
-        type: "registry:ui",
-      },
+      { path: "ui/rich-editor/utils/dom-reconciler.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/utils/drag-auto-scroll.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/utils/editor-helpers.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/utils/html-to-nodes.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/utils/id-generator.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/utils/image-upload.ts", type: "registry:ui" },
       {
         path: "ui/rich-editor/utils/inline-formatting.ts",
         type: "registry:ui",
@@ -984,28 +926,65 @@ export const ui: Registry["items"] = [
         path: "ui/rich-editor/utils/markdown-table-parser.ts",
         type: "registry:ui",
       },
+      { path: "ui/rich-editor/utils/parse-markdown.ts", type: "registry:ui" },
+      {
+        path: "ui/rich-editor/utils/serialize-markdown.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/utils/serialize-semantic-html.ts",
+        type: "registry:ui",
+      },
       {
         path: "ui/rich-editor/utils/serialize-to-html.ts",
         type: "registry:ui",
       },
+      { path: "ui/rich-editor/utils/tree-operations.ts", type: "registry:ui" },
+      // ── Hooks ──
+      { path: "ui/rich-editor/hooks/useBlockHandlers.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/hooks/useCollaboration.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/hooks/useEditorAI.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/hooks/useEditorAPI.ts", type: "registry:ui" },
       {
-        path: "ui/rich-editor/utils/tree-operations.ts",
+        path: "ui/rich-editor/hooks/useEditorClipboard.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/utils/class-replacement.ts",
+        path: "ui/rich-editor/hooks/useEditorContext.tsx",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/hooks/use-toast.ts",
+        path: "ui/rich-editor/hooks/useEditorDragDrop.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/hooks/use-mobile.ts",
+        path: "ui/rich-editor/hooks/useEditorFileUpload.ts",
         type: "registry:ui",
       },
       {
-        path: "ui/rich-editor/lib/utils.ts",
+        path: "ui/rich-editor/hooks/useEditorKeyboardShortcuts.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/hooks/useEditorSelection.ts",
+        type: "registry:ui",
+      },
+      {
+        path: "ui/rich-editor/hooks/useImageSelection.ts",
+        type: "registry:ui",
+      },
+      { path: "ui/rich-editor/hooks/useMediaPaste.ts", type: "registry:ui" },
+      {
+        path: "ui/rich-editor/hooks/useTableOperations.ts",
+        type: "registry:ui",
+      },
+      { path: "ui/rich-editor/hooks/use-toast.ts", type: "registry:ui" },
+      { path: "ui/rich-editor/hooks/use-mobile.ts", type: "registry:ui" },
+      // ── Bundled deps ──
+      { path: "ui/rich-editor/_color-picker/index.tsx", type: "registry:ui" },
+      // ── Styles ──
+      {
+        path: "ui/rich-editor/styles/editor-variables.css",
         type: "registry:ui",
       },
     ],

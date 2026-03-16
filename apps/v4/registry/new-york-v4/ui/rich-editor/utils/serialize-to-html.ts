@@ -8,7 +8,6 @@
 
 import {
   ContainerNode,
-  EditorNode,
   hasInlineChildren,
   isContainerNode,
   isStructuralNode,
@@ -495,16 +494,6 @@ function serializeContainerNode(
 
   html += `${indent}</${containerTag}>\n`
   return html
-}
-
-/**
- * Serialize any editor node (TextNode or ContainerNode) to HTML
- */
-function serializeEditorNode(node: EditorNode, indent: string = ""): string {
-  if (isContainerNode(node)) {
-    return serializeContainerNode(node as ContainerNode, indent)
-  }
-  return serializeTextNode(node as TextNode, indent)
 }
 
 /**

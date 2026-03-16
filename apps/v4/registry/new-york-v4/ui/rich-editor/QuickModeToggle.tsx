@@ -1,23 +1,25 @@
 "use client"
 
 import Image from "next/image"
-import { Eye, EyeOff, FileText, Moon, Sun } from "lucide-react"
+import { Eye, EyeOff, Languages, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
-import { Button } from "../button"
-import { Separator } from "../separator"
+import { Button } from "@/components/ui/button"
+import { Separator } from "@/components/ui/separator"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "../tooltip"
+} from "@/components/ui/tooltip"
 
 interface ToolbarProps {
   readOnly: boolean
   onReadOnlyChange: (readOnly: boolean) => void
   notionBased?: boolean
   onNotionBasedChange?: (notionBased: boolean) => void
+  dir?: "ltr" | "rtl" | "auto"
+  onDirChange?: (dir: "ltr" | "rtl" | "auto") => void
 }
 
 export function QuickModeToggle({
@@ -25,14 +27,14 @@ export function QuickModeToggle({
   onReadOnlyChange,
   notionBased,
   onNotionBasedChange,
+  dir,
+  onDirChange,
 }: ToolbarProps) {
   const { theme, setTheme } = useTheme()
 
   const toggleTheme = () => {
     setTheme(theme === "dark" ? "light" : "dark")
   }
-
-  return null
 
   return (
     <TooltipProvider>
@@ -106,6 +108,31 @@ export function QuickModeToggle({
             <p>{readOnly ? "View Only Mode" : "Edit Mode"}</p>
           </TooltipContent>
         </Tooltip>
+
+        {/* RTL toggle */}
+        {onDirChange && (
+          <>
+            <Separator orientation="vertical" className="h-5 md:h-6" />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant={dir === "rtl" ? "default" : "ghost"}
+                  size="icon"
+                  className="h-8 w-8 md:h-9 md:w-9"
+                  onClick={() => onDirChange(dir === "rtl" ? "ltr" : "rtl")}
+                >
+                  <Languages className="h-3.5 w-3.5 md:h-4 md:w-4" />
+                  <span className="sr-only">
+                    {dir === "rtl" ? "Right-to-Left" : "Left-to-Right"}
+                  </span>
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>{dir === "rtl" ? "RTL Mode" : "LTR Mode"}</p>
+              </TooltipContent>
+            </Tooltip>
+          </>
+        )}
 
         <Separator orientation="vertical" className="h-5 md:h-6" />
 

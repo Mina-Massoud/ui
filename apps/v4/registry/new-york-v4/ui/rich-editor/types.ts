@@ -8,10 +8,14 @@
  */
 
 /**
- * Supported node types for the editor.
- * Can be extended for custom node types via plugins.
+ * Text direction for the editor.
  */
-export type NodeType =
+export type TextDirection = "ltr" | "rtl" | "auto"
+
+/**
+ * Built-in node types — kept as a union for autocomplete and type safety.
+ */
+export type BuiltInNodeType =
   | "h1"
   | "h2"
   | "h3"
@@ -40,6 +44,12 @@ export type NodeType =
   | "td"
   | "container"
   | "text"
+
+/**
+ * Supported node types. Includes built-in types plus any string for custom extensions.
+ * The `(string & {})` trick preserves autocomplete for built-in types.
+ */
+export type NodeType = BuiltInNodeType | (string & {})
 
 /**
  * Dynamic attributes that can be attached to any node.
@@ -94,6 +104,7 @@ export interface BaseNode {
  */
 export interface InlineText {
   content: string
+  id?: string
   bold?: boolean
   italic?: boolean
   underline?: boolean
@@ -290,19 +301,53 @@ export interface CoverImage {
   position?: number
 }
 
+// ─── History / Operation Types ────────────────────────────────────────────────
+
+/**
+ * A single atomic operation that can be applied to a ContainerNode tree.
+ * Used for both undo (backward) and redo (forward) operations.
+ */
+export type HistoryOperation =
+  | { type: "update_node"; id: string; changes: Partial<EditorNode> }
+  | { type: "delete_node"; nodeId: string }
+  | {
+      type: "insert_at_index"
+      node: EditorNode
+      parentId: string
+      index: number
+    }
+  | { type: "replace_container"; container: ContainerNode }
+  | { type: "batch"; operations: HistoryOperation[] }
+
+/**
+ * A single entry in the undo/redo stack.
+ * Contains both the forward (redo) and backward (undo) operations,
+ * plus the resulting container state for fast access.
+ */
+export interface HistoryEntry {
+  forward: HistoryOperation
+  backward: HistoryOperation
+  timestamp: number
+}
+
+// ─── Editor State ─────────────────────────────────────────────────────────────
+
 /**
  * The root document state for the editor.
- * Contains metadata, the root container, UI state, and history for undo/redo.
+ * Uses operation-based undo/redo instead of full snapshot history.
  */
 export interface EditorState {
   /** Schema version for future migrations */
   version: string
 
-  /** History stack of container states for undo/redo */
-  history: ContainerNode[]
+  /** The current document tree */
+  current: ContainerNode
 
-  /** Current position in the history stack */
-  historyIndex: number
+  /** Stack of operations for undo (most recent at end) */
+  undoStack: HistoryEntry[]
+
+  /** Stack of operations for redo (most recent at end) */
+  redoStack: HistoryEntry[]
 
   /** Currently active/focused node ID */
   activeNodeId: string | null

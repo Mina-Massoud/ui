@@ -10,10 +10,11 @@
 import React, { useEffect, useRef, useState } from "react"
 import { ImageIcon, Loader2, Move, X } from "lucide-react"
 
-import { EditorActions } from "."
-import { Button } from "../button"
+import { EditorActions } from "@/lib/reducer/actions"
+import { Button } from "@/components/ui/button"
+
+import { TextNode } from "."
 import { useEditorDispatch } from "./store/editor-store"
-import { TextNode } from "./types"
 
 interface FreeImageBlockProps {
   node: TextNode
@@ -25,7 +26,6 @@ interface FreeImageBlockProps {
 
 export function FreeImageBlock({
   node,
-  isActive,
   onClick,
   onDelete,
   readOnly = false,
@@ -215,7 +215,7 @@ export function FreeImageBlock({
     dispatch,
   ])
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = (_e: React.MouseEvent) => {
     if (!isDragging && !isResizing) {
       onClick()
     }

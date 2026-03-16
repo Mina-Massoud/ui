@@ -1,31 +1,22 @@
 "use client"
 
 import React, { useState } from "react"
-import {
-  Check,
-  Code2,
-  Copy,
-  Download,
-  Eye,
-  FileJson,
-  Sparkles,
-} from "lucide-react"
+import { Check, Code2, Copy, Download, Eye, FileJson } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-
-import { Button } from "../button"
+import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "../dialog"
-import { Label } from "../label"
-import { Switch } from "../switch"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../tabs"
-import { type ContainerNode } from "./types"
-import { serializeToHtml } from "./utils/serialize-to-html"
+} from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
+import { Switch } from "@/components/ui/switch"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+import { serializeToHtml, type ContainerNode } from "."
 
 interface ExportFloatingButtonProps {
   container: ContainerNode
