@@ -1,12 +1,3 @@
-/**
- * Mina Rich Editor - Embeddable Component
- *
- * A clean, embeddable React editor component.
- * Fills its container at any width — the consumer controls layout.
- *
- * All handlers are extracted to separate modules.
- */
-
 "use client"
 
 import "./styles/editor-variables.css"

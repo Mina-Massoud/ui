@@ -1,35 +1,3 @@
-/**
- * CompactEditor
- *
- * A self-contained, embeddable rich-text editor with a fixed inline toolbar.
- * Designed as the primary consumer-facing component of the Mina Rich Editor
- * library — analogous to TipTap's `<Editor />` component.
- *
- * ## Quick start (self-contained)
- * ```tsx
- * import { CompactEditor } from 'mina-rich-editor';
- *
- * function App() {
- *   return (
- *     <CompactEditor
- *       initialContent={myContent}
- *       onChange={({ json, html }) => console.log(json, html)}
- *       minHeight="300px"
- *     />
- *   );
- * }
- * ```
- *
- * ## Advanced (external provider)
- * ```tsx
- * import { EditorProvider, CompactEditor } from 'mina-rich-editor';
- *
- * <EditorProvider initialContent={myContent}>
- *   <CompactEditor />
- * </EditorProvider>
- * ```
- */
-
 "use client"
 
 import "./styles/editor-variables.css"
