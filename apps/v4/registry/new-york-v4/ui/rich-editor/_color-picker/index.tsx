@@ -17,15 +17,15 @@ import { PipetteIcon } from "lucide-react"
 import { Slider } from "radix-ui"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/registry/new-york-v4/ui/button"
+import { Input } from "@/registry/new-york-v4/ui/input"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/registry/new-york-v4/ui/select"
 
 interface ColorPickerContextValue {
   hue: number

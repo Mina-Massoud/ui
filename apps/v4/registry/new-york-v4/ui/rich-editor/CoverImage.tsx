@@ -6,7 +6,7 @@ import { MoveVertical, Trash2, Upload } from "lucide-react"
 import { EditorActions } from "@/lib/reducer/actions"
 import { useEditorDispatch, useEditorState } from "@/lib/store/editor-store"
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 
 interface CoverImageProps {
   onUploadImage?: (file: File) => Promise<string>

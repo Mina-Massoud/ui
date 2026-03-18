@@ -3,12 +3,19 @@
 import { useRef, useState } from "react"
 import { Palette } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/registry/new-york-v4/ui/popover"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/registry/new-york-v4/ui/tabs"
+
 import {
   ColorPickerAlpha,
   ColorPickerEyeDropper,
@@ -17,8 +24,7 @@ import {
   ColorPickerOutput,
   ColorPickerSelection,
   ColorPicker as ShadcnColorPicker,
-} from "@/components/ui/shadcn-io/color-picker"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+} from "./_color-picker"
 
 interface ColorPickerComponentProps {
   disabled?: boolean

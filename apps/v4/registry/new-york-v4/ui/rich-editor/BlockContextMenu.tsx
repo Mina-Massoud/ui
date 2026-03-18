@@ -4,20 +4,27 @@ import React, { useMemo, useState } from "react"
 import { PaintBucket } from "lucide-react"
 import { useTheme } from "next-themes"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 import {
   ContextMenu,
   ContextMenuContent,
   ContextMenuItem,
   ContextMenuTrigger,
-} from "@/components/ui/context-menu"
+} from "@/registry/new-york-v4/ui/context-menu"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/registry/new-york-v4/ui/dialog"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/registry/new-york-v4/ui/tabs"
+
 import {
   ColorPickerAlpha,
   ColorPickerEyeDropper,
@@ -26,8 +33,7 @@ import {
   ColorPickerOutput,
   ColorPickerSelection,
   ColorPicker as ShadcnColorPicker,
-} from "@/components/ui/shadcn-io/color-picker"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+} from "./_color-picker"
 
 interface BlockContextMenuProps {
   children: React.ReactNode

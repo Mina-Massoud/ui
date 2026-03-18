@@ -4,14 +4,14 @@ import Image from "next/image"
 import { Eye, EyeOff, Languages, Moon, Sun } from "lucide-react"
 import { useTheme } from "next-themes"
 
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
+import { Button } from "@/registry/new-york-v4/ui/button"
+import { Separator } from "@/registry/new-york-v4/ui/separator"
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/components/ui/tooltip"
+} from "@/registry/new-york-v4/ui/tooltip"
 
 interface ToolbarProps {
   readOnly: boolean
