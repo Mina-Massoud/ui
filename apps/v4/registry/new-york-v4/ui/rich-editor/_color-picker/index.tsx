@@ -12,9 +12,9 @@ import {
   type ComponentProps,
   type HTMLAttributes,
 } from "react"
+import { Slider } from "@radix-ui/react-slider"
 import Color from "color"
 import { PipetteIcon } from "lucide-react"
-import { Slider } from "radix-ui"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/registry/new-york-v4/ui/button"
