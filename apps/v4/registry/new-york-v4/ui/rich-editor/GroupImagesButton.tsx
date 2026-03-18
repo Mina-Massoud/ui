@@ -11,7 +11,7 @@ import React from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { ArrowLeftRight, Images, Package, X } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 
 interface GroupImagesButtonProps {
   selectedCount: number

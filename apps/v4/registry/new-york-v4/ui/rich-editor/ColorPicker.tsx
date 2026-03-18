@@ -9,8 +9,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-
 import {
   ColorPickerAlpha,
   ColorPickerEyeDropper,
@@ -19,7 +17,8 @@ import {
   ColorPickerOutput,
   ColorPickerSelection,
   ColorPicker as ShadcnColorPicker,
-} from "./_color-picker"
+} from "@/components/ui/shadcn-io/color-picker"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 interface ColorPickerComponentProps {
   disabled?: boolean

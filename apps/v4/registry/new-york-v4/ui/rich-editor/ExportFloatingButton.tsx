@@ -4,17 +4,22 @@ import React, { useState } from "react"
 import { Check, Code2, Copy, Download, Eye, FileJson } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Label } from "@/components/ui/label"
-import { Switch } from "@/components/ui/switch"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+} from "@/registry/new-york-v4/ui/dialog"
+import { Label } from "@/registry/new-york-v4/ui/label"
+import { Switch } from "@/registry/new-york-v4/ui/switch"
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/registry/new-york-v4/ui/tabs"
 
 import { serializeToHtml, type ContainerNode } from "."
 

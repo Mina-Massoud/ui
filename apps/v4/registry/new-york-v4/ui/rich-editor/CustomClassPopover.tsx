@@ -11,22 +11,22 @@ import React, { useEffect, useRef, useState } from "react"
 import { AnimatePresence, motion } from "framer-motion"
 import { Code2, Pencil, Search } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/registry/new-york-v4/ui/button"
+import { Input } from "@/registry/new-york-v4/ui/input"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import { ScrollArea } from "@/components/ui/scroll-area"
+} from "@/registry/new-york-v4/ui/popover"
+import { ScrollArea } from "@/registry/new-york-v4/ui/scroll-area"
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
-import { Switch } from "@/components/ui/switch"
+} from "@/registry/new-york-v4/ui/sheet"
+import { Switch } from "@/registry/new-york-v4/ui/switch"
 
 import { EditorActions, useEditorDispatch, useEditorState } from "."
 import {

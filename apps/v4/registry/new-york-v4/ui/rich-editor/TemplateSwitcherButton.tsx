@@ -22,15 +22,15 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { Button } from "@/components/ui/button"
+} from "@/registry/new-york-v4/ui/alert-dialog"
+import { Button } from "@/registry/new-york-v4/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
+} from "@/registry/new-york-v4/ui/dialog"
 
 import {
   getAllTemplateMetadata,

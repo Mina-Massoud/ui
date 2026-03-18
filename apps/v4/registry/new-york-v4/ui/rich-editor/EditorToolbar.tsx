@@ -3,10 +3,10 @@
 import React, { useEffect, useRef } from "react"
 import { List, ListOrdered, Plus, Table as TableIcon } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { ButtonGroup } from "@/components/ui/button-group"
-import { CardContent } from "@/components/ui/card"
-import { Separator } from "@/components/ui/separator"
+import { Button } from "@/registry/new-york-v4/ui/button"
+import { ButtonGroup } from "@/registry/new-york-v4/ui/button-group"
+import { CardContent } from "@/registry/new-york-v4/ui/card"
+import { Separator } from "@/registry/new-york-v4/ui/separator"
 
 import { MediaUploadPopover } from "./MediaUploadPopover"
 

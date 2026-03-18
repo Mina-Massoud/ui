@@ -3,18 +3,18 @@
 import React, { useState } from "react"
 import { AlertCircle, Table } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/registry/new-york-v4/ui/button"
+import { Checkbox } from "@/registry/new-york-v4/ui/checkbox"
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+} from "@/registry/new-york-v4/ui/dialog"
+import { Input } from "@/registry/new-york-v4/ui/input"
+import { Label } from "@/registry/new-york-v4/ui/label"
+import { Textarea } from "@/registry/new-york-v4/ui/textarea"
 
 import { StructuralNode } from "./types"
 import {

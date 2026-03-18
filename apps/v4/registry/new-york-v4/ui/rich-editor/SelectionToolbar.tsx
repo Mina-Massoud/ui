@@ -12,13 +12,13 @@ import { AnimatePresence, motion } from "framer-motion"
 import { Link as LinkIcon, Sparkles, Type } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import { Separator } from "@/components/ui/separator"
+} from "@/registry/new-york-v4/ui/popover"
+import { Separator } from "@/registry/new-york-v4/ui/separator"
 
 import { EditorActions, useEditorDispatch, type SelectionInfo } from "."
 import {

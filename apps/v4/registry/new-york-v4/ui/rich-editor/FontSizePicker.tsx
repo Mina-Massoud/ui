@@ -3,8 +3,8 @@
 import React, { useEffect, useState } from "react"
 import { Minus, Plus } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/registry/new-york-v4/ui/button"
+import { Input } from "@/registry/new-york-v4/ui/input"
 
 interface FontSizePickerProps {
   disabled?: boolean

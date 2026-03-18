@@ -38,20 +38,20 @@ import {
 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
+} from "@/registry/new-york-v4/ui/dropdown-menu"
+import { Input } from "@/registry/new-york-v4/ui/input"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
-import { Separator } from "@/components/ui/separator"
+} from "@/registry/new-york-v4/ui/popover"
+import { Separator } from "@/registry/new-york-v4/ui/separator"
 
 import { EditorActions } from "."
 import type { TextNode } from "."

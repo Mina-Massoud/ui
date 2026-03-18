@@ -10,9 +10,9 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { ImageIcon, Loader2, X } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Button } from "@/registry/new-york-v4/ui/button"
+import { Card } from "@/registry/new-york-v4/ui/card"
+import { Checkbox } from "@/registry/new-york-v4/ui/checkbox"
 
 import { TextNode } from "."
 import { useImageResize } from "./hooks/useImageResize"

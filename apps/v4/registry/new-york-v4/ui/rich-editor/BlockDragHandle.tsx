@@ -16,12 +16,12 @@ import {
 } from "lucide-react"
 
 import { ELEMENT_OPTIONS } from "@/lib/elements"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/registry/new-york-v4/ui/popover"
 
 import { TextNode } from "."
 import {

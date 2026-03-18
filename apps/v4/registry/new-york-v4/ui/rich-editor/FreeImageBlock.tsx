@@ -12,7 +12,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react"
 import { ImageIcon, Loader2, Move, X } from "lucide-react"
 
 import { EditorActions } from "@/lib/reducer/actions"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 
 import { TextNode } from "."
 import { useImageResize } from "./hooks/useImageResize"

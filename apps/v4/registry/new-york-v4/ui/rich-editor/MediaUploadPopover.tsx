@@ -10,12 +10,12 @@
 import React from "react"
 import { Image as ImageIcon, ImagePlus, LayoutGrid, Video } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover"
+} from "@/registry/new-york-v4/ui/popover"
 
 interface MediaUploadPopoverProps {
   isUploading: boolean

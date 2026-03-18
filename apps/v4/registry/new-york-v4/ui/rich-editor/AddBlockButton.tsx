@@ -10,7 +10,7 @@
 import React, { useState } from "react"
 import { Plus } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 
 interface AddBlockButtonProps {
   onAdd: () => void

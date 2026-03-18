@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react"
 import { GripVertical, Plus, Trash2, X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/registry/new-york-v4/ui/button"
 
 import {
   ContainerNode,

@@ -9,10 +9,10 @@
 import React from "react"
 import { Code2, Search } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { ScrollArea } from "@/components/ui/scroll-area"
-import { Switch } from "@/components/ui/switch"
+import { Button } from "@/registry/new-york-v4/ui/button"
+import { Input } from "@/registry/new-york-v4/ui/input"
+import { ScrollArea } from "@/registry/new-york-v4/ui/scroll-area"
+import { Switch } from "@/registry/new-york-v4/ui/switch"
 
 interface CustomClassPopoverContentProps {
   searchQuery: string

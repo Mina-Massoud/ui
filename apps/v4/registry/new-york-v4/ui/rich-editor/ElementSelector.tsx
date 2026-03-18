@@ -31,7 +31,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/registry/new-york-v4/ui/select"
 
 // Icon mapping
 const iconMap: Record<string, React.ReactNode> = {
