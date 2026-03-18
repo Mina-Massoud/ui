@@ -19,11 +19,6 @@ import {
   Type,
 } from "lucide-react"
 
-import {
-  ELEMENT_OPTIONS,
-  type ElementOption,
-  type ElementType,
-} from "@/lib/elements"
 import { cn } from "@/lib/utils"
 import {
   Select,
@@ -32,6 +27,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/registry/new-york-v4/ui/select"
+
+import {
+  ELEMENT_OPTIONS,
+  type ElementOption,
+  type ElementType,
+} from "./elements"
 
 // Icon mapping
 const iconMap: Record<string, React.ReactNode> = {

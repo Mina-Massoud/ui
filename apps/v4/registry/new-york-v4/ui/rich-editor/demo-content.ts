@@ -28,7 +28,7 @@ import { ContainerNode, EditorNode, TextNode } from "./types"
  *
  * @example
  * ```typescript
- * import { createDemoContent } from '@/lib/demo-content';
+ * import { createDemoContent } from './demo-content';
  *
  * const demoNodes = createDemoContent();
  * const newContainer: ContainerNode = {
@@ -2115,7 +2115,7 @@ const styledText = {
     {
       id: `code-${timestamp}-132`,
       type: "code",
-      content: `import { serializeToHtml } from '@/lib/utils/serialize-to-html';
+      content: `import { serializeToHtml } from './utils/serialize-to-html';
 import { useEditor } from '@/lib';
 
 function MyComponent() {
@@ -2605,7 +2605,7 @@ export default function App() {
     {
       id: `code-${timestamp}-168`,
       type: "code",
-      content: `import { createDemoContent } from '@/lib/demo-content';
+      content: `import { createDemoContent } from './demo-content';
 
 const initialContent = {
   id: 'root',

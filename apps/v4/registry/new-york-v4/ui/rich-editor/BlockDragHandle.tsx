@@ -15,7 +15,6 @@ import {
   Type,
 } from "lucide-react"
 
-import { ELEMENT_OPTIONS } from "@/lib/elements"
 import { Button } from "@/registry/new-york-v4/ui/button"
 import {
   Popover,
@@ -24,6 +23,7 @@ import {
 } from "@/registry/new-york-v4/ui/popover"
 
 import { TextNode } from "."
+import { ELEMENT_OPTIONS } from "./elements"
 import {
   createHandleBlockDragEnd,
   createHandleBlockDragStart,

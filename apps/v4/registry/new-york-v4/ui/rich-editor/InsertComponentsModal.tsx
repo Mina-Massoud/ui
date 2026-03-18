@@ -3,7 +3,6 @@
 import React from "react"
 import { ImagePlus } from "lucide-react"
 
-import { INSERT_COMPONENTS } from "@/lib/insert-components-data"
 import { cn } from "@/lib/utils"
 import {
   Dialog,
@@ -12,6 +11,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/registry/new-york-v4/ui/dialog"
+
+import { INSERT_COMPONENTS } from "./insert-components-data"
 
 interface InsertComponentsModalProps {
   open: boolean
