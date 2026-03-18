@@ -8,7 +8,7 @@
   "files": [
     {
       "path": "registry/new-york-v4/examples/rich-editor-demo.tsx",
-      "content": "\"use client\"\n\nimport { EditorProvider } from \"../ui/rich-editor\"\nimport { Editor } from \"../ui/rich-editor/editor\"\n\nexport default function RichEditorDemo() {\n  return (\n    <div className=\"mx-auto w-full overflow-y-auto\">\n      <EditorProvider>\n        <Editor notionBased />\n      </EditorProvider>\n    </div>\n  )\n}\n",
+      "content": "\"use client\"\n\nimport { EditorProvider } from \"../ui/rich-editor\"\nimport { Editor } from \"../ui/rich-editor/Editor\"\n\nexport default function RichEditorDemo() {\n  return (\n    <div className=\"mx-auto w-full overflow-y-auto\">\n      <EditorProvider>\n        <Editor notionBased />\n      </EditorProvider>\n    </div>\n  )\n}\n",
       "type": "registry:example"
     }
   ]

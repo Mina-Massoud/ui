@@ -986,47 +986,15 @@ export const Index: Record<string, any> = {
     type: "registry:ui",
     registryDependencies: ["alert-dialog","button","button-group","card","checkbox","command","context-menu","dialog","input","label","popover","scroll-area","select","separator","sheet","skeleton","switch","tabs","textarea","toggle-group","tooltip","dropdown-menu","sonner"],
     files: [{
-      path: "registry/new-york-v4/ui/rich-editor/index.ts",
+      path: "registry/new-york-v4/ui/rich-editor/AICommandMenu.tsx",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/types.ts",
+      path: "registry/new-york-v4/ui/rich-editor/AISelectionMenu.tsx",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/class-mappings.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/elements.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/empty-content.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/demo-content.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/insert-components-data.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/tailwind-classes.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/templates.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/Editor.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/EditorToolbar.tsx",
+      path: "registry/new-york-v4/ui/rich-editor/AddBlockButton.tsx",
       type: "registry:ui",
       target: ""
     },{
@@ -1046,27 +1014,7 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/ImageBlock.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/VideoBlock.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/FlexContainer.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/FreeImageBlock.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/AddBlockButton.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/CoverImage.tsx",
+      path: "registry/new-york-v4/ui/rich-editor/CollaborationProvider.tsx",
       type: "registry:ui",
       target: ""
     },{
@@ -1078,15 +1026,27 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/CustomClassPopover.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
       path: "registry/new-york-v4/ui/rich-editor/CompactEditor.tsx",
       type: "registry:ui",
       target: ""
     },{
       path: "registry/new-york-v4/ui/rich-editor/CompactToolbar.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/CoverImage.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/CustomClassPopover.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/Editor.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/EditorToolbar.tsx",
       type: "registry:ui",
       target: ""
     },{
@@ -1098,11 +1058,23 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
+      path: "registry/new-york-v4/ui/rich-editor/FlexContainer.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
       path: "registry/new-york-v4/ui/rich-editor/FontSizePicker.tsx",
       type: "registry:ui",
       target: ""
     },{
+      path: "registry/new-york-v4/ui/rich-editor/FreeImageBlock.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
       path: "registry/new-york-v4/ui/rich-editor/GroupImagesButton.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/ImageBlock.tsx",
       type: "registry:ui",
       target: ""
     },{
@@ -1142,63 +1114,11 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/AICommandMenu.tsx",
+      path: "registry/new-york-v4/ui/rich-editor/VideoBlock.tsx",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/AISelectionMenu.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/ai/types.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/ai/openai-provider.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/ai/anthropic-provider.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/ai/gemini-provider.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/ai/demo-provider.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/ai/stream-to-blocks.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/CollaborationProvider.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/collaboration/index.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/collaboration/types.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/collaboration/awareness.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/collaboration/y-binding.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/_toolbar-components/index.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/_toolbar-components/LinkPopoverContent.tsx",
+      path: "registry/new-york-v4/ui/rich-editor/_color-picker/index.tsx",
       type: "registry:ui",
       target: ""
     },{
@@ -1210,83 +1130,171 @@ export const Index: Record<string, any> = {
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/store/editor-store.ts",
+      path: "registry/new-york-v4/ui/rich-editor/_toolbar-components/LinkPopoverContent.tsx",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/actions.ts",
+      path: "registry/new-york-v4/ui/rich-editor/_toolbar-components/index.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/editor-reducer.ts",
+      path: "registry/new-york-v4/ui/rich-editor/ai/anthropic-provider.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/selection-range.ts",
+      path: "registry/new-york-v4/ui/rich-editor/ai/demo-provider.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/index.ts",
+      path: "registry/new-york-v4/ui/rich-editor/ai/gemini-provider.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/format-ops.ts",
+      path: "registry/new-york-v4/ui/rich-editor/ai/openai-provider.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/history-ops.ts",
+      path: "registry/new-york-v4/ui/rich-editor/ai/stream-to-blocks.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/node-ops.ts",
+      path: "registry/new-york-v4/ui/rich-editor/ai/types.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/shared.ts",
+      path: "registry/new-york-v4/ui/rich-editor/class-mappings.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/ui-ops.ts",
+      path: "registry/new-york-v4/ui/rich-editor/collaboration/awareness.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/handlers/index.ts",
+      path: "registry/new-york-v4/ui/rich-editor/collaboration/index.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/handlers/clipboard-handlers.ts",
+      path: "registry/new-york-v4/ui/rich-editor/collaboration/types.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/handlers/drag-drop-handlers.ts",
+      path: "registry/new-york-v4/ui/rich-editor/collaboration/y-binding.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/handlers/file-upload-handlers.ts",
+      path: "registry/new-york-v4/ui/rich-editor/demo-content.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/handlers/flex-container-handlers.ts",
+      path: "registry/new-york-v4/ui/rich-editor/elements.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/handlers/image-selection-handlers.ts",
+      path: "registry/new-york-v4/ui/rich-editor/empty-content.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/handlers/keyboard-handlers.ts",
+      path: "registry/new-york-v4/ui/rich-editor/extensions/CommandManager.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/handlers/node-operation-handlers.ts",
+      path: "registry/new-york-v4/ui/rich-editor/extensions/Extension.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/handlers/selection-handlers.ts",
+      path: "registry/new-york-v4/ui/rich-editor/extensions/ExtensionManager.ts",
       type: "registry:ui",
       target: ""
     },{
-      path: "registry/new-york-v4/ui/rich-editor/handlers/block/index.ts",
+      path: "registry/new-york-v4/ui/rich-editor/extensions/Mark.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/Node.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/marks/bold.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/marks/code.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/marks/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/marks/italic.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/marks/link.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/marks/strikethrough.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/marks/underline.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/blockquote.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/code-block.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/divider.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/heading.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/horizontal-rule.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/image.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/list-item.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/paragraph.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/table.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/nodes/video.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/starter-kit.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/extensions/types.ts",
       type: "registry:ui",
       target: ""
     },{
@@ -1307,6 +1315,190 @@ export const Index: Record<string, any> = {
       target: ""
     },{
       path: "registry/new-york-v4/ui/rich-editor/handlers/block/block-utils.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/block/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/clipboard-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/drag-drop-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/drop-strategies.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/file-upload-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/flex-container-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/image-selection-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/keyboard-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/node-operation-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/handlers/selection-handlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/use-mobile.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/use-toast.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useBlockHandlers.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useCollaboration.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorAI.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorAPI.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorClipboard.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorContext.tsx",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorDragDrop.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorFileUpload.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorKeyboardShortcuts.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorSelection.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useImageResize.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useImageSelection.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useMediaPaste.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/hooks/useTableOperations.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/insert-components-data.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/actions.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/editor-reducer.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/format-ops.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/history-ops.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/index.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/node-ops.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/shared.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/operations/ui-ops.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/reducer/selection-range.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/store/editor-store.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/styles/editor-variables.css",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/styles/themes/github.css",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/styles/themes/minimal.css",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/styles/themes/notion.css",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/tailwind-classes.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/templates.ts",
+      type: "registry:ui",
+      target: ""
+    },{
+      path: "registry/new-york-v4/ui/rich-editor/types.ts",
       type: "registry:ui",
       target: ""
     },{
@@ -1365,77 +1557,9 @@ export const Index: Record<string, any> = {
       path: "registry/new-york-v4/ui/rich-editor/utils/tree-operations.ts",
       type: "registry:ui",
       target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useBlockHandlers.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useCollaboration.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorAI.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorAPI.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorClipboard.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorContext.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorDragDrop.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorFileUpload.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorKeyboardShortcuts.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useEditorSelection.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useImageSelection.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useMediaPaste.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/useTableOperations.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/use-toast.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/hooks/use-mobile.ts",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/_color-picker/index.tsx",
-      type: "registry:ui",
-      target: ""
-    },{
-      path: "registry/new-york-v4/ui/rich-editor/styles/editor-variables.css",
-      type: "registry:ui",
-      target: ""
     }],
     component: React.lazy(async () => {
-      const mod = await import("@/registry/new-york-v4/ui/rich-editor/index.ts")
+      const mod = await import("@/registry/new-york-v4/ui/rich-editor/AICommandMenu.tsx")
       const exportName = Object.keys(mod).find(key => typeof mod[key] === 'function' || typeof mod[key] === 'object') || item.name
       return { default: mod.default || mod[exportName] }
     }),

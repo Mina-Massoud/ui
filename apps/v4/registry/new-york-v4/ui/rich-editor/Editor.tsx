@@ -1,13 +1,4 @@
-/**
- * Mina Rich Editor - Embeddable Component
- *
- * A clean, embeddable React editor component.
- * Fills its container at any width — the consumer controls layout.
- *
- * All handlers are extracted to separate modules.
- */
-
-"use client"
+import "./styles/editor-variables.css"
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
@@ -62,6 +53,17 @@ import {
 import { TableDialog } from "./TableDialog"
 import { useDragAutoScroll } from "./utils/drag-auto-scroll"
 import { serializeToSemanticHtml } from "./utils/serialize-semantic-html"
+
+/**
+ * Mina Rich Editor - Embeddable Component
+ *
+ * A clean, embeddable React editor component.
+ * Fills its container at any width — the consumer controls layout.
+ *
+ * All handlers are extracted to separate modules.
+ */
+
+;("use client")
 
 // ─── Per-block wrapper ────────────────────────────────────────────────────────
 

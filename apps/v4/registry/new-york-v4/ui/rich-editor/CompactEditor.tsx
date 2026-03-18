@@ -1,36 +1,4 @@
-/**
- * CompactEditor
- *
- * A self-contained, embeddable rich-text editor with a fixed inline toolbar.
- * Designed as the primary consumer-facing component of the Mina Rich Editor
- * library — analogous to TipTap's `<Editor />` component.
- *
- * ## Quick start (self-contained)
- * ```tsx
- * import { CompactEditor } from 'mina-rich-editor';
- *
- * function App() {
- *   return (
- *     <CompactEditor
- *       initialContent={myContent}
- *       onChange={({ json, html }) => console.log(json, html)}
- *       minHeight="300px"
- *     />
- *   );
- * }
- * ```
- *
- * ## Advanced (external provider)
- * ```tsx
- * import { EditorProvider, CompactEditor } from 'mina-rich-editor';
- *
- * <EditorProvider initialContent={myContent}>
- *   <CompactEditor />
- * </EditorProvider>
- * ```
- */
-
-"use client"
+import "./styles/editor-variables.css"
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
@@ -89,6 +57,40 @@ import {
 import { useDragAutoScroll } from "./utils/drag-auto-scroll"
 import { generateId } from "./utils/id-generator"
 import { serializeToSemanticHtml } from "./utils/serialize-semantic-html"
+
+/**
+ * CompactEditor
+ *
+ * A self-contained, embeddable rich-text editor with a fixed inline toolbar.
+ * Designed as the primary consumer-facing component of the Mina Rich Editor
+ * library — analogous to TipTap's `<Editor />` component.
+ *
+ * ## Quick start (self-contained)
+ * ```tsx
+ * import { CompactEditor } from 'mina-rich-editor';
+ *
+ * function App() {
+ *   return (
+ *     <CompactEditor
+ *       initialContent={myContent}
+ *       onChange={({ json, html }) => console.log(json, html)}
+ *       minHeight="300px"
+ *     />
+ *   );
+ * }
+ * ```
+ *
+ * ## Advanced (external provider)
+ * ```tsx
+ * import { EditorProvider, CompactEditor } from 'mina-rich-editor';
+ *
+ * <EditorProvider initialContent={myContent}>
+ *   <CompactEditor />
+ * </EditorProvider>
+ * ```
+ */
+
+;("use client")
 
 // ─── BlockWrapper (same optimised pattern as Editor.tsx) ─────────────────────
 

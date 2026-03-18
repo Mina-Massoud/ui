@@ -167,6 +167,8 @@ export async function streamToBlocks(
   let committedContent = ""
   // Whether we've seen real content yet (for preamble stripping)
   let pastPreamble = false
+  // Whether s.block was created by partial-line preview (not yet confirmed by a complete line)
+  let blockIsPreview = false
 
   function lastInsertedId(): string {
     return insertedBlockIds.length > 0
@@ -198,6 +200,7 @@ export async function streamToBlocks(
     insertedBlockIds.push(s.block.id)
     committedContent = ""
     s.block = null
+    blockIsPreview = false
   }
 
   /** Insert a brand-new block after the last inserted one. */
@@ -211,6 +214,7 @@ export async function streamToBlocks(
     const block = createBlock(type, content, attributes)
     s.block = block
     committedContent = content
+    blockIsPreview = false
 
     dispatch({
       type: "INSERT_NODE",
@@ -238,6 +242,15 @@ export async function streamToBlocks(
     })
   }
 
+  /** Discard a preview block that turned out to be something else (e.g. code fence). */
+  function discardPreviewBlock(): void {
+    if (!s.block || !blockIsPreview) return
+    dispatch({ type: "DELETE_NODE", payload: { id: s.block.id } })
+    s.block = null
+    blockIsPreview = false
+    committedContent = ""
+  }
+
   // ── Stream loop ─────────────────────────────────────────────────────────
 
   for await (const chunk of stream) {
@@ -257,6 +270,7 @@ export async function streamToBlocks(
         if (!inCodeBlock) {
           inCodeBlock = true
           codeBlockContent = ""
+          discardPreviewBlock()
         } else {
           // Closing fence — finalize code block
           inCodeBlock = false
@@ -303,13 +317,22 @@ export async function streamToBlocks(
 
       if (!s.block) {
         insertBlock(type, content, attributes)
+      } else if (blockIsPreview) {
+        // Block was created by partial-line preview — update in-place with final content
+        if (type !== s.block.type) {
+          updateType(type, content)
+        } else {
+          updateContent(content)
+        }
+        committedContent = content
+        blockIsPreview = false
       } else if (s.block.type === type && type === "p") {
         // Continue same paragraph — append using committed content
         // (not s.block.content which may include partial preview text)
         committedContent = committedContent + " " + content
         updateContent(committedContent)
       } else {
-        // Different type — new block
+        // Different type or non-paragraph same type — new block
         insertBlock(type, content, attributes)
       }
     }
@@ -327,6 +350,7 @@ export async function streamToBlocks(
         updateContent(preview)
       } else {
         insertBlock("pre", preview)
+        blockIsPreview = true
       }
       continue
     }
@@ -336,6 +360,7 @@ export async function streamToBlocks(
     if (!s.block) {
       // No block yet — create one for the partial line
       insertBlock(type, content, attributes)
+      blockIsPreview = true
     } else {
       // Update existing block with partial content.
       // If the type changed (e.g. `#` paragraph → `## ` heading), update in-place.
