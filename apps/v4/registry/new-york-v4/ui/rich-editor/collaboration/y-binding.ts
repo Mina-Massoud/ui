@@ -49,7 +49,7 @@ let _Y: YModule | null = null
 async function getY(): Promise<YModule> {
   if (_Y) return _Y
   try {
-    _Y = await import("yjs" as string)
+    _Y = await import(/* webpackIgnore: true */ "yjs")
     return _Y
   } catch {
     throw new Error(

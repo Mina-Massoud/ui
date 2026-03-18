@@ -39,7 +39,7 @@ let _serializeToMarkdown: ((container: ContainerNode) => string) | null = null
 
 try {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const mod = require("../lib/utils/serialize-markdown")
+  const mod = require("../utils/serialize-markdown")
   if (mod && typeof mod.serializeToMarkdown === "function") {
     _serializeToMarkdown = mod.serializeToMarkdown
   }

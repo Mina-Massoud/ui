@@ -33,7 +33,7 @@ import { useEditorStoreInstance } from "../store/editor-store"
 
 async function loadYWebsocket(): Promise<any> {
   try {
-    return await import("y-websocket" as string)
+    return await import(/* webpackIgnore: true */ "y-websocket")
   } catch {
     throw new Error(
       '[mina-editor] Collaboration requires "y-websocket" as a peer dependency. ' +
